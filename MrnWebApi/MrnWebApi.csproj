@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="2.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataAccess\DTOs\" />
+    <Folder Include="DataAccess\Scaffold\" />
+    <Folder Include="DataAccess\Services\Station\Internal\" />
+  </ItemGroup>
+
 </Project>
