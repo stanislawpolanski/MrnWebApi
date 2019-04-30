@@ -15,8 +15,7 @@
 
   <ItemGroup>
     <Folder Include="DataAccess\DTOs\" />
-    <Folder Include="DataAccess\Scaffold\" />
-    <Folder Include="DataAccess\Services\Station\Internal\" />
+    <Folder Include="DataAccess\Services\Station\Inner\" />
   </ItemGroup>
 
 </Project>
