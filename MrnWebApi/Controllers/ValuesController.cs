@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MrnWebApi.Logic.StationService;
 
 namespace MrnWebApi.Controllers
 {
@@ -10,11 +11,18 @@ namespace MrnWebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IStationLogicService stationLogicService;
+
+        public ValuesController(IStationLogicService stationLogicService)
+        {
+            this.stationLogicService = stationLogicService;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return stationLogicService.GetStations();
         }
 
         // GET api/values/5
