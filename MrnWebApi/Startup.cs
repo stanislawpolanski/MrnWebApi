@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MrnWebApi.Logic.StationService;
+using MrnWebApi.DataAccess.Services.Station;
+using MrnWebApi.DataAccess.Inner.Scaffold;
 
 namespace MrnWebApi
 {
@@ -26,9 +28,21 @@ namespace MrnWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IStationLogicService, StationLogicService>();
+            RegisterServices(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            //Logic layer
+            services.AddTransient<IStationLogicService, StationLogicService>();
+
+            //data access layer
+            ////dbcontext
+            services.AddDbContext<MRN_developContext>();
+            ////specific services
+            services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

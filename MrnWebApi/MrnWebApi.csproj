@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccess\DTOs\**" />
+    <Content Remove="DataAccess\DTOs\**" />
+    <EmbeddedResource Remove="DataAccess\DTOs\**" />
+    <None Remove="DataAccess\DTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
@@ -14,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\DTOs\" />
     <Folder Include="DataAccess\Services\Station\Inner\" />
   </ItemGroup>
 
