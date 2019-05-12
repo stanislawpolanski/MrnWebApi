@@ -22,7 +22,6 @@ namespace MrnWebApi.DataAccess.Services.Station
                     s => s.Id, 
                     o => o.Id, 
                     (s, o) => new BasicStationModel { Id = s.Id, Name = o.Name})
-                .Distinct()
                 .ToList();
         }
     }
