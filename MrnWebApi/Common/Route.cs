@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MrnWebApi.Common
 {
-    public class Route
+    public class UriRoute
     {
         private String uriRoute;
 
@@ -15,22 +15,22 @@ namespace MrnWebApi.Common
             return uriRoute;
         }
 
-        public class RouteBuilder
+        public class Builder
         {
             private List<String> Nodes = new List<String>();
 
-            public RouteBuilder Path(String childNode)
+            public Builder Path(String childNode)
             {
                 Nodes.Add(childNode);
                 return this;
             }
 
-            public Route Build()
+            public UriRoute Build()
             {
                 StringBuilder finalRouteStringBuilder = new StringBuilder();
                 Nodes.ForEach(currentPath => finalRouteStringBuilder.Append("/" + currentPath));
 
-                return new Route() { uriRoute = finalRouteStringBuilder.ToString() };
+                return new UriRoute() { uriRoute = finalRouteStringBuilder.ToString() };
             }
         }
     }

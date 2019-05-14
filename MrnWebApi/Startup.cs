@@ -37,7 +37,7 @@ namespace MrnWebApi
         private static void RegisterServices(IServiceCollection services)
         {
             //commons
-            services.AddTransient<Route, Route>();
+            services.AddTransient<UriRoute, UriRoute>();
 
             //Logic layer
             services.AddTransient<IStationLogicService, StationLogicService>();
