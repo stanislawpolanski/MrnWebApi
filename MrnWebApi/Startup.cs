@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using MrnWebApi.Logic.StationService;
 using MrnWebApi.DataAccess.Services.Station;
 using MrnWebApi.DataAccess.Inner.Scaffold;
+using MrnWebApi.Common;
 
 namespace MrnWebApi
 {
@@ -35,6 +36,9 @@ namespace MrnWebApi
 
         private static void RegisterServices(IServiceCollection services)
         {
+            //commons
+            services.AddTransient<Route, Route>();
+
             //Logic layer
             services.AddTransient<IStationLogicService, StationLogicService>();
 

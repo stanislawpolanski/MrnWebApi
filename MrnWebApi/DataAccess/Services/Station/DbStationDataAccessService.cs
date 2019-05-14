@@ -15,7 +15,7 @@ namespace MrnWebApi.DataAccess.Services.Station
             dbContext = injectedContext;
         }
 
-        public IEnumerable<BasicStationModel> GetBasicStations()
+        public ICollection<BasicStationModel> GetBasicStations()
         {
             return dbContext.Stations
                 .Join(dbContext.ObjectsOfInterest, 
