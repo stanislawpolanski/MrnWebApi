@@ -18,18 +18,16 @@ namespace MrnWebApi.Logic.StationService
 
         public IEnumerable<BasicStationModel> GetBasicStations()
         {
-            List<BasicStationModel> models = stationDataAccessService.GetBasicStations().ToList();
+            List<BasicStationModel> models = stationDataAccessService
+                .GetBasicStations()
+                .ToList();
 
-
-            foreach(BasicStationModel model in models)
-            {
-                UriRoute.Builder routeBuilder = new UriRoute.Builder();
-                model.Url = routeBuilder
+            models.ForEach(station => 
+                station.Url = new Route.RouteBuilder()
                     .Path("api/values")
-                    .Path(model.Id.ToString())
+                    .Path(station.Id.ToString())
                     .Build()
-                    .GetRoute();
-            }
+                    .GetRoute());
 
             return models;
         }
