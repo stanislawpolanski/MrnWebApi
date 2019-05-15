@@ -8,11 +8,19 @@ namespace MrnWebApi.Common
 {
     public class UriRoute
     {
-        private String uriRoute;
+        private String uriRoute = String.Empty;
 
         public String GetRoute()
         {
             return uriRoute;
+        }
+
+        public void AddPaths(List<String> nodes)
+        {
+            StringBuilder finalRouteStringBuilder = new StringBuilder();
+            nodes.ForEach(currentPath => finalRouteStringBuilder.Append("/" + currentPath));
+
+            uriRoute = uriRoute + finalRouteStringBuilder.ToString();
         }
 
         public class Builder
@@ -27,10 +35,9 @@ namespace MrnWebApi.Common
 
             public UriRoute Build()
             {
-                StringBuilder finalRouteStringBuilder = new StringBuilder();
-                Nodes.ForEach(currentPath => finalRouteStringBuilder.Append("/" + currentPath));
-
-                return new UriRoute() { uriRoute = finalRouteStringBuilder.ToString() };
+                UriRoute route = new UriRoute();
+                route.AddPaths(Nodes);
+                return route;
             }
         }
     }
