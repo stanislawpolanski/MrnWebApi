@@ -13,7 +13,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/simple/route";
 
-            String actual = new UriRoute.Builder().Path("simple").Path("route").Build().GetRoute();
+            String actual = new UriRoute.Builder().Path("/simple").Path("/route").Build().GetRoute();
 
             Assert.Equal(actual, expected);
         }
@@ -23,15 +23,9 @@ namespace UnitTests.CommonTests
         {
             String expected = "/lower/characters";
 
-            String actual = new UriRoute.Builder().Path("loWER").Path("chaRACTERS").Build().GetRoute();
+            String actual = new UriRoute.Builder().Path("/loWER").Path("/chaRACTERS").Build().GetRoute();
 
             Assert.Equal(actual, expected);
-        }
-        
-        [Fact]
-        public void ForbidsInternalSlashes()
-        {
-            Assert.Throws<ForbiddenCharacter>(() => new UriRoute.Builder().Path("slashes").Path("/forbidden").Build());
         }
     }
 }

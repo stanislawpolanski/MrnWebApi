@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MrnWebApi.Common.Exceptions
 {
-    public class ForbiddenCharacter : ArgumentException
+    public class ForbiddenCharacterException : ArgumentException
     {
     }
 }

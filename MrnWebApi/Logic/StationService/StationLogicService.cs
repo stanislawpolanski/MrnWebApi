@@ -23,7 +23,7 @@ namespace MrnWebApi.Logic.StationService
                 .ToList();
 
             models.ForEach(station => 
-                station.Url = new Route.RouteBuilder()
+                station.Url = new UriRoute.Builder()
                     .Path("api/values")
                     .Path(station.Id.ToString())
                     .Build()

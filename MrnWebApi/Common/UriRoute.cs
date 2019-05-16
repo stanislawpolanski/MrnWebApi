@@ -18,7 +18,7 @@ namespace MrnWebApi.Common
         public void AddPaths(List<String> nodes)
         {
             StringBuilder finalRouteStringBuilder = new StringBuilder();
-            nodes.ForEach(currentPath => finalRouteStringBuilder.Append("/" + currentPath));
+            nodes.ForEach(currentPath => finalRouteStringBuilder.Append(currentPath.ToLower()));
 
             uriRoute = uriRoute + finalRouteStringBuilder.ToString();
         }
