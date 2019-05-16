@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MrnWebApi.Common.Models;
 using MrnWebApi.Logic.StationService;
+using MrnWebApi.Common;
 
 namespace MrnWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(Paths.STATION_PATH)]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class StationController : ControllerBase
     {
         private readonly IStationLogicService stationLogicService;
 
-        public ValuesController(IStationLogicService stationLogicService)
+        public StationController(IStationLogicService stationLogicService)
         {
             this.stationLogicService = stationLogicService;
         }

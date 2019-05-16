@@ -13,7 +13,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/simple/route";
 
-            String actual = new UriRoute.Builder().Path("/simple").Path("/route").Build().GetRoute();
+            String actual = new UriRoute.Builder().Path("/simple").PathWithSlash("route").Build().GetRoute();
 
             Assert.Equal(actual, expected);
         }

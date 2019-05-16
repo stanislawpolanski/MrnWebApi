@@ -33,6 +33,12 @@ namespace MrnWebApi.Common
                 return this;
             }
 
+            public Builder PathWithSlash(String childNode)
+            {
+                Nodes.Add("/" + childNode);
+                return this;
+            }
+
             public UriRoute Build()
             {
                 UriRoute route = new UriRoute();
