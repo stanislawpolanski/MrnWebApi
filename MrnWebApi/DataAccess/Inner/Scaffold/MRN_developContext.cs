@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold
+namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
 {
     public partial class MRN_developContext : DbContext
     {

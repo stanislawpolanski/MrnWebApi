@@ -1,7 +1,7 @@
 ﻿using MrnWebApi.Common.Models;
 using System;
 using System.Collections.Generic;
-using MrnWebApi.DataAccess.Inner.Scaffold;
+using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.Station

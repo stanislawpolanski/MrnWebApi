@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MrnWebApi.Logic.StationService;
 using MrnWebApi.DataAccess.Services.Station;
-using MrnWebApi.DataAccess.Inner.Scaffold;
+using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
 using MrnWebApi.Common;
 
 namespace MrnWebApi
