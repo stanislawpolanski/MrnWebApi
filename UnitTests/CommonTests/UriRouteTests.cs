@@ -13,9 +13,9 @@ namespace UnitTests.CommonTests
         {
             String expected = "/simple/route";
 
-            String actual = new UriRoute.Builder().Path("/simple").PathWithSlash("route").Build().GetRoute();
+            String actual = new UriRoute.Builder().Path("/simple").Path("route").Build().ToString();
 
-            Assert.Equal(actual, expected);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -23,9 +23,29 @@ namespace UnitTests.CommonTests
         {
             String expected = "/lower/characters";
 
-            String actual = new UriRoute.Builder().Path("/loWER").Path("/chaRACTERS").Build().GetRoute();
+            String actual = new UriRoute.Builder().Path("/loWER").Path("/chaRACTERS").Build().ToString();
 
-            Assert.Equal(actual, expected);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void EscapesMultipleSlashes()
+        {
+            String expected = "/escapes/slashes";
+
+            String actual = new UriRoute.Builder().Path("/////escapes").Path("slashes").Build().ToString();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void EscapesSlashesInTheEnd()
+        {
+            String expected = "/escapes-slashes-in-the-end";
+
+            String actual = new UriRoute.Builder().Path("escapes-slashes-in-the-end/////").Build().ToString();
+
+            Assert.Equal(expected, actual);
         }
     }
 }
