@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MrnWebApi.Common.Exceptions;
 
 namespace MrnWebApi.Common
 {
@@ -10,17 +11,37 @@ namespace MrnWebApi.Common
     {
         private String uriRoute = String.Empty;
 
-        public String GetRoute()
-        {
-            return uriRoute;
-        }
-
         public void AddPaths(List<String> nodes)
         {
             StringBuilder finalRouteStringBuilder = new StringBuilder();
-            nodes.ForEach(currentPath => finalRouteStringBuilder.Append(currentPath.ToLower()));
+
+            foreach (String node in nodes)
+            {
+                if(node.EndsWith("/"))
+                {
+                    throw new ForbiddenUseOfCharacterInStringException("saa");
+                }
+
+                String finalNode;
+
+                if (node.StartsWith("/"))
+                {
+                    finalNode = node;
+                }
+                else
+                {
+                    finalNode = new StringBuilder().Append("/").Append(node).ToString();
+                    
+                }
+                finalRouteStringBuilder.Append(finalNode.ToLower());
+            }
 
             uriRoute = uriRoute + finalRouteStringBuilder.ToString();
+        }
+
+        public override string ToString()
+        {
+            return uriRoute;
         }
 
         public class Builder

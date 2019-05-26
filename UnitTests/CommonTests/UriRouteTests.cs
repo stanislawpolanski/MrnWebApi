@@ -13,7 +13,17 @@ namespace UnitTests.CommonTests
         {
             String expected = "/simple/route";
 
-            String actual = new UriRoute.Builder().Path("/simple").Path("route").Build().ToString();
+            String actual = new UriRoute.Builder().Path("/simple").Path("/route").Build().ToString();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CreatesSimpleRouteWhenInputHasAndHasNoSlashes()
+        {
+            String expected = "/slash/no-slash";
+
+            String actual = new UriRoute.Builder().Path("/slash").Path("no-slash").Build().ToString();
 
             Assert.Equal(expected, actual);
         }
@@ -29,23 +39,11 @@ namespace UnitTests.CommonTests
         }
 
         [Fact]
-        public void EscapesMultipleSlashes()
+        public void ThrowsExceptionWhenFindsSlasheInTheEnd()
         {
-            String expected = "/escapes/slashes";
-
-            String actual = new UriRoute.Builder().Path("/////escapes").Path("slashes").Build().ToString();
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void EscapesSlashesInTheEnd()
-        {
-            String expected = "/escapes-slashes-in-the-end";
-
-            String actual = new UriRoute.Builder().Path("escapes-slashes-in-the-end/////").Build().ToString();
-
-            Assert.Equal(expected, actual);
+            //todo must be refactored in #28
+            Assert.Throws<ForbiddenUseOfCharacterInStringException>(() => 
+            new UriRoute.Builder().Path("finds-slashes-in-the-end/////").Build());
         }
     }
 }
