@@ -29,24 +29,28 @@ namespace MrnWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterServices(services);
+            RegisterCommonServices(services);
+            RegisterLogicServices(services);
+            RegisterDataAccessServices(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        private static void RegisterServices(IServiceCollection services)
+        private static void RegisterDataAccessServices(IServiceCollection services)
         {
-            //commons
-            services.AddTransient<UriRoute, UriRoute>();
-
-            //Logic layer
-            services.AddTransient<IStationLogicService, StationLogicService>();
-
-            //data access layer
-            ////dbcontext
             services.AddDbContext<MRN_developContext>();
             ////specific services
             services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
+        }
+
+        private static void RegisterLogicServices(IServiceCollection services)
+        {
+            services.AddTransient<IStationLogicService, StationLogicService>();
+        }
+
+        private static void RegisterCommonServices(IServiceCollection services)
+        {
+            services.AddTransient<UriRoute, UriRoute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
