@@ -19,7 +19,7 @@ namespace MrnWebApi.Common
             {
                 if(node.EndsWith("/"))
                 {
-                    throw new ForbiddenUseOfCharacterInStringException("saa");
+                    throw new ForbiddenUseOfCharacterInAStringException("saa");
                 }
 
                 String finalNode;

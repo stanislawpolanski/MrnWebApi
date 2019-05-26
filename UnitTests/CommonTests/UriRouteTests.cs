@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Routing;
 using MrnWebApi.Common;
 using MrnWebApi.Common.Exceptions;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTests.CommonTests
@@ -12,8 +13,10 @@ namespace UnitTests.CommonTests
         public void CreatesSimpleRoute()
         {
             String expected = "/simple/route";
+            UriRoute route = new UriRoute();
+            route.AddPaths(new List<String>() { "/simple", "/route" });
 
-            String actual = new UriRoute.Builder().Path("/simple").Path("/route").Build().ToString();
+            String actual = route.ToString();
 
             Assert.Equal(expected, actual);
         }
@@ -22,8 +25,10 @@ namespace UnitTests.CommonTests
         public void CreatesSimpleRouteWhenInputHasAndHasNoSlashes()
         {
             String expected = "/slash/no-slash";
+            UriRoute route = new UriRoute();
+            route.AddPaths(new List<String>() { "/slash", "no-slash" });
 
-            String actual = new UriRoute.Builder().Path("/slash").Path("no-slash").Build().ToString();
+            String actual = route.ToString();
 
             Assert.Equal(expected, actual);
         }
@@ -32,8 +37,10 @@ namespace UnitTests.CommonTests
         public void LowersCharacters()
         {
             String expected = "/lower/characters";
+            UriRoute route = new UriRoute();
+            route.AddPaths(new List<String>() { "/lowER", "/CHARacters" });
 
-            String actual = new UriRoute.Builder().Path("/loWER").Path("/chaRACTERS").Build().ToString();
+            String actual = route.ToString();
 
             Assert.Equal(expected, actual);
         }
@@ -41,9 +48,20 @@ namespace UnitTests.CommonTests
         [Fact]
         public void ThrowsExceptionWhenFindsSlasheInTheEnd()
         {
-            //todo must be refactored in #28
-            Assert.Throws<ForbiddenUseOfCharacterInStringException>(() => 
-            new UriRoute.Builder().Path("finds-slashes-in-the-end/////").Build());
+            UriRoute route = new UriRoute();
+            
+            Assert.Throws<ForbiddenUseOfCharacterInAStringException>(() => 
+                route.AddPaths(new List<String>() { "/simple/"}));
+        }
+
+        [Fact]
+        public void BuilderBuildsRoute()
+        {
+            String expected = "/some/route";
+
+            String actual = new UriRoute.Builder().Path("/some").Path("/route").Build().ToString();
+
+            Assert.Equal(actual, expected);
         }
     }
 }
