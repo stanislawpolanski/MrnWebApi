@@ -1,6 +1,7 @@
 ﻿using MrnWebApi.Common;
 using MrnWebApi.Common.Models;
 using MrnWebApi.Common.Routing;
+using MrnWebApi.Controllers;
 using MrnWebApi.DataAccess.Services.Station;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace MrnWebApi.Logic.StationService
 
             models.ForEach(station => 
                 station.Url = new UriRoute.Builder()
-                    .Path(Paths.STATION_PATH)
+                    .Path(StationController.STATION_PATH)
                     .Path(station.Id.ToString())
                     .Build()
                     .ToString());

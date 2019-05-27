@@ -9,10 +9,12 @@ using MrnWebApi.Common;
 
 namespace MrnWebApi.Controllers
 {
-    [Route(Paths.STATION_PATH)]
+    [Route(StationController.STATION_PATH)]
     [ApiController]
     public class StationController : ControllerBase
     {
+        public const String STATION_PATH = "/api/station";
+
         private readonly IStationLogicService stationLogicService;
 
         public StationController(IStationLogicService stationLogicService)
