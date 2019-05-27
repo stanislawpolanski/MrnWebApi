@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Routing;
 using MrnWebApi.Common;
 using MrnWebApi.Common.Exceptions;
+using MrnWebApi.Common.Routing;
 using System;
 using System.Collections.Generic;
 using Xunit;
