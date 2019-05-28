@@ -1,7 +1,6 @@
 ﻿using MrnWebApi.Common.Models;
-using System;
-using System.Collections.Generic;
 using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.Station
@@ -18,10 +17,10 @@ namespace MrnWebApi.DataAccess.Services.Station
         public ICollection<BasicStationModel> GetBasicStations()
         {
             return dbContext.Stations
-                .Join(dbContext.ObjectsOfInterest, 
-                    s => s.Id, 
-                    o => o.Id, 
-                    (s, o) => new BasicStationModel { Id = s.Id, Name = o.Name})
+                .Join(dbContext.ObjectsOfInterest,
+                    s => s.Id,
+                    o => o.Id,
+                    (s, o) => new BasicStationModel { Id = s.Id, Name = o.Name })
                 .ToList();
         }
     }

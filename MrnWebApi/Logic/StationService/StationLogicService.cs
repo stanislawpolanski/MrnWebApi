@@ -1,10 +1,6 @@
-﻿using MrnWebApi.Common;
-using MrnWebApi.Common.Models;
-using MrnWebApi.Common.Routing;
-using MrnWebApi.Controllers;
+﻿using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Services.Station;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MrnWebApi.Logic.StationService
 {
@@ -19,18 +15,7 @@ namespace MrnWebApi.Logic.StationService
 
         public IEnumerable<BasicStationModel> GetBasicStations()
         {
-            List<BasicStationModel> models = stationDataAccessService
-                .GetBasicStations()
-                .ToList();
-
-            models.ForEach(station => 
-                station.Url = new UriRoute.Builder()
-                    .Path(StationController.STATION_PATH)
-                    .Path(station.Id.ToString())
-                    .Build()
-                    .ToString());
-
-            return models;
+            return stationDataAccessService.GetBasicStations();
         }
     }
 }

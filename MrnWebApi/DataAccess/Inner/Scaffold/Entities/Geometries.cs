@@ -1,6 +1,5 @@
-﻿using System;
+﻿using GeoAPI.Geometries;
 using System.Collections.Generic;
-using GeoAPI.Geometries;
 
 namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
 {

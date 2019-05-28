@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Routing;
-using MrnWebApi.Common;
 using MrnWebApi.Common.Exceptions;
 using MrnWebApi.Common.Routing;
 using System;
@@ -50,9 +48,9 @@ namespace UnitTests.CommonTests
         public void ThrowsExceptionWhenFindsSlasheInTheEnd()
         {
             UriRoute route = new UriRoute();
-            
-            Assert.Throws<ForbiddenUseOfCharacterInAStringException>(() => 
-                route.AddPaths(new List<String>() { "/simple/"}));
+
+            Assert.Throws<ForbiddenUseOfCharacterInAStringException>(() =>
+                route.AddPaths(new List<String>() { "/simple/" }));
         }
 
         [Fact]

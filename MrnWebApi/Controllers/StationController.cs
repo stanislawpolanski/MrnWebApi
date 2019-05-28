@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MrnWebApi.Common.Models;
 using MrnWebApi.Logic.StationService;
-using MrnWebApi.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using MrnWebApi.Common.Routing;
 
 namespace MrnWebApi.Controllers
 {
@@ -24,9 +23,18 @@ namespace MrnWebApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<BasicStationModel> Get()
+        public ICollection<BasicStationControllerModel> Get()
         {
-            return stationLogicService.GetBasicStations();
+            List<BasicStationModel> inputModels = stationLogicService.GetBasicStations().ToList();
+            List<BasicStationControllerModel> outputModels = new List<BasicStationControllerModel>();
+
+            inputModels.ForEach(input => outputModels.Add(
+                new BasicStationControllerModel() {
+                    Id = input.Id,
+                    Name = input.Name,
+                    Url = new UriRoute.Builder().Path(STATION_PATH).Path(input.Id.ToString()).Build().ToString() }));
+
+            return outputModels;
         }
 
         // GET api/values/5

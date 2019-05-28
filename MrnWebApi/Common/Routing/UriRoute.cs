@@ -15,7 +15,7 @@ namespace MrnWebApi.Common.Routing
 
             foreach (String node in nodes)
             {
-                if(node.EndsWith("/"))
+                if (node.EndsWith("/"))
                 {
                     throw new ForbiddenUseOfCharacterInAStringException("saa");
                 }
@@ -29,7 +29,7 @@ namespace MrnWebApi.Common.Routing
                 else
                 {
                     finalNode = new StringBuilder().Append("/").Append(node).ToString();
-                    
+
                 }
                 finalRouteStringBuilder.Append(finalNode.ToLower());
             }
