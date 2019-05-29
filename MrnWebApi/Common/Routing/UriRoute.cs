@@ -1,6 +1,7 @@
 ﻿using MrnWebApi.Common.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MrnWebApi.Common.Routing
@@ -9,11 +10,11 @@ namespace MrnWebApi.Common.Routing
     {
         private String uriRoute = String.Empty;
 
-        public void AddPaths(List<String> nodes)
+        public void AddPaths(params string[] nodes)
         {
             StringBuilder finalRouteStringBuilder = new StringBuilder();
 
-            nodes.ForEach(node =>
+            nodes.OfType<string>().ToList().ForEach(node =>
                 {
                     if (node.EndsWith("/"))
                         throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
@@ -43,7 +44,7 @@ namespace MrnWebApi.Common.Routing
             public UriRoute Build()
             {
                 UriRoute route = new UriRoute();
-                route.AddPaths(Nodes);
+                route.AddPaths(Nodes.ToArray());
                 return route;
             }
         }
