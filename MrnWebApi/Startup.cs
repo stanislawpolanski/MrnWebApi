@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MrnWebApi.Common.Routing;
@@ -29,19 +30,20 @@ namespace MrnWebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        private static void RegisterDataAccessServices(IServiceCollection services)
+        private void RegisterDataAccessServices(IServiceCollection services)
         {
-            services.AddDbContext<MRN_developContext>();
-            ////specific services
+            services.AddDbContext<MRN_developContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("Database"), x => x.UseNetTopologySuite()));
+
             services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
         }
 
-        private static void RegisterLogicServices(IServiceCollection services)
+        private void RegisterLogicServices(IServiceCollection services)
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
         }
 
-        private static void RegisterCommonServices(IServiceCollection services)
+        private void RegisterCommonServices(IServiceCollection services)
         {
             services.AddTransient<UriRoute, UriRoute>();
         }
