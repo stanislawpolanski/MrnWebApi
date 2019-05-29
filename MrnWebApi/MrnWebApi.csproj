@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="DataAccess\DTOs\**" />
+    <Compile Remove="DataAccess\Services\Station\Inner\**" />
     <Content Remove="DataAccess\DTOs\**" />
+    <Content Remove="DataAccess\Services\Station\Inner\**" />
     <EmbeddedResource Remove="DataAccess\DTOs\**" />
+    <EmbeddedResource Remove="DataAccess\Services\Station\Inner\**" />
     <None Remove="DataAccess\DTOs\**" />
+    <None Remove="DataAccess\Services\Station\Inner\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +22,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="2.2.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataAccess\Services\Station\Inner\" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 </Project>

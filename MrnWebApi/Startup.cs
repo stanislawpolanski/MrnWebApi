@@ -7,7 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
 using MrnWebApi.DataAccess.Services.Station;
+using MrnWebApi.DataAccess.Services.TypeOfAStation;
 using MrnWebApi.Logic.StationService;
+using MrnWebApi.Logic.TypeOfAStationService;
 
 namespace MrnWebApi
 {
@@ -33,14 +35,16 @@ namespace MrnWebApi
         private void RegisterDataAccessServices(IServiceCollection services)
         {
             services.AddDbContext<MRN_developContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("Database"), x => x.UseNetTopologySuite()));
+                options.UseSqlServer(Configuration.GetConnectionString("Database"), x => x.UseNetTopologySuite()));
 
             services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
+            services.AddTransient<ITypeOfAStationDataAccessService, DbTypeOfAStationDataAccessService>();
         }
 
         private void RegisterLogicServices(IServiceCollection services)
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
+            services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
         }
 
         private void RegisterCommonServices(IServiceCollection services)
