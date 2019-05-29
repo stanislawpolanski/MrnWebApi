@@ -1,6 +1,7 @@
 ﻿using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Services.Station;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MrnWebApi.Logic.StationService
 {
@@ -15,7 +16,7 @@ namespace MrnWebApi.Logic.StationService
 
         public IEnumerable<BasicStationModel> GetBasicStations()
         {
-            return stationDataAccessService.GetBasicStations();
+            return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);
         }
     }
 }
