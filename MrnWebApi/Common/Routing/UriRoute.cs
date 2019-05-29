@@ -14,13 +14,13 @@ namespace MrnWebApi.Common.Routing
             StringBuilder finalRouteStringBuilder = new StringBuilder();
 
             nodes.ForEach(node =>
-            {
-                if (node.EndsWith("/"))
-                    throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
-                String finalNode =
-                    node.StartsWith("/") ? node : new StringBuilder().Append("/").Append(node).ToString();
-                finalRouteStringBuilder.Append(finalNode.ToLower());
-            });
+                {
+                    if (node.EndsWith("/"))
+                        throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
+                    String finalNode =
+                        node.StartsWith("/") ? node : new StringBuilder().Append("/").Append(node).ToString();
+                    finalRouteStringBuilder.Append(finalNode.ToLower());
+                });
 
             uriRoute = uriRoute += finalRouteStringBuilder.ToString();
         }
