@@ -24,15 +24,6 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
         public virtual DbSet<StationsToGeometries> StationsToGeometries { get; set; }
         public virtual DbSet<TypesOfAstation> TypesOfAstation { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MRN_develop;Trusted_Connection=True;", x => x.UseNetTopologySuite());
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
