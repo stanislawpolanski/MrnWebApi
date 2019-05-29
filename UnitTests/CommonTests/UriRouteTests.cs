@@ -54,11 +54,11 @@ namespace UnitTests.CommonTests
         }
 
         [Fact]
-        public void BuilderBuildsRoute()
+        public void BuildPath_BuildsRoute()
         {
             String expected = "/some/route";
 
-            String actual = new UriRoute.Builder().Path("/some").Path("/route").Build().ToString();
+            String actual = UriRoute.BuildRoute("/some", "/route").ToString();
 
             Assert.Equal(actual, expected);
         }

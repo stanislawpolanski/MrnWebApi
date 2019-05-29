@@ -32,7 +32,7 @@ namespace MrnWebApi.Controllers
                 new BasicStationControllerModel() {
                     Id = input.Id,
                     Name = input.Name,
-                    Url = new UriRoute.Builder().Path(STATION_PATH).Path(input.Id.ToString()).Build().ToString() }));
+                    Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString() }));
 
             return outputModels;
         }

@@ -26,27 +26,16 @@ namespace MrnWebApi.Common.Routing
             uriRoute = uriRoute += finalRouteStringBuilder.ToString();
         }
 
+        public static UriRoute BuildRoute(params string[] nodes)
+        {
+            UriRoute route = new UriRoute();
+            route.AddPaths(nodes);
+            return route;
+        }
+
         public override string ToString()
         {
             return uriRoute;
-        }
-
-        public class Builder
-        {
-            private List<String> Nodes = new List<String>();
-
-            public Builder Path(String childNode)
-            {
-                Nodes.Add(childNode);
-                return this;
-            }
-
-            public UriRoute Build()
-            {
-                UriRoute route = new UriRoute();
-                route.AddPaths(Nodes.ToArray());
-                return route;
-            }
         }
     }
 }
