@@ -20,7 +20,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Join(dbContext.ObjectsOfInterest,
                     stationEntity => stationEntity.Id,
                     objectOfInterestEntity => objectOfInterestEntity.Id,
-                    (stationEntity, objectOfInterestEntity) 
+                    (stationEntity, objectOfInterestEntity)
                         => new BasicStationModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
                 .ToList();
         }

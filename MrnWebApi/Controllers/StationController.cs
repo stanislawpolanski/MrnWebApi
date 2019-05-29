@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MrnWebApi.Common.Models;
+using MrnWebApi.Common.Routing;
 using MrnWebApi.Logic.StationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MrnWebApi.Common.Routing;
 
 namespace MrnWebApi.Controllers
 {
@@ -29,10 +29,12 @@ namespace MrnWebApi.Controllers
             List<BasicStationControllerModel> outputModels = new List<BasicStationControllerModel>();
 
             inputModels.ForEach(input => outputModels.Add(
-                new BasicStationControllerModel() {
+                new BasicStationControllerModel()
+                {
                     Id = input.Id,
                     Name = input.Name,
-                    Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString() }));
+                    Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString()
+                }));
 
             return outputModels;
         }

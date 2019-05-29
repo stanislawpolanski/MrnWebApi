@@ -2,8 +2,8 @@
 using MrnWebApi.Controllers;
 using MrnWebApi.Logic.StationService;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
+using Xunit;
 
 namespace UnitTests.ControllersTests
 {
@@ -18,9 +18,9 @@ namespace UnitTests.ControllersTests
 
             IEnumerable<BasicStationControllerModel> actualList = controller.Get();
 
-            actualList.ToList().ForEach(actual => 
+            actualList.ToList().ForEach(actual =>
                 {
-                    BasicStationControllerModel expected = 
+                    BasicStationControllerModel expected =
                         expectedList.ToList().Where(x => x.Id.Equals(actual.Id)).FirstOrDefault();
                     Assert.Equal(actual.Name, expected.Name);
                     Assert.Equal(actual.Url, expected.Url);

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using MrnWebApi.Common.Models;
+using MrnWebApi.DataAccess.Services.TypeOfAStation;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MrnWebApi.Common.Models;
-using MrnWebApi.DataAccess.Services.TypeOfAStation;
 
 namespace MrnWebApi.Logic.TypeOfAStationService
 {

@@ -1,7 +1,6 @@
 using MrnWebApi.Common.Exceptions;
 using MrnWebApi.Common.Routing;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTests.CommonTests
