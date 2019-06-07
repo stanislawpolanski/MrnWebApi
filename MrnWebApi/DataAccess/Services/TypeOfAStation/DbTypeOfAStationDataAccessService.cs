@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.TypeOfAStation
 {
-    public class DbTypeOfAStationDataAccessService : DatabaseDataAccessService, ITypeOfAStationDataAccessService
+    public class DbTypeOfAStationDataAccessService : DbDataAccessAbstractService, ITypeOfAStationDataAccessService
     {
         public DbTypeOfAStationDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
         {

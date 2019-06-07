@@ -6,13 +6,10 @@ using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.Station
 {
-    public class DbStationDataAccessService : IStationDataAccessService
+    public class DbStationDataAccessService : DbDataAccessAbstractService, IStationDataAccessService
     {
-        private MRN_developContext dbContext;
-
-        public DbStationDataAccessService(MRN_developContext injectedContext)
+        public DbStationDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
         {
-            dbContext = injectedContext;
         }
 
         public ICollection<StationBasicModel> GetBasicStations()

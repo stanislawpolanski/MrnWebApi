@@ -5,13 +5,12 @@ using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.Railway
 {
-    public class DbRailwayDataAccessService : IRailwayDataAccessService
+    public class DbRailwayDataAccessService : DbDataAccessAbstractService, IRailwayDataAccessService
     {
-        private MRN_developContext dbContext;
-        public DbRailwayDataAccessService(MRN_developContext injectedContext)
+        public DbRailwayDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
         {
-            dbContext = injectedContext;
         }
+
         public IEnumerable<RailwayModel> GetRailwaysByStationId(int stationId)
         {
             return dbContext

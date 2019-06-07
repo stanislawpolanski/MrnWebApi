@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
-    public class DbRailwayUnitDataAccessService : IRailwayUnitDataAccessService
+    public class DbRailwayUnitDataAccessService : DbDataAccessAbstractService, IRailwayUnitDataAccessService
     {
-        private MRN_developContext dbContext;
-        public DbRailwayUnitDataAccessService(MRN_developContext injectedContext)
+        public DbRailwayUnitDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
         {
-            dbContext = injectedContext;
         }
 
         public RailwayUnitModel GetRailwayUnitByStationId(int stationId)

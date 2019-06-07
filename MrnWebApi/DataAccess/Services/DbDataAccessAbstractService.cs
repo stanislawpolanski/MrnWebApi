@@ -2,11 +2,11 @@
 
 namespace MrnWebApi.DataAccess.Services
 {
-    public abstract class DatabaseDataAccessService
+    public abstract class DbDataAccessAbstractService
     {
         protected MRN_developContext dbContext;
 
-        public DatabaseDataAccessService(MRN_developContext injectedContext)
+        public DbDataAccessAbstractService(MRN_developContext injectedContext)
         {
             dbContext = injectedContext;
         }
