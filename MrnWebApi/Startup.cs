@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
+using MrnWebApi.DataAccess.Services.Photo;
+using MrnWebApi.DataAccess.Services.Railway;
+using MrnWebApi.DataAccess.Services.RailwayUnit;
 using MrnWebApi.DataAccess.Services.Station;
 using MrnWebApi.DataAccess.Services.TypeOfAStation;
 using MrnWebApi.Logic.StationService;
@@ -39,6 +42,9 @@ namespace MrnWebApi
 
             services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
             services.AddTransient<ITypeOfAStationDataAccessService, DbTypeOfAStationDataAccessService>();
+            services.AddTransient<IRailwayDataAccessService, DbRailwayDataAccessService>();
+            services.AddTransient<IPhotoDataAccessService, DbPhotoDataAccessService>();
+            services.AddTransient<IRailwayUnitDataAccessService, DbRailwayUnitDataAccessService>();
         }
 
         private void RegisterLogicServices(IServiceCollection services)

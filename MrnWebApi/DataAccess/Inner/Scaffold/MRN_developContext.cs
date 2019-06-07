@@ -146,7 +146,7 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
 
                 entity.Property(e => e.TypeOfAstationId).HasColumnName("TypeOfAStationId");
 
-                entity.HasOne(d => d.IdNavigation)
+                entity.HasOne(d => d.ParentObjectOfInterest)
                     .WithOne(p => p.Stations)
                     .HasForeignKey<Stations>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)

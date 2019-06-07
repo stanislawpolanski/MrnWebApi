@@ -12,7 +12,7 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
         public int Id { get; set; }
         public int? TypeOfAstationId { get; set; }
 
-        public virtual ObjectsOfInterest IdNavigation { get; set; }
+        public virtual ObjectsOfInterest ParentObjectOfInterest { get; set; }
         public virtual TypesOfAstation TypeOfAstation { get; set; }
         public virtual ICollection<StationsToGeometries> StationsToGeometries { get; set; }
     }
