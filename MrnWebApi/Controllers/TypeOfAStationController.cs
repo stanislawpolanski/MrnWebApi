@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace MrnWebApi.Controllers
 {
-    [Route(TypeOfAStationController.TYPE_OF_A_STATION_PATH)]
+    [Route(TYPE_OF_A_STATION_PATH)]
     [ApiController]
-    public class TypeOfAStationController : ControllerBase
+    public class TypeOfAStationController : ApiController
     {
-        public const string TYPE_OF_A_STATION_PATH = "/api/type-of-a-station";
+        public const string TYPE_OF_A_STATION_PATH = API_PATH + "/type-of-a-station";
 
         private readonly ITypeOfAStationLogicService logicService;
 

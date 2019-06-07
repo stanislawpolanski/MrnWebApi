@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace MrnWebApi.Controllers
 {
-    [Route(StationController.STATION_PATH)]
+    [Route(STATION_PATH)]
     [ApiController]
-    public class StationController : ControllerBase
+    public class StationController : ApiController
     {
-        public const String STATION_PATH = "/api/station";
+        public const String STATION_PATH = API_PATH + "/station";
 
         private readonly IStationLogicService stationLogicService;
 
