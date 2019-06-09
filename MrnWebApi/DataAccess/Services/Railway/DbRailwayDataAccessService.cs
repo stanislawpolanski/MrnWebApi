@@ -1,4 +1,5 @@
-﻿using MrnWebApi.Common.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace MrnWebApi.DataAccess.Services.Railway
         {
             return dbContext
                 .Railways
-                .Where(railway => railway.StationsToGeometries.FirstOrDefault().StationId.Equals(stationId))
-                .Select(railwayEntity => 
+                .Include(railway => railway.StationsToGeometries)
+                .Where(railway => railway.StationsToGeometries
+                    .Any(stationToGeometry => stationToGeometry.StationId.Equals(stationId)))
+                .Select(railwayEntity =>
                     new RailwayModel()
                     {
                         Id = railwayEntity.Id,
