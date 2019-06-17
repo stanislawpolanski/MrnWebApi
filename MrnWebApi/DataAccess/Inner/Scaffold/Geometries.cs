@@ -1,7 +1,8 @@
-﻿using GeoAPI.Geometries;
+﻿using System;
 using System.Collections.Generic;
+using GeoAPI.Geometries;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
+namespace MrnWebApi.DataAccess.Inner.Scaffold
 {
     public partial class Geometries
     {

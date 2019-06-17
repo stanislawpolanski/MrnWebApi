@@ -1,5 +1,5 @@
 ﻿using MrnWebApi.Common.Models;
-using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
+using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
 

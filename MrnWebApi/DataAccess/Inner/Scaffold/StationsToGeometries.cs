@@ -1,4 +1,7 @@
-﻿namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace MrnWebApi.DataAccess.Inner.Scaffold
 {
     public partial class StationsToGeometries
     {

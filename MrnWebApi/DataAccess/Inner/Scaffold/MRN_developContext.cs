@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
+namespace MrnWebApi.DataAccess.Inner.Scaffold
 {
     public partial class MRN_developContext : DbContext
     {
@@ -23,6 +25,15 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
         public virtual DbSet<Stations> Stations { get; set; }
         public virtual DbSet<StationsToGeometries> StationsToGeometries { get; set; }
         public virtual DbSet<TypesOfAstation> TypesOfAstation { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MRN_develop;Trusted_Connection=True;", x => x.UseNetTopologySuite());
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,7 +109,7 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
             modelBuilder.Entity<RailwayUnits>(entity =>
             {
                 entity.HasIndex(e => e.GeometriesId)
-                    .HasName("UQ__RailwayU__F79989B9973713DC")
+                    .HasName("UQ__RailwayU__F79989B907C88BAB")
                     .IsUnique();
 
                 entity.HasIndex(e => e.Name)
@@ -114,6 +125,12 @@ namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
                     .HasForeignKey<RailwayUnits>(d => d.GeometriesId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RailwayUnits_ToGeometries");
+
+                entity.HasOne(d => d.Owner)
+                    .WithMany(p => p.RailwayUnits)
+                    .HasForeignKey(d => d.OwnerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RailwayUnits_ToOwners");
             });
 
             modelBuilder.Entity<Railways>(entity =>

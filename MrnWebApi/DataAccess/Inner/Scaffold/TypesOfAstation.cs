@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold.Entities
+namespace MrnWebApi.DataAccess.Inner.Scaffold
 {
     public partial class TypesOfAstation
     {

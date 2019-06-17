@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MrnWebApi.Common.Routing;
-using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
+using MrnWebApi.DataAccess.Inner.Scaffold;
 using MrnWebApi.DataAccess.Services.Photo;
 using MrnWebApi.DataAccess.Services.Railway;
 using MrnWebApi.DataAccess.Services.RailwayUnit;

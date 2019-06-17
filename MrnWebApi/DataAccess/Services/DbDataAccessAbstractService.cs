@@ -1,4 +1,4 @@
-﻿using MrnWebApi.DataAccess.Inner.Scaffold.Entities;
+﻿using MrnWebApi.DataAccess.Inner.Scaffold;
 
 namespace MrnWebApi.DataAccess.Services
 {
