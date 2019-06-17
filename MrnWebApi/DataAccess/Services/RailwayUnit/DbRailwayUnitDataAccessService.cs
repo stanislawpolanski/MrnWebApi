@@ -17,7 +17,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
         public RailwayUnitModel GetRailwayUnitByStationId(int stationId)
         {
             
-            int stationsOwnerId = dbContext
+            int stationOwnerId = dbContext
                 .Stations
                 .Where(station => station.Id.Equals(stationId))
                 .Include(station => station.ParentObjectOfInterest)
@@ -32,21 +32,17 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
                 .Select(entity => entity.Geometry.SpatialData)
                 .First();
 
-            List<RailwayUnits> possibleRailwayUnits = dbContext
+            return dbContext
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
-                .Where(unit => unit.OwnerId.Equals(stationsOwnerId))
-                .ToList();
-
-            RailwayUnits selectedRailwayUnit = possibleRailwayUnits
+                .Where(unit => unit.OwnerId.Equals(stationOwnerId))
                 .Where(unit => unit.Geometries.SpatialData.Intersects(stationGeometry))
+                .Select(unit => new RailwayUnitModel()
+                {
+                    Id = unit.Id,
+                    Name = unit.Name
+                })
                 .First();
-
-            return new RailwayUnitModel()
-            {
-                Id = selectedRailwayUnit.Id,
-                Name = selectedRailwayUnit.Name
-            };
         }
     }
 }
