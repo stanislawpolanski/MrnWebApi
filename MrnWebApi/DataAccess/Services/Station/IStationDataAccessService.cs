@@ -5,7 +5,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 {
     public interface IStationDataAccessService
     {
-        ICollection<StationBasicModel> GetBasicStations();
-        StationDetailedModel GetDetailedStation(int id);
+        ICollection<StationModel> GetBasicStations();
+        StationModel GetDetailedStation(int id);
     }
 }

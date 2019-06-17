@@ -5,7 +5,7 @@ namespace MrnWebApi.Logic.StationService
 {
     public interface IStationLogicService
     {
-        IEnumerable<StationBasicModel> GetBasicStations();
-        StationDetailedModel GetDetailedStation(int id);
+        IEnumerable<StationModel> GetBasicStations();
+        StationModel GetDetailedStation(int id);
     }
 }

@@ -10,16 +10,16 @@ namespace UnitTests.Mocks
         {
         }
 
-        public IEnumerable<StationBasicModel> GetBasicStations()
+        public IEnumerable<StationModel> GetBasicStations()
         {
-            return new List<StationBasicModel>()
+            return new List<StationModel>()
             {
-                new StationBasicModel() { Id = 15, Name = "Testowa stacja"},
-                new StationBasicModel() { Id = 789, Name = "Druga stacja"}
+                new StationModel() { Id = 15, Name = "Testowa stacja"},
+                new StationModel() { Id = 789, Name = "Druga stacja"}
             };
         }
 
-        public StationDetailedModel GetDetailedStation(int id)
+        public StationModel GetDetailedStation(int id)
         {
             throw new System.NotImplementedException();
         }

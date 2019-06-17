@@ -13,22 +13,22 @@ namespace UnitTests.LogicTests
         [Fact]
         public void CombinesDataAccessProductsIntoDetailedStation()
         {
-            StationDetailedModel expected = GetExpectedStation();
+            StationModel expected = GetExpectedStation();
             IStationLogicService service = new StationLogicService(new MockedStationDataAccessService(),
                 new MockedPhotoDataAccessService(),
                 new MockedRailwayDataAccessService(),
                 new MockedRailwayUnitDataAccessService());
 
-            StationDetailedModel actual = service.GetDetailedStation(-1);
+            StationModel actual = service.GetDetailedStation(-1);
 
             Assert.NotNull(actual.RailwayUnit);
             Assert.Equal(expected.Photos.Count(), actual.Photos.Count());
             Assert.Equal(expected.Railways.Count(), actual.Railways.Count());
         }
 
-        private StationDetailedModel GetExpectedStation()
+        private StationModel GetExpectedStation()
         {
-            return new StationDetailedModel()
+            return new StationModel()
             {
                 Id = -1,
                 OwnerInfo = new OwnerModel(),

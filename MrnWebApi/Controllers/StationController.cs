@@ -22,7 +22,7 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<StationBasicModel> Get()
+        public IEnumerable<StationModel> Get()
         {
             return stationLogicService
                 .GetBasicStations()
@@ -35,7 +35,7 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public StationDetailedModel Get(int id)
+        public StationModel Get(int id)
         {
             return stationLogicService.GetDetailedStation(id);
         }

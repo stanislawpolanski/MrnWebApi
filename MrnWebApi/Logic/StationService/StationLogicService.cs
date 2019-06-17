@@ -26,14 +26,14 @@ namespace MrnWebApi.Logic.StationService
             railwayUnitDataAccessService = injectedRailwayUnitDataAccessService;
         }
 
-        public IEnumerable<StationBasicModel> GetBasicStations()
+        public IEnumerable<StationModel> GetBasicStations()
         {
             return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);
         }
 
-        public StationDetailedModel GetDetailedStation(int id)
+        public StationModel GetDetailedStation(int id)
         {
-            StationDetailedModel model = stationDataAccessService.GetDetailedStation(id);
+            StationModel model = stationDataAccessService.GetDetailedStation(id);
             model.Railways = railwaysDataAccessService.GetRailwaysByStationId(id);
             model.Photos = photosDataAccessService.GetPhotosByStationId(id);
             model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStationId(id);

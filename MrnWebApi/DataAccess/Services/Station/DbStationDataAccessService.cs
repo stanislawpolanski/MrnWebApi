@@ -12,18 +12,18 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
         }
 
-        public ICollection<StationBasicModel> GetBasicStations()
+        public ICollection<StationModel> GetBasicStations()
         {
             return dbContext.Stations
                 .Join(dbContext.ObjectsOfInterest,
                     stationEntity => stationEntity.Id,
                     objectOfInterestEntity => objectOfInterestEntity.Id,
                     (stationEntity, objectOfInterestEntity)
-                        => new StationBasicModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
+                        => new StationModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
                 .ToList();
         }
 
-        public StationDetailedModel GetDetailedStation(int id)
+        public StationModel GetDetailedStation(int id)
         {
             return dbContext
                 .Stations
@@ -31,7 +31,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest)
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
-                .Select(entity => new StationDetailedModel()
+                .Select(entity => new StationModel()
                 {
                     Id = entity.Id,
                     Name = entity.ParentObjectOfInterest.Name,

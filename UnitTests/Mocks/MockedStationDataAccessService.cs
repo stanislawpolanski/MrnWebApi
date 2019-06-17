@@ -7,14 +7,14 @@ namespace UnitTests.Mocks
 {
     class MockedStationDataAccessService : IStationDataAccessService
     {
-        public ICollection<StationBasicModel> GetBasicStations()
+        public ICollection<StationModel> GetBasicStations()
         {
             throw new NotImplementedException();
         }
 
-        public StationDetailedModel GetDetailedStation(int id)
+        public StationModel GetDetailedStation(int id)
         {
-            return new StationDetailedModel()
+            return new StationModel()
             {
                 Id = -1,
                 Name = "Test station",
