@@ -1,8 +1,6 @@
 ﻿using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
-using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.Photo

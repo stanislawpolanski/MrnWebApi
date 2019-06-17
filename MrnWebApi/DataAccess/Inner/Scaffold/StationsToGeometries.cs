@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MrnWebApi.DataAccess.Inner.Scaffold
+﻿namespace MrnWebApi.DataAccess.Inner.Scaffold
 {
     public partial class StationsToGeometries
     {

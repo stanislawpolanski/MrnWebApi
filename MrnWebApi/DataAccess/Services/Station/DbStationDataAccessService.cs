@@ -32,20 +32,20 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
                 .Select(entity => new StationDetailedModel()
+                {
+                    Id = entity.Id,
+                    Name = entity.ParentObjectOfInterest.Name,
+                    OwnerInfo = new OwnerModel()
                     {
-                        Id = entity.Id,
-                        Name = entity.ParentObjectOfInterest.Name,
-                        OwnerInfo = new OwnerModel()
-                        {
-                            Id = entity.ParentObjectOfInterest.Owner.Id,
-                            Name = entity.ParentObjectOfInterest.Owner.Name
-                        },
-                        TypeOfAStationInfo = new TypeOfAStationModel()
-                        {
-                            AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
-                            Id = entity.TypeOfAstation.Id
-                        }
+                        Id = entity.ParentObjectOfInterest.Owner.Id,
+                        Name = entity.ParentObjectOfInterest.Owner.Name
+                    },
+                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    {
+                        AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
+                        Id = entity.TypeOfAstation.Id
                     }
+                }
                 )
                 .First();
         }

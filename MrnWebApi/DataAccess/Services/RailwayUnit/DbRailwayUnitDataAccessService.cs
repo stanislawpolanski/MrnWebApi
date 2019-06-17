@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
@@ -16,7 +14,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
 
         public RailwayUnitModel GetRailwayUnitByStationId(int stationId)
         {
-            
+
             int stationOwnerId = dbContext
                 .Stations
                 .Where(station => station.Id.Equals(stationId))
