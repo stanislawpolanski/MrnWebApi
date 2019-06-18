@@ -37,7 +37,19 @@ namespace MrnWebApi.Controllers
         [HttpGet("{id}")]
         public StationModel Get(int id)
         {
-            return stationLogicService.GetDetailedStation(id);
+            StationModel station = stationLogicService.GetDetailedStation(id);
+
+            station
+                .Railways
+                .ToList()
+                .ForEach(railway => 
+                    railway.Url = UriRoute.BuildRoute(RailwayController.RAILWAY_PATH, 
+                        railway.Id.ToString()).ToString());
+
+            station.RailwayUnit.Url = UriRoute.BuildRoute(RailwayUnitController.RAILWAY_UNIT_PATH, 
+                station.RailwayUnit.Id.ToString()).ToString();
+
+            return station;
         }
 
         [HttpPost]
