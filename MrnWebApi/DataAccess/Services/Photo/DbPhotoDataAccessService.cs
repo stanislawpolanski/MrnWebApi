@@ -15,7 +15,9 @@ namespace MrnWebApi.DataAccess.Services.Photo
         {
             return dbContext
                 .Photos
-                .Where(photo => photo.PhotosToObjectsOfInterest.FirstOrDefault().ObjectOfInterestId.Equals(stationId))
+                .Where(photo => photo
+                    .PhotosToObjectsOfInterest
+                    .Any(relation => relation.ObjectOfInterestId.Equals(stationId)))
                 .Select(photoEntity =>
                     new PhotoModel()
                     {
