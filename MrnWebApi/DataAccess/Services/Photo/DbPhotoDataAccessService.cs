@@ -13,7 +13,7 @@ namespace MrnWebApi.DataAccess.Services.Photo
 
         public IEnumerable<PhotoModel> GetPhotosByStationId(int stationId)
         {
-            return dbContext
+            return context
                 .Photos
                 .Where(photo => photo
                     .PhotosToObjectsOfInterest

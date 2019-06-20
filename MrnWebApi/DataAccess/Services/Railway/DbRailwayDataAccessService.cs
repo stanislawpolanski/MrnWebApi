@@ -14,7 +14,7 @@ namespace MrnWebApi.DataAccess.Services.Railway
 
         public IEnumerable<RailwayModel> GetRailwaysByStationId(int stationId)
         {
-            return dbContext
+            return context
                 .Railways
                 .Include(railway => railway.StationsToGeometries)
                 .Where(railway => railway.StationsToGeometries

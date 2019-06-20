@@ -13,7 +13,7 @@ namespace MrnWebApi.DataAccess.Services.TypeOfAStation
 
         public ICollection<TypeOfAStationModel> GetTypesOfAStation()
         {
-            return dbContext.TypesOfAstation
+            return context.TypesOfAstation
                 .Select(stationType =>
                     new TypeOfAStationModel
                     {

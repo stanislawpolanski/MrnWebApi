@@ -14,8 +14,8 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public ICollection<StationModel> GetBasicStations()
         {
-            return dbContext.Stations
-                .Join(dbContext.ObjectsOfInterest,
+            return context.Stations
+                .Join(context.ObjectsOfInterest,
                     stationEntity => stationEntity.Id,
                     objectOfInterestEntity => objectOfInterestEntity.Id,
                     (stationEntity, objectOfInterestEntity)
@@ -25,7 +25,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public StationModel GetDetailedStation(int id)
         {
-            return dbContext
+            return context
                 .Stations
                 .Where(station => station.Id.Equals(id))
                 .Include(station => station.ParentObjectOfInterest)
