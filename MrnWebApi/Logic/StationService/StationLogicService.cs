@@ -26,6 +26,11 @@ namespace MrnWebApi.Logic.StationService
             railwayUnitDataAccessService = injectedRailwayUnitDataAccessService;
         }
 
+        public void AddStation(StationModel inputStation)
+        {
+            int newStationId = stationDataAccessService.AddStation(inputStation);
+        }
+
         public IEnumerable<StationModel> GetBasicStations()
         {
             return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);

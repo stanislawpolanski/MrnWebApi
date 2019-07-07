@@ -12,6 +12,29 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
         }
 
+        public int AddStation(StationModel inputStation)
+        {
+            ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
+            {
+                Name = inputStation.Name,
+                OwnerId = inputStation.OwnerInfo.Id
+            };
+            context.ObjectsOfInterest.Add(objectOfInterest);
+            context.SaveChanges();
+
+            int newStationId = objectOfInterest.Id;
+
+            Stations station = new Stations()
+            {
+                Id = newStationId,
+                TypeOfAstationId = inputStation.TypeOfAStationInfo.Id
+            };
+            context.Stations.Add(station);
+            context.SaveChanges();
+
+            return newStationId;
+        }
+
         public ICollection<StationModel> GetBasicStations()
         {
             return context.Stations

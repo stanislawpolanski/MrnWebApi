@@ -5,6 +5,7 @@ using MrnWebApi.Logic.StationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.Controllers
 {
@@ -51,10 +52,11 @@ namespace MrnWebApi.Controllers
 
             return station;
         }
-
+        
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void PostStation(StationModel inputStation)
         {
+            stationLogicService.AddStation(inputStation);
         }
 
         [HttpPut("{id}")]

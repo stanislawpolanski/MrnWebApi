@@ -7,6 +7,11 @@ namespace UnitTests.Mocks
 {
     class MockedStationDataAccessService : IStationDataAccessService
     {
+        public int AddStation(StationModel inputStation)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<StationModel> GetBasicStations()
         {
             throw new NotImplementedException();

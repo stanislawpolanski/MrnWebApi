@@ -10,6 +10,11 @@ namespace UnitTests.Mocks
         {
         }
 
+        public void AddStation(StationModel inputStation)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<StationModel> GetBasicStations()
         {
             return new List<StationModel>()
