@@ -12,6 +12,11 @@ namespace UnitTests.Mocks
             throw new NotImplementedException();
         }
 
+        public void DeleteStationById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<StationModel> GetBasicStations()
         {
             throw new NotImplementedException();

@@ -31,6 +31,11 @@ namespace MrnWebApi.Logic.StationService
             int newStationId = stationDataAccessService.AddStation(inputStation);
         }
 
+        public void DeleteStationById(int id)
+        {
+            stationDataAccessService.DeleteStationById(id);
+        }
+
         public IEnumerable<StationModel> GetBasicStations()
         {
             return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);

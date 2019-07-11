@@ -35,6 +35,13 @@ namespace MrnWebApi.DataAccess.Services.Station
             return newStationId;
         }
 
+        public void DeleteStationById(int id)
+        {
+            Stations station = context.Stations.Find(id);
+            context.Stations.Remove(station);
+            context.SaveChanges();
+        }
+
         public ICollection<StationModel> GetBasicStations()
         {
             return context.Stations

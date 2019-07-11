@@ -67,6 +67,7 @@ namespace MrnWebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            stationLogicService.DeleteStationById(id);
         }
     }
 }

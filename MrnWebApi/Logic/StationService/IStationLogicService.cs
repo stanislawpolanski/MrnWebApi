@@ -8,5 +8,6 @@ namespace MrnWebApi.Logic.StationService
         IEnumerable<StationModel> GetBasicStations();
         StationModel GetDetailedStation(int id);
         void AddStation(StationModel inputStation);
+        void DeleteStationById(int id);
     }
 }
