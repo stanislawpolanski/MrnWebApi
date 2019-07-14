@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GeoAPI.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MrnWebApi.Common.Geometry;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using MrnWebApi.DataAccess.Services.Geometry;
@@ -15,6 +15,7 @@ using MrnWebApi.DataAccess.Services.Station;
 using MrnWebApi.DataAccess.Services.TypeOfAStation;
 using MrnWebApi.Logic.StationService;
 using MrnWebApi.Logic.TypeOfAStationService;
+using NetTopologySuite.IO;
 
 namespace MrnWebApi
 {
@@ -59,7 +60,7 @@ namespace MrnWebApi
         private void RegisterCommonServices(IServiceCollection services)
         {
             services.AddTransient<UriRoute, UriRoute>();
-            services.AddTransient<GeometryReader, GeometryReader>();
+            services.AddTransient<ITextGeometryReader, WKTReader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

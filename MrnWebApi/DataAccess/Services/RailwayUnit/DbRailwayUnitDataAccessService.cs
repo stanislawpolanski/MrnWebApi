@@ -1,4 +1,5 @@
 ﻿using GeoAPI.Geometries;
+using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Geometry;
 using MrnWebApi.Common.Models;
@@ -10,16 +11,16 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
     public class DbRailwayUnitDataAccessService : DbDataAccessAbstractService, IRailwayUnitDataAccessService
     {
-        private GeometryReader geometryReader;
+        private ITextGeometryReader geometryReader;
         public DbRailwayUnitDataAccessService(MRN_developContext injectedContext,
-            GeometryReader injectedGeometryReader) : base(injectedContext)
+            ITextGeometryReader injectedGeometryReader) : base(injectedContext)
         {
             geometryReader = injectedGeometryReader;
         }
 
         public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
         {
-            IGeometry point = geometryReader.GetGeometryFromText(station.SerialisedGeometry.SerialisedSpatialData);
+            IGeometry point = geometryReader.Read(station.SerialisedGeometry.SerialisedSpatialData);
 
             return context
                 .RailwayUnits
