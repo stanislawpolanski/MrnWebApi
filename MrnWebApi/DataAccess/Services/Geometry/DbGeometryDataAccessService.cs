@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 
 namespace MrnWebApi.DataAccess.Services.Geometry
@@ -14,13 +15,18 @@ namespace MrnWebApi.DataAccess.Services.Geometry
         {
         }
 
-        public IGeometry GetFirstGeometryByStationId(int id)
+        public GeometryModel GetFirstGeometryByStationId(int id)
         {
             return context
                 .StationsToGeometries
                 .Where(relation => relation.StationId.Equals(id))
                 .Include(relation => relation.Geometry)
-                .Select(entity => entity.Geometry.SpatialData)
+                .Select(entity =>
+                    new GeometryModel()
+                    {
+                        Id = entity.Geometry.Id,
+                        SerialisedSpatialData = entity.Geometry.SpatialData.ToString()
+                    })
                 .First();
         }
     }

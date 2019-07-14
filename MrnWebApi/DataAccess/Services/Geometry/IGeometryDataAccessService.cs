@@ -1,4 +1,5 @@
 ﻿using GeoAPI.Geometries;
+using MrnWebApi.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace MrnWebApi.DataAccess.Services.Geometry
 {
     public interface IGeometryDataAccessService
     {
-        IGeometry GetFirstGeometryByStationId(int id);
+        GeometryModel GetFirstGeometryByStationId(int id);
     }
 }

@@ -50,7 +50,7 @@ namespace MrnWebApi.Logic.StationService
             StationModel model = stationDataAccessService.GetDetailedStation(id);
             model.Railways = railwayDataAccessService.GetRailwaysByStationId(id);
             model.Photos = photoDataAccessService.GetPhotosByStationId(id);
-            model.LocationGeometry = geometryDataAccessService.GetFirstGeometryByStationId(id);
+            model.SerialisedGeometry = geometryDataAccessService.GetFirstGeometryByStationId(id);
             model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStation(model);
 
             return model;

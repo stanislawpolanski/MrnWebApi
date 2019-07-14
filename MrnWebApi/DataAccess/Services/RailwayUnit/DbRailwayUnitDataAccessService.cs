@@ -1,24 +1,31 @@
 ﻿using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Geometry;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
+using NetTopologySuite.IO;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
     public class DbRailwayUnitDataAccessService : DbDataAccessAbstractService, IRailwayUnitDataAccessService
     {
-        public DbRailwayUnitDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
+        private GeometryReader geometryReader;
+        public DbRailwayUnitDataAccessService(MRN_developContext injectedContext,
+            GeometryReader injectedGeometryReader) : base(injectedContext)
         {
+            geometryReader = injectedGeometryReader;
         }
 
         public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
         {
+            IGeometry point = geometryReader.GetGeometryFromText(station.SerialisedGeometry.SerialisedSpatialData);
+
             return context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
                 .Where(unit => unit.OwnerId.Equals(station.OwnerInfo.Id))
-                .Where(unit => unit.Geometries.SpatialData.Intersects(station.LocationGeometry))
+                .Where(unit => unit.Geometries.SpatialData.Intersects(point))
                 .Select(unit => new RailwayUnitModel()
                 {
                     Id = unit.Id,

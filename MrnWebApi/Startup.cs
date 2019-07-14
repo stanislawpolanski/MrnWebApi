@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MrnWebApi.Common.Geometry;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using MrnWebApi.DataAccess.Services.Geometry;
@@ -58,6 +59,7 @@ namespace MrnWebApi
         private void RegisterCommonServices(IServiceCollection services)
         {
             services.AddTransient<UriRoute, UriRoute>();
+            services.AddTransient<GeometryReader, GeometryReader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

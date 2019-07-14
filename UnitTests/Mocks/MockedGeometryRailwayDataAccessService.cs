@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using GeoAPI.Geometries;
+using MrnWebApi.Common.Models;
+using MrnWebApi.DataAccess.Services.Geometry;
 
 namespace UnitTests.Mocks
 {
-    class MockedGeometryRailwayDataAccessService : MrnWebApi.DataAccess.Services.Geometry.IGeometryDataAccessService
+    class MockedGeometryRailwayDataAccessService : IGeometryDataAccessService
     {
-        public IGeometry GetFirstGeometryByStationId(int id)
+        public GeometryModel GetFirstGeometryByStationId(int id)
         {
             return null;
         }
