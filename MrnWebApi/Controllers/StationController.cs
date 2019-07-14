@@ -25,9 +25,14 @@ namespace MrnWebApi.Controllers
         [HttpGet]
         public IEnumerable<StationModel> Get()
         {
-            return stationLogicService
-                .GetBasicStations()
-                .ToList()
+            IEnumerable<StationModel> stations = stationLogicService.GetBasicStations();
+            FillStationsWithUrls(stations);
+            return stations;
+        }
+
+        private static void FillStationsWithUrls(IEnumerable<StationModel> stations)
+        {
+            stations.ToList()
                 .Select(input =>
                 {
                     input.Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString();
@@ -39,20 +44,27 @@ namespace MrnWebApi.Controllers
         public StationModel Get(int id)
         {
             StationModel station = stationLogicService.GetDetailedStation(id);
+            FillRailwaysWithUrls(station);
+            FillRailwayUnitWithUrl(station);
+            return station;
+        }
 
+        private static void FillRailwayUnitWithUrl(StationModel station)
+        {
+            station.RailwayUnit.Url = UriRoute.BuildRoute(RailwayUnitController.RAILWAY_UNIT_PATH,
+                station.RailwayUnit.Id.ToString()).ToString();
+        }
+
+        private static void FillRailwaysWithUrls(StationModel station)
+        {
             station
                 .Railways
                 .ToList()
-                .ForEach(railway => 
-                    railway.Url = UriRoute.BuildRoute(RailwayController.RAILWAY_PATH, 
+                .ForEach(railway =>
+                    railway.Url = UriRoute.BuildRoute(RailwayController.RAILWAY_PATH,
                         railway.Id.ToString()).ToString());
-
-            station.RailwayUnit.Url = UriRoute.BuildRoute(RailwayUnitController.RAILWAY_UNIT_PATH, 
-                station.RailwayUnit.Id.ToString()).ToString();
-
-            return station;
         }
-        
+
         [HttpPost]
         public void PostStation(StationModel inputStation)
         {

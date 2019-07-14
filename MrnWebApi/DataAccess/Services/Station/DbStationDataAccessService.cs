@@ -14,16 +14,14 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public int AddStation(StationModel inputStation)
         {
-            ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
-            {
-                Name = inputStation.Name,
-                OwnerId = inputStation.OwnerInfo.Id
-            };
-            context.ObjectsOfInterest.Add(objectOfInterest);
-            context.SaveChanges();
-
+            ObjectsOfInterest objectOfInterest = SaveToObjectOfInterestTable(inputStation);
             int newStationId = objectOfInterest.Id;
+            SaveToStationTable(inputStation, newStationId);
+            return newStationId;
+        }
 
+        private Stations SaveToStationTable(StationModel inputStation, int newStationId)
+        {
             Stations station = new Stations()
             {
                 Id = newStationId,
@@ -31,8 +29,24 @@ namespace MrnWebApi.DataAccess.Services.Station
             };
             context.Stations.Add(station);
             context.SaveChanges();
+            return station;
+        }
 
-            return newStationId;
+        /// <summary>
+        /// Saves station into Object Of Interest table. Returns the saved entity.
+        /// </summary>
+        /// <param name="inputStation"></param>
+        /// <returns>Saved entity.</returns>
+        private ObjectsOfInterest SaveToObjectOfInterestTable(StationModel inputStation)
+        {
+            ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
+            {
+                Name = inputStation.Name,
+                OwnerId = inputStation.OwnerInfo.Id
+            };
+            context.ObjectsOfInterest.Add(objectOfInterest);
+            context.SaveChanges();
+            return objectOfInterest;
         }
 
         public void DeleteStationById(int id)
