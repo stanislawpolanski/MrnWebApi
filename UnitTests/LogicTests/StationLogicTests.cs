@@ -17,7 +17,8 @@ namespace UnitTests.LogicTests
             IStationLogicService service = new StationLogicService(new MockedStationDataAccessService(),
                 new MockedPhotoDataAccessService(),
                 new MockedRailwayDataAccessService(),
-                new MockedRailwayUnitDataAccessService());
+                new MockedRailwayUnitDataAccessService(),
+                new MockedGeometryRailwayDataAccessService());
 
             StationModel actual = service.GetDetailedStation(-1);
 

@@ -5,7 +5,7 @@ namespace UnitTests.Mocks
 {
     class MockedRailwayUnitDataAccessService : IRailwayUnitDataAccessService
     {
-        public RailwayUnitModel GetRailwayUnitByStationId(int stationId)
+        public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
         {
             return new RailwayUnitModel();
         }

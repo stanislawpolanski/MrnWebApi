@@ -12,29 +12,13 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
         {
         }
 
-        public RailwayUnitModel GetRailwayUnitByStationId(int stationId)
+        public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
         {
-
-            int stationOwnerId = context
-                .Stations
-                .Where(station => station.Id.Equals(stationId))
-                .Include(station => station.ParentObjectOfInterest)
-                .FirstOrDefault()
-                .ParentObjectOfInterest
-                .OwnerId;
-
-            IGeometry stationGeometry = context
-                .StationsToGeometries
-                .Where(relation => relation.StationId.Equals(stationId))
-                .Include(relation => relation.Geometry)
-                .Select(entity => entity.Geometry.SpatialData)
-                .First();
-
             return context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
-                .Where(unit => unit.OwnerId.Equals(stationOwnerId))
-                .Where(unit => unit.Geometries.SpatialData.Intersects(stationGeometry))
+                .Where(unit => unit.OwnerId.Equals(station.OwnerInfo.Id))
+                .Where(unit => unit.Geometries.SpatialData.Intersects(station.LocationGeometry))
                 .Select(unit => new RailwayUnitModel()
                 {
                     Id = unit.Id,

@@ -1,4 +1,5 @@
 ﻿using MrnWebApi.Common.Models;
+using MrnWebApi.DataAccess.Services.Geometry;
 using MrnWebApi.DataAccess.Services.Photo;
 using MrnWebApi.DataAccess.Services.Railway;
 using MrnWebApi.DataAccess.Services.RailwayUnit;
@@ -11,19 +12,22 @@ namespace MrnWebApi.Logic.StationService
     public class StationLogicService : IStationLogicService
     {
         private IStationDataAccessService stationDataAccessService;
-        private IPhotoDataAccessService photosDataAccessService;
-        private IRailwayDataAccessService railwaysDataAccessService;
+        private IPhotoDataAccessService photoDataAccessService;
+        private IRailwayDataAccessService railwayDataAccessService;
         private IRailwayUnitDataAccessService railwayUnitDataAccessService;
+        private IGeometryDataAccessService geometryDataAccessService;
 
         public StationLogicService(IStationDataAccessService injectedStationDataAccessService,
             IPhotoDataAccessService injectedPhotosDataAccessSercice,
             IRailwayDataAccessService injectedRailwaysDataAccessService,
-            IRailwayUnitDataAccessService injectedRailwayUnitDataAccessService)
+            IRailwayUnitDataAccessService injectedRailwayUnitDataAccessService,
+            IGeometryDataAccessService injectedGeometryDataAccessService)
         {
             stationDataAccessService = injectedStationDataAccessService;
-            photosDataAccessService = injectedPhotosDataAccessSercice;
-            railwaysDataAccessService = injectedRailwaysDataAccessService;
+            photoDataAccessService = injectedPhotosDataAccessSercice;
+            railwayDataAccessService = injectedRailwaysDataAccessService;
             railwayUnitDataAccessService = injectedRailwayUnitDataAccessService;
+            geometryDataAccessService = injectedGeometryDataAccessService;
         }
 
         public void AddStation(StationModel inputStation)
@@ -44,9 +48,10 @@ namespace MrnWebApi.Logic.StationService
         public StationModel GetDetailedStation(int id)
         {
             StationModel model = stationDataAccessService.GetDetailedStation(id);
-            model.Railways = railwaysDataAccessService.GetRailwaysByStationId(id);
-            model.Photos = photosDataAccessService.GetPhotosByStationId(id);
-            model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStationId(id);
+            model.Railways = railwayDataAccessService.GetRailwaysByStationId(id);
+            model.Photos = photoDataAccessService.GetPhotosByStationId(id);
+            model.LocationGeometry = geometryDataAccessService.GetFirstGeometryByStationId(id);
+            model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStation(model);
 
             return model;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GeoAPI.Geometries;
+using System.Collections.Generic;
 
 namespace MrnWebApi.Common.Models
 {
@@ -7,6 +8,7 @@ namespace MrnWebApi.Common.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+        public IGeometry LocationGeometry { get; set; }
         public OwnerModel OwnerInfo { get; set; }
         public TypeOfAStationModel TypeOfAStationInfo { get; set; }
         public RailwayUnitModel RailwayUnit { get; set; }

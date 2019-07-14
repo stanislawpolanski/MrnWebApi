@@ -1,8 +1,9 @@
-﻿using MrnWebApi.Common.Models;
+﻿using GeoAPI.Geometries;
+using MrnWebApi.Common.Models;
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
     public interface IRailwayUnitDataAccessService
     {
-        RailwayUnitModel GetRailwayUnitByStationId(int stationId);
+        RailwayUnitModel GetRailwayUnitByStation(StationModel station);
     }
 }
