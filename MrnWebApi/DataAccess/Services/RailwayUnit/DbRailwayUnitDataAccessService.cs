@@ -1,10 +1,8 @@
 ﻿using GeoAPI.Geometries;
 using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.Geometry;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
-using NetTopologySuite.IO;
 using System.Linq;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
