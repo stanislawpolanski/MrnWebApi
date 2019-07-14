@@ -32,12 +32,9 @@ namespace MrnWebApi.Controllers
 
         private static void FillStationsWithUrls(IEnumerable<StationModel> stations)
         {
-            stations.ToList()
-                .Select(input =>
-                {
-                    input.Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString();
-                    return input;
-                });
+            stations
+                .ToList()
+                .ForEach(input => input.Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString());
         }
 
         [HttpGet("{id}")]
