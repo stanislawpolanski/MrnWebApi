@@ -12,7 +12,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/simple/route";
             UriRoute route = new UriRoute();
-            route.AddPaths("/simple", "/route");
+            route.AddNodesToTheRoute("/simple", "/route");
 
             String actual = route.ToString();
 
@@ -24,7 +24,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/slash/no-slash";
             UriRoute route = new UriRoute();
-            route.AddPaths("/slash", "no-slash");
+            route.AddNodesToTheRoute("/slash", "no-slash");
 
             String actual = route.ToString();
 
@@ -36,7 +36,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/lower/characters";
             UriRoute route = new UriRoute();
-            route.AddPaths("/lowER", "/CHARacters");
+            route.AddNodesToTheRoute("/lowER", "/CHARacters");
 
             String actual = route.ToString();
 
@@ -49,7 +49,7 @@ namespace UnitTests.CommonTests
             UriRoute route = new UriRoute();
 
             Assert.Throws<ForbiddenUseOfCharacterInAStringException>(() =>
-                route.AddPaths("/simple/"));
+                route.AddNodesToTheRoute("/simple/"));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace UnitTests.CommonTests
         {
             String expected = "/some/route";
 
-            String actual = UriRoute.BuildRoute("/some", "/route").ToString();
+            String actual = UriRoute.GetRouteFromNodes("/some", "/route").ToString();
 
             Assert.Equal(actual, expected);
         }

@@ -9,26 +9,50 @@ namespace MrnWebApi.Common.Routing
     {
         private String uriRoute = String.Empty;
 
-        public void AddPaths(params string[] nodes)
+        public void AddNodesToTheRoute(params string[] nodes)
         {
-            StringBuilder finalRouteStringBuilder = new StringBuilder();
-
-            nodes.OfType<string>().ToList().ForEach(node =>
-                {
-                    if (node.EndsWith("/"))
-                        throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
-                    String finalNode =
-                        node.StartsWith("/") ? node : new StringBuilder().Append("/").Append(node).ToString();
-                    finalRouteStringBuilder.Append(finalNode.ToLower());
-                });
-
-            uriRoute = uriRoute += finalRouteStringBuilder.ToString();
+            uriRoute += BuildRouteFromNodes(nodes).ToString();
         }
 
-        public static UriRoute BuildRoute(params string[] nodes)
+        private static StringBuilder BuildRouteFromNodes(string[] nodes)
+        {
+            StringBuilder temporaryRouteBuilder = new StringBuilder();
+
+            nodes
+                .OfType<string>()
+                .ToList()
+                .ForEach(node =>
+                {
+                    ValidateNode(node);
+                    AddNodeToTheTemporaryRoute(node, temporaryRouteBuilder);
+                });
+
+            return temporaryRouteBuilder;
+        }
+
+        private static void AddNodeToTheTemporaryRoute(string node, StringBuilder finalRouteStringBuilder)
+        {
+            String finalNode = node.StartsWith("/") ? node : AddSlashToTheBeginningOfTheNode(node);
+            finalRouteStringBuilder.Append(finalNode.ToLower());
+        }
+
+        private static string AddSlashToTheBeginningOfTheNode(string node)
+        {
+            return new StringBuilder().Append("/").Append(node).ToString();
+        }
+
+        private static void ValidateNode(string node)
+        {
+            if (node.EndsWith("/"))
+            {
+                throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
+            }
+        }
+
+        public static UriRoute GetRouteFromNodes(params string[] nodes)
         {
             UriRoute route = new UriRoute();
-            route.AddPaths(nodes);
+            route.AddNodesToTheRoute(nodes);
             return route;
         }
 

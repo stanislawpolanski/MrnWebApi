@@ -34,7 +34,7 @@ namespace MrnWebApi.Controllers
         {
             stations
                 .ToList()
-                .ForEach(input => input.Url = UriRoute.BuildRoute(STATION_PATH, input.Id.ToString()).ToString());
+                .ForEach(input => input.Url = UriRoute.GetRouteFromNodes(STATION_PATH, input.Id.ToString()).ToString());
         }
 
         [HttpGet("{id}")]
@@ -48,7 +48,7 @@ namespace MrnWebApi.Controllers
 
         private static void FillRailwayUnitWithUrl(StationModel station)
         {
-            station.RailwayUnit.Url = UriRoute.BuildRoute(RailwayUnitController.RAILWAY_UNIT_PATH,
+            station.RailwayUnit.Url = UriRoute.GetRouteFromNodes(RailwayUnitController.RAILWAY_UNIT_PATH,
                 station.RailwayUnit.Id.ToString()).ToString();
         }
 
@@ -58,7 +58,7 @@ namespace MrnWebApi.Controllers
                 .Railways
                 .ToList()
                 .ForEach(railway =>
-                    railway.Url = UriRoute.BuildRoute(RailwayController.RAILWAY_PATH,
+                    railway.Url = UriRoute.GetRouteFromNodes(RailwayController.RAILWAY_PATH,
                         railway.Id.ToString()).ToString());
         }
 
