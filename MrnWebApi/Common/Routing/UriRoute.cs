@@ -21,22 +21,19 @@ namespace MrnWebApi.Common.Routing
             nodes
                 .OfType<string>()
                 .ToList()
-                .ForEach(node =>
-                {
-                    ValidateNode(node);
-                    AddNodeToTheTemporaryRoute(node, temporaryRouteBuilder);
-                });
+                .ForEach(node => AddNodeToTheTemporaryRoute(node, temporaryRouteBuilder));
 
             return temporaryRouteBuilder;
         }
 
         private static void AddNodeToTheTemporaryRoute(string node, StringBuilder finalRouteStringBuilder)
         {
-            String finalNode = node.StartsWith("/") ? node : AddSlashToTheBeginningOfTheNode(node);
+            ValidateNode(node);
+            String finalNode = node.StartsWith("/") ? node : GetNodeWithSlashInTheBeginning(node);
             finalRouteStringBuilder.Append(finalNode.ToLower());
         }
 
-        private static string AddSlashToTheBeginningOfTheNode(string node)
+        private static string GetNodeWithSlashInTheBeginning(string node)
         {
             return new StringBuilder().Append("/").Append(node).ToString();
         }
@@ -45,7 +42,7 @@ namespace MrnWebApi.Common.Routing
         {
             if (node.EndsWith("/"))
             {
-                throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path");
+                throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path.");
             }
         }
 
