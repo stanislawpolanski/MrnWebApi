@@ -17,7 +17,7 @@ namespace UnitTests.ControllersTests
             IStationLogicService mockedLogicService = new MockedStationLogicService();
             StationController controller = new StationController(mockedLogicService);
 
-            IEnumerable<StationModel> actualList = controller.Get();
+            IEnumerable<StationModel> actualList = controller.GetAllStations();
 
             actualList.ToList().ForEach(actual =>
                 {

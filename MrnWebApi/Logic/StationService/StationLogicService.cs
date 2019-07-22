@@ -6,28 +6,38 @@ using MrnWebApi.DataAccess.Services.RailwayUnit;
 using MrnWebApi.DataAccess.Services.Station;
 using System.Collections.Generic;
 using System.Linq;
+using MrnWebApi.DataAccess.ServicesFactory;
 
 namespace MrnWebApi.Logic.StationService
 {
     public class StationLogicService : IStationLogicService
     {
-        private IStationDataAccessService stationDataAccessService;
-        private IPhotoDataAccessService photoDataAccessService;
-        private IRailwayDataAccessService railwayDataAccessService;
-        private IRailwayUnitDataAccessService railwayUnitDataAccessService;
-        private IGeometryDataAccessService geometryDataAccessService;
+        private DataAccessServicesFactory dataAccessServicesFactory;
 
-        public StationLogicService(IStationDataAccessService injectedStationDataAccessService,
-            IPhotoDataAccessService injectedPhotosDataAccessSercice,
-            IRailwayDataAccessService injectedRailwaysDataAccessService,
-            IRailwayUnitDataAccessService injectedRailwayUnitDataAccessService,
-            IGeometryDataAccessService injectedGeometryDataAccessService)
+        private IStationDataAccessService stationDataAccessService
         {
-            stationDataAccessService = injectedStationDataAccessService;
-            photoDataAccessService = injectedPhotosDataAccessSercice;
-            railwayDataAccessService = injectedRailwaysDataAccessService;
-            railwayUnitDataAccessService = injectedRailwayUnitDataAccessService;
-            geometryDataAccessService = injectedGeometryDataAccessService;
+            get => dataAccessServicesFactory.StationDataAccessService;
+        }
+        private IPhotoDataAccessService photoDataAccessService
+        {
+            get => dataAccessServicesFactory.PhotoDataAccessService;
+        }
+        private IRailwayDataAccessService railwayDataAccessService
+        {
+            get => dataAccessServicesFactory.RailwayDataAccessService;
+        }
+        private IRailwayUnitDataAccessService railwayUnitDataAccessService
+        {
+            get => dataAccessServicesFactory.RailwayUnitDataAccessService;
+        }
+        private IGeometryDataAccessService geometryDataAccessService
+        {
+            get => dataAccessServicesFactory.GeometryDataAccessService;
+        }
+
+        public StationLogicService(DataAccessServicesFactory injectedDataAccessServicesFactory)
+        {
+            dataAccessServicesFactory = injectedDataAccessServicesFactory;
         }
 
         public void AddStation(StationModel inputStation)
@@ -40,12 +50,12 @@ namespace MrnWebApi.Logic.StationService
             stationDataAccessService.DeleteStationById(id);
         }
 
-        public IEnumerable<StationModel> GetBasicStations()
+        public IEnumerable<StationModel> GetAllBasicStations()
         {
             return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);
         }
 
-        public StationModel GetDetailedStation(int id)
+        public StationModel GetDetailedStationById(int id)
         {
             StationModel model = stationDataAccessService.GetDetailedStation(id);
             model.Railways = railwayDataAccessService.GetRailwaysByStationId(id);
@@ -54,6 +64,11 @@ namespace MrnWebApi.Logic.StationService
             model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStation(model);
 
             return model;
+        }
+
+        public void UpdateStation(StationModel inputStation)
+        {
+            stationDataAccessService.UpdateStation(inputStation);
         }
     }
 }

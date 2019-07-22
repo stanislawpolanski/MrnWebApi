@@ -9,5 +9,6 @@ namespace MrnWebApi.DataAccess.Services.Station
         StationModel GetDetailedStation(int id);
         int AddStation(StationModel inputStation);
         void DeleteStationById(int id);
+        void UpdateStation(StationModel station);
     }
 }

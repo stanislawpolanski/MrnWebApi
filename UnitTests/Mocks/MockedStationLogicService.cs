@@ -20,7 +20,7 @@ namespace UnitTests.Mocks
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<StationModel> GetBasicStations()
+        public IEnumerable<StationModel> GetAllBasicStations()
         {
             return new List<StationModel>()
             {
@@ -29,7 +29,12 @@ namespace UnitTests.Mocks
             };
         }
 
-        public StationModel GetDetailedStation(int id)
+        public StationModel GetDetailedStationById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateStation(StationModel inputStation)
         {
             throw new System.NotImplementedException();
         }

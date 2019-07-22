@@ -93,5 +93,26 @@ namespace MrnWebApi.DataAccess.Services.Station
                 )
                 .First();
         }
+
+        public void UpdateStation(StationModel inputStation)
+        {
+            UpdateObjectOfInterestEntity(inputStation);
+            UpdateStationEntity(inputStation);
+            context.SaveChanges();
+        }
+
+        private void UpdateStationEntity(StationModel inputStation)
+        {
+            Stations queriedStation = context.Stations.First(station => station.Id.Equals(inputStation.Id));
+            queriedStation.TypeOfAstationId = inputStation.TypeOfAStationInfo.Id;
+        }
+
+        private void UpdateObjectOfInterestEntity(StationModel inputStation)
+        {
+            ObjectsOfInterest queriedObjectOfInterest = context.ObjectsOfInterest
+                .First(entity => entity.Id.Equals(inputStation.Id));
+            queriedObjectOfInterest.Name = inputStation.Name;
+            queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using MrnWebApi.Logic.StationService;
 using System.Collections.Generic;
 using System.Linq;
+using MrnWebApi.DataAccess.ServicesFactory;
 using UnitTests.Mocks;
 using Xunit;
 
@@ -14,13 +15,16 @@ namespace UnitTests.LogicTests
         public void CombinesDataAccessProductsIntoDetailedStation()
         {
             StationModel expected = GetExpectedStation();
-            IStationLogicService service = new StationLogicService(new MockedStationDataAccessService(),
+            IStationLogicService service = new StationLogicService(new DataAccessServicesFactory(
+                new MockedStationDataAccessService(),
                 new MockedPhotoDataAccessService(),
                 new MockedRailwayDataAccessService(),
                 new MockedRailwayUnitDataAccessService(),
-                new MockedGeometryRailwayDataAccessService());
+                new MockedGeometryRailwayDataAccessService(),
+                null,
+                null));
 
-            StationModel actual = service.GetDetailedStation(-1);
+            StationModel actual = service.GetDetailedStationById(-1);
 
             Assert.NotNull(actual.RailwayUnit);
             Assert.Equal(expected.Photos.Count(), actual.Photos.Count());

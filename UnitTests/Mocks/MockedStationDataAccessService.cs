@@ -32,5 +32,10 @@ namespace UnitTests.Mocks
                 OwnerInfo = new OwnerModel()
             };
         }
+
+        public void UpdateStation(StationModel station)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

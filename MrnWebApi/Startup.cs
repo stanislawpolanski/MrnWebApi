@@ -10,9 +10,12 @@ using MrnWebApi.DataAccess.Inner.Scaffold;
 using MrnWebApi.DataAccess.Services.Geometry;
 using MrnWebApi.DataAccess.Services.Photo;
 using MrnWebApi.DataAccess.Services.Railway;
+using MrnWebApi.DataAccess.Services.StationToRailway;
 using MrnWebApi.DataAccess.Services.RailwayUnit;
 using MrnWebApi.DataAccess.Services.Station;
+using MrnWebApi.DataAccess.Services.StationToPhoto;
 using MrnWebApi.DataAccess.Services.TypeOfAStation;
+using MrnWebApi.DataAccess.ServicesFactory;
 using MrnWebApi.Logic.StationService;
 using MrnWebApi.Logic.TypeOfAStationService;
 using NetTopologySuite.IO;
@@ -49,6 +52,10 @@ namespace MrnWebApi
             services.AddTransient<IPhotoDataAccessService, DbPhotoDataAccessService>();
             services.AddTransient<IRailwayUnitDataAccessService, DbRailwayUnitDataAccessService>();
             services.AddTransient<IGeometryDataAccessService, DbGeometryDataAccessService>();
+            services.AddTransient<
+                IStationToPhotoRelationshipDataAccessService, DbStationToPhotoRelationshipDataAccessService>();
+            services.AddTransient<
+                IStationToRailwayRelationshipDataAccessService, DbStationToRailwayRelationshipDataAccessService>();
         }
 
         private void RegisterLogicServices(IServiceCollection services)
@@ -61,6 +68,7 @@ namespace MrnWebApi
         {
             services.AddTransient<UriRoute, UriRoute>();
             services.AddTransient<ITextGeometryReader, WKTReader>();
+            services.AddTransient<DataAccessServicesFactory, DataAccessServicesFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,9 +23,9 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<StationModel> Get()
+        public IEnumerable<StationModel> GetAllStations()
         {
-            IEnumerable<StationModel> stations = stationLogicService.GetBasicStations();
+            IEnumerable<StationModel> stations = stationLogicService.GetAllBasicStations();
             FillStationsWithUrls(stations);
             return stations;
         }
@@ -38,9 +38,9 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public StationModel Get(int id)
+        public StationModel GetStationById(int id)
         {
-            StationModel station = stationLogicService.GetDetailedStation(id);
+            StationModel station = stationLogicService.GetDetailedStationById(id);
             FillRailwaysWithUrls(station);
             FillRailwayUnitWithUrl(station);
             return station;
@@ -48,8 +48,9 @@ namespace MrnWebApi.Controllers
 
         private static void FillRailwayUnitWithUrl(StationModel station)
         {
-            station.RailwayUnit.Url = UriRoute.GetRouteFromNodes(RailwayUnitController.RAILWAY_UNIT_PATH,
-                station.RailwayUnit.Id.ToString()).ToString();
+            station.RailwayUnit.Url = UriRoute
+                .GetRouteFromNodes(RailwayUnitController.RAILWAY_UNIT_PATH, station.RailwayUnit.Id .ToString())
+                .ToString();
         }
 
         private static void FillRailwaysWithUrls(StationModel station)
@@ -69,8 +70,9 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void PutStation(int id, [FromBody] StationModel inputStation)
         {
+            stationLogicService.UpdateStation(inputStation);
         }
 
         [HttpDelete("{id}")]
