@@ -13,15 +13,15 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
         }
 
-        public int AddStation(StationModel inputStation)
+        public async Task<int> AddStationAsync(StationModel inputStation)
         {
-            ObjectsOfInterest objectOfInterest = SaveToObjectOfInterestTable(inputStation);
+            ObjectsOfInterest objectOfInterest = await SaveToObjectOfInterestTableAsync(inputStation);
             int newStationId = objectOfInterest.Id;
-            SaveToStationTable(inputStation, newStationId);
+            await SaveToStationTableAsync(inputStation, newStationId);
             return newStationId;
         }
 
-        private Stations SaveToStationTable(StationModel inputStation, int newStationId)
+        private async Task<Stations> SaveToStationTableAsync(StationModel inputStation, int newStationId)
         {
             Stations station = new Stations()
             {
@@ -29,7 +29,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 TypeOfAstationId = inputStation.TypeOfAStationInfo.Id
             };
             context.Stations.Add(station);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return station;
         }
 
@@ -38,7 +38,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         /// </summary>
         /// <param name="inputStation"></param>
         /// <returns>Saved entity.</returns>
-        private ObjectsOfInterest SaveToObjectOfInterestTable(StationModel inputStation)
+        private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationModel inputStation)
         {
             ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
             {
@@ -46,7 +46,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 OwnerId = inputStation.OwnerInfo.Id
             };
             context.ObjectsOfInterest.Add(objectOfInterest);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return objectOfInterest;
         }
 

@@ -8,7 +8,7 @@ namespace MrnWebApi.DataAccess.Services.Station
     {
         ICollection<StationModel> GetBasicStations();
         Task<StationModel> GetDetailedStationAsync(int id);
-        int AddStation(StationModel inputStation);
+        Task<int> AddStationAsync(StationModel inputStation);
         void DeleteStationById(int id);
         Task UpdateStationAsync(StationModel station);
     }
