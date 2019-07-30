@@ -39,7 +39,7 @@ namespace UnitTests.Mocks
                 });
         }
 
-        public void UpdateStation(StationModel inputStation)
+        public async Task UpdateStationAsync(StationModel inputStation)
         {
             throw new System.NotImplementedException();
         }

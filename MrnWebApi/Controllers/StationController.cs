@@ -77,9 +77,15 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public void PutStation(int id, [FromBody] StationModel inputStation)
+        public async Task<ActionResult> PutStation(int id, [FromBody] StationModel inputStation)
         {
-            stationLogicService.UpdateStation(inputStation);
+            if(id != inputStation.Id)
+            {
+                return BadRequest();
+            }
+            await stationLogicService.UpdateStationAsync(inputStation);
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

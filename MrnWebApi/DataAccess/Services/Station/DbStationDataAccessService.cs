@@ -95,23 +95,23 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .FirstOrDefaultAsync();
         }
 
-        public void UpdateStation(StationModel inputStation)
+        public async Task UpdateStationAsync(StationModel inputStation)
         {
-            UpdateObjectOfInterestEntity(inputStation);
-            UpdateStationEntity(inputStation);
-            context.SaveChanges();
+            await UpdateObjectOfInterestEntityAsync(inputStation);
+            await UpdateStationEntityAsync(inputStation);
+            await context.SaveChangesAsync();
         }
 
-        private void UpdateStationEntity(StationModel inputStation)
+        private async Task UpdateStationEntityAsync(StationModel inputStation)
         {
-            Stations queriedStation = context.Stations.First(station => station.Id.Equals(inputStation.Id));
+            Stations queriedStation = await context.Stations.FirstAsync(station => station.Id.Equals(inputStation.Id));
             queriedStation.TypeOfAstationId = inputStation.TypeOfAStationInfo.Id;
         }
 
-        private void UpdateObjectOfInterestEntity(StationModel inputStation)
+        private async Task UpdateObjectOfInterestEntityAsync(StationModel inputStation)
         {
-            ObjectsOfInterest queriedObjectOfInterest = context.ObjectsOfInterest
-                .First(entity => entity.Id.Equals(inputStation.Id));
+            ObjectsOfInterest queriedObjectOfInterest = await context.ObjectsOfInterest
+                .FirstAsync(entity => entity.Id.Equals(inputStation.Id));
             queriedObjectOfInterest.Name = inputStation.Name;
             queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
         }

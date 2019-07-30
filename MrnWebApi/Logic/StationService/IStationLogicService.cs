@@ -10,6 +10,6 @@ namespace MrnWebApi.Logic.StationService
         Task<StationModel> GetDetailedStationByIdAsync(int id);
         void AddStation(StationModel inputStation);
         void DeleteStationById(int id);
-        void UpdateStation(StationModel inputStation);
+        Task UpdateStationAsync(StationModel inputStation);
     }
 }

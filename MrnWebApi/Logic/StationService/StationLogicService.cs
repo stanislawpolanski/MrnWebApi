@@ -71,9 +71,9 @@ namespace MrnWebApi.Logic.StationService
             return model;
         }
 
-        public void UpdateStation(StationModel inputStation)
+        public async Task UpdateStationAsync(StationModel inputStation)
         {
-            stationDataAccessService.UpdateStation(inputStation);
+            await stationDataAccessService.UpdateStationAsync(inputStation);
         }
     }
 }
