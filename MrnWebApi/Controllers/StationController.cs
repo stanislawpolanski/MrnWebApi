@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MrnWebApi.Common.Models;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.Logic.StationService;
@@ -38,12 +39,18 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public StationModel GetStationById(int id)
+        [ProducesResponseType(typeof(StationModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetStationById(int id)
         {
             StationModel station = stationLogicService.GetDetailedStationById(id);
+            if(station == null)
+            {
+                return NotFound();
+            }
             FillRailwaysWithUrls(station);
             FillRailwayUnitWithUrl(station);
-            return station;
+            return Ok(station);
         }
 
         private static void FillRailwayUnitWithUrl(StationModel station)

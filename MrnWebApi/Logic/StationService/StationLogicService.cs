@@ -58,6 +58,10 @@ namespace MrnWebApi.Logic.StationService
         public StationModel GetDetailedStationById(int id)
         {
             StationModel model = stationDataAccessService.GetDetailedStation(id);
+            if(model == null)
+            {
+                return null;
+            }
             model.Railways = railwayDataAccessService.GetRailwaysByStationId(id);
             model.Photos = photoDataAccessService.GetPhotosByStationId(id);
             model.SerialisedGeometry = geometryDataAccessService.GetFirstGeometryByStationId(id);

@@ -91,7 +91,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                     }
                 }
                 )
-                .First();
+                .FirstOrDefault();
         }
 
         public void UpdateStation(StationModel inputStation)
