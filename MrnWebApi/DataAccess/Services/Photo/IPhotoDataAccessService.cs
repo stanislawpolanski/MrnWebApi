@@ -1,10 +1,11 @@
 ﻿using MrnWebApi.Common.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Photo
 {
     public interface IPhotoDataAccessService
     {
-        IEnumerable<PhotoModel> GetPhotosByStationId(int stationId);
+        Task<IEnumerable<PhotoModel>> GetPhotosByStationIdAsync(int stationId);
     }
 }

@@ -3,6 +3,7 @@ using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Station
 {
@@ -67,7 +68,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .ToList();
         }
 
-        public StationModel GetDetailedStation(int id)
+        public Task<StationModel> GetDetailedStationAsync(int id)
         {
             return context
                 .Stations
@@ -91,7 +92,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                     }
                 }
                 )
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
         public void UpdateStation(StationModel inputStation)

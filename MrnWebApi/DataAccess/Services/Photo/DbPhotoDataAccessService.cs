@@ -1,7 +1,9 @@
-﻿using MrnWebApi.Common.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Photo
 {
@@ -11,9 +13,9 @@ namespace MrnWebApi.DataAccess.Services.Photo
         {
         }
 
-        public IEnumerable<PhotoModel> GetPhotosByStationId(int stationId)
+        public async Task<IEnumerable<PhotoModel>> GetPhotosByStationIdAsync(int stationId)
         {
-            return context
+            IEnumerable<PhotoModel> result = await context
                 .Photos
                 .Where(photo => photo
                     .PhotosToObjectsOfInterest
@@ -25,7 +27,8 @@ namespace MrnWebApi.DataAccess.Services.Photo
                         FilePath = photoEntity.FilePath
                     }
                 )
-                .ToList();
+                .ToListAsync();
+            return result;
         }
     }
 }

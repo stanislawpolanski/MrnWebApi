@@ -7,6 +7,7 @@ using MrnWebApi.DataAccess.Services.Station;
 using System.Collections.Generic;
 using System.Linq;
 using MrnWebApi.DataAccess.ServicesFactory;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.Logic.StationService
 {
@@ -55,17 +56,17 @@ namespace MrnWebApi.Logic.StationService
             return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);
         }
 
-        public StationModel GetDetailedStationById(int id)
+        public async Task<StationModel> GetDetailedStationByIdAsync(int id)
         {
-            StationModel model = stationDataAccessService.GetDetailedStation(id);
+            StationModel model = await stationDataAccessService.GetDetailedStationAsync(id);
             if(model == null)
             {
                 return null;
             }
-            model.Railways = railwayDataAccessService.GetRailwaysByStationId(id);
-            model.Photos = photoDataAccessService.GetPhotosByStationId(id);
-            model.SerialisedGeometry = geometryDataAccessService.GetFirstGeometryByStationId(id);
-            model.RailwayUnit = railwayUnitDataAccessService.GetRailwayUnitByStation(model);
+            model.Railways = await railwayDataAccessService.GetRailwaysByStationIdAsync(id);
+            model.Photos = await photoDataAccessService.GetPhotosByStationIdAsync(id);
+            model.SerialisedGeometry = await geometryDataAccessService.GetFirstGeometryByStationIdAsync(id);
+            model.RailwayUnit = await railwayUnitDataAccessService.GetRailwayUnitByStationAsync(model);
 
             return model;
         }

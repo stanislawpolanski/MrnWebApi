@@ -3,6 +3,7 @@ using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Railway
 {
@@ -12,9 +13,9 @@ namespace MrnWebApi.DataAccess.Services.Railway
         {
         }
 
-        public IEnumerable<RailwayModel> GetRailwaysByStationId(int stationId)
+        public async Task<IEnumerable<RailwayModel>> GetRailwaysByStationIdAsync(int stationId)
         {
-            return context
+            IEnumerable<RailwayModel> result = await context
                 .Railways
                 .Include(railway => railway.StationsToGeometries)
                 .Where(railway => railway.StationsToGeometries
@@ -32,7 +33,8 @@ namespace MrnWebApi.DataAccess.Services.Railway
                         }
                     }
                 )
-                .ToList();
+                .ToListAsync();
+            return result;
         }
     }
 }

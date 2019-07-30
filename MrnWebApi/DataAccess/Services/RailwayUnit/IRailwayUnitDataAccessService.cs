@@ -1,9 +1,10 @@
-﻿using GeoAPI.Geometries;
-using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.Models;
+using System.Threading.Tasks;
+
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
     public interface IRailwayUnitDataAccessService
     {
-        RailwayUnitModel GetRailwayUnitByStation(StationModel station);
+        Task<RailwayUnitModel> GetRailwayUnitByStationAsync(StationModel station);
     }
 }

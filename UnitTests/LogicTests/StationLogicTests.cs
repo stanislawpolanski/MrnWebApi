@@ -24,7 +24,7 @@ namespace UnitTests.LogicTests
                 null,
                 null));
 
-            StationModel actual = service.GetDetailedStationById(-1);
+            StationModel actual = service.GetDetailedStationByIdAsync(-1);
 
             Assert.NotNull(actual.RailwayUnit);
             Assert.Equal(expected.Photos.Count(), actual.Photos.Count());

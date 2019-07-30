@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GeoAPI.Geometries;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Geometry
 {
@@ -15,9 +12,9 @@ namespace MrnWebApi.DataAccess.Services.Geometry
         {
         }
 
-        public GeometryModel GetFirstGeometryByStationId(int id)
+        public async Task<GeometryModel> GetFirstGeometryByStationIdAsync(int id)
         {
-            return context
+            return await context
                 .StationsToGeometries
                 .Where(relation => relation.StationId.Equals(id))
                 .Include(relation => relation.Geometry)
@@ -27,7 +24,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
                         Id = entity.Geometry.Id,
                         SerialisedSpatialData = entity.Geometry.SpatialData.ToString()
                     })
-                .First();
+                .FirstOrDefaultAsync();
         }
     }
 }

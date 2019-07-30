@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
@@ -16,11 +17,11 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             geometryReader = injectedGeometryReader;
         }
 
-        public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
+        public async Task<RailwayUnitModel> GetRailwayUnitByStationAsync(StationModel station)
         {
             IGeometry point = geometryReader.Read(station.SerialisedGeometry.SerialisedSpatialData);
 
-            return context
+            return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
                 .Where(unit => unit.OwnerId.Equals(station.OwnerInfo.Id))
@@ -30,7 +31,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
                     Id = unit.Id,
                     Name = unit.Name
                 })
-                .First();
+                .FirstOrDefaultAsync();
         }
     }
 }
