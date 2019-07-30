@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using GeoAPI.Geometries;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Services.Geometry;
@@ -9,7 +10,7 @@ namespace UnitTests.Mocks
 {
     class MockedGeometryRailwayDataAccessService : IGeometryDataAccessService
     {
-        public GeometryModel GetFirstGeometryByStationId(int id)
+        public Task<GeometryModel> GetFirstGeometryByStationIdAsync(int id)
         {
             return null;
         }

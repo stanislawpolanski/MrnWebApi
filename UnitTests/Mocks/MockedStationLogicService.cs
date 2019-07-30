@@ -1,6 +1,7 @@
 ﻿using MrnWebApi.Common.Models;
 using MrnWebApi.Logic.StationService;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UnitTests.Mocks
 {
@@ -29,9 +30,13 @@ namespace UnitTests.Mocks
             };
         }
 
-        public StationModel GetDetailedStationById(int id)
+        public Task<StationModel> GetDetailedStationByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(
+                new StationModel()
+                {
+                    RailwayUnit = new RailwayUnitModel()
+                });
         }
 
         public void UpdateStation(StationModel inputStation)

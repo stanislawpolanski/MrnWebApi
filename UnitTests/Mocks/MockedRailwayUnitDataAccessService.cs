@@ -1,13 +1,14 @@
-﻿using MrnWebApi.Common.Models;
+﻿using System.Threading.Tasks;
+using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Services.RailwayUnit;
 
 namespace UnitTests.Mocks
 {
     class MockedRailwayUnitDataAccessService : IRailwayUnitDataAccessService
     {
-        public RailwayUnitModel GetRailwayUnitByStation(StationModel station)
+        public async Task<RailwayUnitModel> GetRailwayUnitByStationAsync(StationModel station)
         {
-            return new RailwayUnitModel();
+            return await Task.FromResult(new RailwayUnitModel());
         }
     }
 }

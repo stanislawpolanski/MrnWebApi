@@ -2,6 +2,7 @@
 using MrnWebApi.DataAccess.Services.Station;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UnitTests.Mocks
 {
@@ -22,15 +23,15 @@ namespace UnitTests.Mocks
             throw new NotImplementedException();
         }
 
-        public StationModel GetDetailedStation(int id)
+        public Task<StationModel> GetDetailedStationAsync(int id)
         {
-            return new StationModel()
-            {
-                Id = -1,
-                Name = "Test station",
-                TypeOfAStationInfo = new TypeOfAStationModel(),
-                OwnerInfo = new OwnerModel()
-            };
+            return Task.FromResult(new StationModel()
+                {
+                    Id = -1,
+                    Name = "Test station",
+                    TypeOfAStationInfo = new TypeOfAStationModel(),
+                    OwnerInfo = new OwnerModel()
+                });
         }
 
         public void UpdateStation(StationModel station)
