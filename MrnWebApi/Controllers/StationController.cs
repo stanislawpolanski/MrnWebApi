@@ -89,9 +89,9 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            stationLogicService.DeleteStationById(id);
+            await stationLogicService.DeleteStationByIdAsync(id);
         }
     }
 }

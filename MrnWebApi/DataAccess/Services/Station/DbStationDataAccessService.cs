@@ -50,11 +50,11 @@ namespace MrnWebApi.DataAccess.Services.Station
             return objectOfInterest;
         }
 
-        public void DeleteStationById(int id)
+        public async Task DeleteStationByIdAsync(int id)
         {
             Stations station = context.Stations.Find(id);
             context.Stations.Remove(station);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         public ICollection<StationModel> GetBasicStations()

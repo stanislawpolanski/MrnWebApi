@@ -46,9 +46,9 @@ namespace MrnWebApi.Logic.StationService
             int newStationId = await stationDataAccessService.AddStationAsync(inputStation);
         }
 
-        public void DeleteStationById(int id)
+        public async Task DeleteStationByIdAsync(int id)
         {
-            stationDataAccessService.DeleteStationById(id);
+            await stationDataAccessService.DeleteStationByIdAsync(id);
         }
 
         public IEnumerable<StationModel> GetAllBasicStations()

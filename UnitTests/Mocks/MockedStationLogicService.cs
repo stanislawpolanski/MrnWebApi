@@ -11,16 +11,6 @@ namespace UnitTests.Mocks
         {
         }
 
-        public void AddStationAsync(StationModel inputStation)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteStationById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<StationModel> GetAllBasicStations()
         {
             return new List<StationModel>()
@@ -45,6 +35,11 @@ namespace UnitTests.Mocks
         }
 
         Task IStationLogicService.AddStationAsync(StationModel inputStation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task IStationLogicService.DeleteStationByIdAsync(int id)
         {
             throw new System.NotImplementedException();
         }

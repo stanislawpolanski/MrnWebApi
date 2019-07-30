@@ -9,7 +9,7 @@ namespace MrnWebApi.Logic.StationService
         IEnumerable<StationModel> GetAllBasicStations();
         Task<StationModel> GetDetailedStationByIdAsync(int id);
         Task AddStationAsync(StationModel inputStation);
-        void DeleteStationById(int id);
+        Task DeleteStationByIdAsync(int id);
         Task UpdateStationAsync(StationModel inputStation);
     }
 }
