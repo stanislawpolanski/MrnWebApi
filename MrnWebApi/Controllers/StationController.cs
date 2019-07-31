@@ -71,9 +71,10 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task PostStationAsync(StationModel inputStation)
+        public async Task<ActionResult<StationModel>> PostStationAsync(StationModel inputStation)
         {
             await stationLogicService.AddStationAsync(inputStation);
+            return inputStation;
         }
 
         [HttpPut("{id}")]
