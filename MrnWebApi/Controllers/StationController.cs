@@ -24,9 +24,9 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<StationModel> GetAllStations()
+        public async Task<IEnumerable<StationModel>> GetAllStations()
         {
-            IEnumerable<StationModel> stations = stationLogicService.GetAllBasicStations();
+            IEnumerable<StationModel> stations = await stationLogicService.GetAllBasicStationsAsync();
             FillStationsWithUrls(stations);
             return stations;
         }

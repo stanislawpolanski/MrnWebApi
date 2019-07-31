@@ -11,13 +11,14 @@ namespace UnitTests.Mocks
         {
         }
 
-        public IEnumerable<StationModel> GetAllBasicStations()
+        public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
         {
-            return new List<StationModel>()
+            List<StationModel> result = new List<StationModel>()
             {
                 new StationModel() { Id = 15, Name = "Testowa stacja"},
                 new StationModel() { Id = 789, Name = "Druga stacja"}
             };
+            return await Task.FromResult(result);
         }
 
         public Task<StationModel> GetDetailedStationByIdAsync(int id)

@@ -6,7 +6,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 {
     public interface IStationDataAccessService
     {
-        ICollection<StationModel> GetBasicStations();
+        Task<IEnumerable<StationModel>> GetBasicStationsAsync();
         Task<StationModel> GetDetailedStationAsync(int id);
         Task AddStationAsync(StationModel inputStation);
         Task DeleteStationByIdAsync(int id);

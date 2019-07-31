@@ -57,15 +57,15 @@ namespace MrnWebApi.DataAccess.Services.Station
             await context.SaveChangesAsync();
         }
 
-        public ICollection<StationModel> GetBasicStations()
+        public async Task<IEnumerable<StationModel>> GetBasicStationsAsync()
         {
-            return context.Stations
+            return await context.Stations
                 .Join(context.ObjectsOfInterest,
                     stationEntity => stationEntity.Id,
                     objectOfInterestEntity => objectOfInterestEntity.Id,
                     (stationEntity, objectOfInterestEntity)
                         => new StationModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
-                .ToList();
+                .ToListAsync();
         }
 
         public Task<StationModel> GetDetailedStationAsync(int id)

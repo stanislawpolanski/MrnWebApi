@@ -51,9 +51,10 @@ namespace MrnWebApi.Logic.StationService
             await stationDataAccessService.DeleteStationByIdAsync(id);
         }
 
-        public IEnumerable<StationModel> GetAllBasicStations()
+        public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
         {
-            return stationDataAccessService.GetBasicStations().OrderBy(station => station.Name);
+            IEnumerable<StationModel> stations = await stationDataAccessService.GetBasicStationsAsync();
+            return stations.OrderBy(station => station.Name);
         }
 
         public async Task<StationModel> GetDetailedStationByIdAsync(int id)

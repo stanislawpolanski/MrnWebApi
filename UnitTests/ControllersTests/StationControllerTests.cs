@@ -11,13 +11,13 @@ namespace UnitTests.ControllersTests
     public class StationControllerTests
     {
         [Fact]
-        public void EnrichesStationsWithUrls()
+        public async void EnrichesStationsWithUrls()
         {
             IEnumerable<StationModel> expectedList = GetExpectedStationModels();
             IStationLogicService mockedLogicService = new MockedStationLogicService();
             StationController controller = new StationController(mockedLogicService);
 
-            IEnumerable<StationModel> actualList = controller.GetAllStations();
+            IEnumerable<StationModel> actualList = await controller.GetAllStations();
 
             actualList.ToList().ForEach(actual =>
                 {
