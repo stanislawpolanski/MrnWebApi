@@ -10,6 +10,6 @@ namespace MrnWebApi.DataAccess.Services.Station
         Task<StationModel> GetDetailedStationAsync(int id);
         Task PostStationAsync(StationModel inputStation);
         Task DeleteStationByIdAsync(int id);
-        Task UpdateStationAsync(StationModel station);
+        Task PutStationAsync(StationModel station);
     }
 }

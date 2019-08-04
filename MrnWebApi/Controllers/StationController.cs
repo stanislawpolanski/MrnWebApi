@@ -84,7 +84,7 @@ namespace MrnWebApi.Controllers
             {
                 return BadRequest();
             }
-            await stationLogicService.UpdateStationAsync(inputStation);
+            await stationLogicService.PutStationAsync(inputStation);
 
             return NoContent();
         }

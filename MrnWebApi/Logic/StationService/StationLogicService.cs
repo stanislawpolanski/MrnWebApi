@@ -4,11 +4,11 @@ using MrnWebApi.DataAccess.Services.Photo;
 using MrnWebApi.DataAccess.Services.Railway;
 using MrnWebApi.DataAccess.Services.RailwayUnit;
 using MrnWebApi.DataAccess.Services.Station;
+using MrnWebApi.DataAccess.ServicesFactory;
+using MrnWebApi.Logic.StationService.Inner;
 using System.Collections.Generic;
 using System.Linq;
-using MrnWebApi.DataAccess.ServicesFactory;
 using System.Threading.Tasks;
-using MrnWebApi.Logic.StationService.Inner;
 
 namespace MrnWebApi.Logic.StationService
 {
@@ -87,9 +87,15 @@ namespace MrnWebApi.Logic.StationService
             processor.SetStation(new StationModel() { Id = inputId });
         }
 
-        public async Task UpdateStationAsync(StationModel inputStation)
+        public async Task PutStationAsync(StationModel inputStation)
         {
-            await stationDataAccessService.UpdateStationAsync(inputStation);
+            AbstractStationLogicProcessor processor =
+                new PutStationLogicProcessor();
+
+            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
+            processor.SetStation(inputStation);
+
+            await processor.ProcessStationRootAsync();
         }
     }
 }

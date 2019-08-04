@@ -95,7 +95,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .FirstOrDefaultAsync();
         }
 
-        public async Task UpdateStationAsync(StationModel inputStation)
+        public async Task PutStationAsync(StationModel inputStation)
         {
             await UpdateObjectOfInterestEntityAsync(inputStation);
             await UpdateStationEntityAsync(inputStation);
