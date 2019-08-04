@@ -13,7 +13,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
         }
 
-        public async Task AddStationAsync(StationModel inputStation)
+        public async Task PostStationAsync(StationModel inputStation)
         {
             ObjectsOfInterest objectOfInterest = await SaveToObjectOfInterestTableAsync(inputStation);
             int newStationId = objectOfInterest.Id;

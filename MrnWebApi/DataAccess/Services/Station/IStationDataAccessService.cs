@@ -8,7 +8,7 @@ namespace MrnWebApi.DataAccess.Services.Station
     {
         Task<IEnumerable<StationModel>> GetBasicStationsAsync();
         Task<StationModel> GetDetailedStationAsync(int id);
-        Task AddStationAsync(StationModel inputStation);
+        Task PostStationAsync(StationModel inputStation);
         Task DeleteStationByIdAsync(int id);
         Task UpdateStationAsync(StationModel station);
     }

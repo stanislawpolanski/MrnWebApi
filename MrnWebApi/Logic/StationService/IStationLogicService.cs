@@ -8,7 +8,7 @@ namespace MrnWebApi.Logic.StationService
     {
         Task<IEnumerable<StationModel>> GetAllBasicStationsAsync();
         Task<StationModel> GetDetailedStationByIdAsync(int id);
-        Task AddStationAsync(StationModel inputStation);
+        Task PostStationAsync(StationModel inputStation);
         Task DeleteStationByIdAsync(int id);
         Task UpdateStationAsync(StationModel inputStation);
     }

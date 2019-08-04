@@ -43,9 +43,13 @@ namespace MrnWebApi.Logic.StationService
             dataAccessServicesFactory = injectedDataAccessServicesFactory;
         }
 
-        public async Task AddStationAsync(StationModel inputStation)
+        public async Task PostStationAsync(StationModel inputStation)
         {
-            await stationDataAccessService.AddStationAsync(inputStation);
+            AbstractStationLogicProcessor processor =
+                new PostStationLogicProcessor();
+            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
+            processor.SetStation(inputStation);
+            await processor.ProcessStationRootAsync();
         }
 
         public async Task DeleteStationByIdAsync(int id)

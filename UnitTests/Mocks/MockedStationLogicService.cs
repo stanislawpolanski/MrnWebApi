@@ -35,7 +35,7 @@ namespace UnitTests.Mocks
             throw new System.NotImplementedException();
         }
 
-        Task IStationLogicService.AddStationAsync(StationModel inputStation)
+        Task IStationLogicService.PostStationAsync(StationModel inputStation)
         {
             throw new System.NotImplementedException();
         }
