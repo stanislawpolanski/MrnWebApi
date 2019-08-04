@@ -43,7 +43,7 @@ namespace MrnWebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<StationModel>> GetStationByIdAsync(int id)
         {
-            StationModel station = await stationLogicService.GetDetailedStationByIdAsync(id);
+            StationModel station = await stationLogicService.GetStationByIdAsync(id);
             if(station == null)
             {
                 return NotFound();

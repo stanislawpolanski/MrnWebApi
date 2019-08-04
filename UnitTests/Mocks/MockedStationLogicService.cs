@@ -21,7 +21,7 @@ namespace UnitTests.Mocks
             return await Task.FromResult(result);
         }
 
-        public Task<StationModel> GetDetailedStationByIdAsync(int id)
+        public Task<StationModel> GetStationByIdAsync(int id)
         {
             return Task.FromResult(
                 new StationModel()

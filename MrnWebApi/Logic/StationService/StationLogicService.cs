@@ -47,59 +47,50 @@ namespace MrnWebApi.Logic.StationService
         {
             AbstractStationLogicProcessor processor =
                 new PostStationLogicProcessor();
+            InitialiseProcessor(inputStation, processor);
+            await processor.ProcessStationRootAsync();
+        }
+
+        private void InitialiseProcessor(StationModel inputStation, AbstractStationLogicProcessor processor)
+        {
             processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
             processor.SetStation(inputStation);
-            await processor.ProcessStationRootAsync();
         }
 
         public async Task DeleteStationByIdAsync(int inputId)
         {
             AbstractStationLogicProcessor processor =
                 new DeleteStationLogicProcessor();
-
-            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
-            processor.SetStation(new StationModel() { Id = inputId });
+            StationModel stationModel = new StationModel() { Id = inputId };
+            InitialiseProcessor(stationModel, processor);
             await processor.ProcessStationRootAsync();
         }
 
         public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
         {
-            IEnumerable<StationModel> stations = await stationDataAccessService
-                .GetBasicStationsAsync();
+            IEnumerable<StationModel> stations = 
+                await stationDataAccessService.GetBasicStationsAsync();
             return stations.OrderBy(station => station.Name);
         }
 
-        public async Task<StationModel> GetDetailedStationByIdAsync(int inputId)
+        public async Task<StationModel> GetStationByIdAsync(int inputId)
         {
             AbstractStationLogicProcessor processor =
                 new GetStationLogicProcessor();
-            InitialiseStationProcessor(inputId, processor);
-            await RunProcessesOnStationProcessor(processor);
-            return processor.GetStation();
-        }
-
-        private static async Task RunProcessesOnStationProcessor(AbstractStationLogicProcessor processor)
-        {
+            StationModel stationModel = new StationModel() { Id = inputId };
+            InitialiseProcessor(stationModel, processor);
             await processor.ProcessStationRootAsync();
             await processor.ProcessGeometryWithRailwayUnitAsync();
             await processor.ProcessPhotosAsync();
             await processor.ProcessRailwaysAsync();
-        }
-
-        private void InitialiseStationProcessor(int inputId, AbstractStationLogicProcessor processor)
-        {
-            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
-            processor.SetStation(new StationModel() { Id = inputId });
+            return processor.GetStation();
         }
 
         public async Task PutStationAsync(StationModel inputStation)
         {
             AbstractStationLogicProcessor processor =
                 new PutStationLogicProcessor();
-
-            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
-            processor.SetStation(inputStation);
-
+            InitialiseProcessor(inputStation, processor);
             await processor.ProcessStationRootAsync();
         }
     }
