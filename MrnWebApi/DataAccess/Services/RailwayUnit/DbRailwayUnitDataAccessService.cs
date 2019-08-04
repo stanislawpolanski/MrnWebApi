@@ -3,7 +3,9 @@ using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
@@ -17,21 +19,41 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             geometryReader = injectedGeometryReader;
         }
 
-        public async Task<RailwayUnitModel> GetRailwayUnitByStationAsync(StationModel station)
+        public async Task<RailwayUnitModel>
+            GetRailwayUnitByStationAsync(StationModel station)
         {
-            IGeometry point = geometryReader.Read(station.SerialisedGeometry.SerialisedSpatialData);
+            bool requiredDataIsNull = (station.SerialisedGeometry == null || station.OwnerInfo.Id == 0);
+            if (requiredDataIsNull)
+            {
+                throw new ArgumentNullException();
+            }
+            return await GetRailwayUnitFromDatasource(station);
+        }
 
+        private async Task<RailwayUnitModel> GetRailwayUnitFromDatasource(StationModel station)
+        {
+            IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
+            Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
+                unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
+            Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsPredicate =
+                unit => unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
-                .Where(unit => unit.OwnerId.Equals(station.OwnerInfo.Id))
-                .Where(unit => unit.Geometries.SpatialData.Intersects(point))
+                .Where(unitOwnerEqualsStationsOwnerPredicate)
+                .Where(unitsGeometryIntersectsStationsPredicate)
                 .Select(unit => new RailwayUnitModel()
                 {
                     Id = unit.Id,
                     Name = unit.Name
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        private IGeometry DeserialiseStationsGeometry(StationModel station)
+        {
+            return geometryReader
+                .Read(station.SerialisedGeometry.SerialisedSpatialData);
         }
     }
 }
