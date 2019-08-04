@@ -52,9 +52,14 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        public async Task DeleteStationByIdAsync(int id)
+        public async Task DeleteStationByIdAsync(int inputId)
         {
-            await stationDataAccessService.DeleteStationByIdAsync(id);
+            AbstractStationLogicProcessor processor =
+                new DeleteStationLogicProcessor();
+
+            processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
+            processor.SetStation(new StationModel() { Id = inputId });
+            await processor.ProcessStationRootAsync();
         }
 
         public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
