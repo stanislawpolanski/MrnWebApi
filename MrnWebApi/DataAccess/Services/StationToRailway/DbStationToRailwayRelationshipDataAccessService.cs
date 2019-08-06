@@ -19,7 +19,7 @@ namespace MrnWebApi.DataAccess.Services.StationToRailway
         }
 
         public async Task
-            DeleteGeometryInfoFromRelationshipByStationidAsync(int stationId)
+            ClearGeometryInfoFromRelationshipEntityByStationidAsync(int stationId)
         {
             context
                 .StationsToGeometries

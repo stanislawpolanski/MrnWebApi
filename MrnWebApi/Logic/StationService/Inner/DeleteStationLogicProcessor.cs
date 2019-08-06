@@ -14,7 +14,7 @@ namespace MrnWebApi.Logic.StationService.Inner
                 .DeleteGeometriesByStationIdAsync(station.Id);
             await dataAccessServicesFactory
                 .StationToRailwayRelationshipDataAccessService
-                .DeleteGeometryInfoFromRelationshipByStationidAsync(station.Id);
+                .ClearGeometryInfoFromRelationshipEntityByStationidAsync(station.Id);
         }
 
         public override async Task ProcessPhotosAsync()
