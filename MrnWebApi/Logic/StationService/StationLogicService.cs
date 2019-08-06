@@ -51,7 +51,8 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        private void InitialiseProcessor(StationModel inputStation, AbstractStationLogicProcessor processor)
+        private void InitialiseProcessor(StationModel inputStation, 
+            AbstractStationLogicProcessor processor)
         {
             processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
             processor.SetStation(inputStation);
@@ -63,6 +64,9 @@ namespace MrnWebApi.Logic.StationService
                 new DeleteStationLogicProcessor();
             StationModel stationModel = new StationModel() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
+            await processor.ProcessGeometryWithRailwayUnitAsync();
+            await processor.ProcessPhotosAsync();
+            await processor.ProcessRailwaysAsync();
             await processor.ProcessStationRootAsync();
         }
 

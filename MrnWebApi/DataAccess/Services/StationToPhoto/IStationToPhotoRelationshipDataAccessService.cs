@@ -8,6 +8,8 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
 {
     public interface IStationToPhotoRelationshipDataAccessService
     {
+        Task DeleteRelationshipByStationIdAsync(int stationId);
+
         /// <summary>
         /// Updates the relationships dataset. Adds new relationships in the input, deletes those unpresent and keeps
         /// that are the same in both input and stored datasets.

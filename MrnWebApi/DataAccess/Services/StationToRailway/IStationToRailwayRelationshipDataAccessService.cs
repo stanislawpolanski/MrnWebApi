@@ -16,5 +16,7 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
         /// <param name="railway">Models of railways related to the station. Only ids of the input railways
         /// are taken into account.</param>
         void UpdateRelationships(StationModel station, IEnumerable<RailwayModel> railways);
+        Task DeleteRelationshipsByStationIdAsync(int stationId);
+        Task DeleteGeometryInfoFromRelationshipByStationidAsync(int id);
     }
 }

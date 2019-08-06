@@ -52,7 +52,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public async Task DeleteStationByIdAsync(int id)
         {
-            Stations station = context.Stations.Find(id);
+            Stations station = await context.Stations.FindAsync(id);
             context.Stations.Remove(station);
             await context.SaveChangesAsync();
         }

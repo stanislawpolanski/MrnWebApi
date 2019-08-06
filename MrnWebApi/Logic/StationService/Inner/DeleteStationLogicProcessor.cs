@@ -7,23 +7,34 @@ namespace MrnWebApi.Logic.StationService.Inner
 {
     public class DeleteStationLogicProcessor : AbstractStationLogicProcessor
     {
-        public override Task ProcessGeometryWithRailwayUnitAsync()
+        public override async Task ProcessGeometryWithRailwayUnitAsync()
         {
-            throw new NotImplementedException();
+            await dataAccessServicesFactory
+                .GeometryDataAccessService
+                .DeleteGeometriesByStationIdAsync(station.Id);
+            await dataAccessServicesFactory
+                .StationToRailwayRelationshipDataAccessService
+                .DeleteGeometryInfoFromRelationshipByStationidAsync(station.Id);
         }
 
-        public override Task ProcessPhotosAsync()
+        public override async Task ProcessPhotosAsync()
         {
-            throw new NotImplementedException();
+            await dataAccessServicesFactory
+                .StationToPhotoRelationshipDataAccessService
+                .DeleteRelationshipByStationIdAsync(station.Id);
         }
 
-        public override Task ProcessRailwaysAsync()
+        public override async Task ProcessRailwaysAsync()
         {
-            throw new NotImplementedException();
+            //if run before deleting geometry, then throw exception
+            await dataAccessServicesFactory
+                .StationToRailwayRelationshipDataAccessService
+                .DeleteRelationshipsByStationIdAsync(station.Id);
         }
 
         public override async Task ProcessStationRootAsync()
         {
+            //if ran before all the other methods, then throw exception
             await dataAccessServicesFactory
                 .StationDataAccessService
                 .DeleteStationByIdAsync(station.Id);
