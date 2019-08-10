@@ -6,7 +6,7 @@ using System.Linq;
 using UnitTests.Mocks;
 using Xunit;
 
-namespace UnitTests.ControllersTests
+namespace UnitTests.UnitTests.ControllersTests
 {
     public class StationControllerTests
     {

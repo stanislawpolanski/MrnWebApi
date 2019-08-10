@@ -3,7 +3,7 @@ using MrnWebApi.Common.Routing;
 using System;
 using Xunit;
 
-namespace UnitTests.CommonTests
+namespace UnitTests.UnitTests.CommonTests
 {
     public class UriRouteTests
     {

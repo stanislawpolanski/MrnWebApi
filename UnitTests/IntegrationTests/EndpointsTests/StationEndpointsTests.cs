@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace UnitTests.EndpointsTests
+namespace UnitTests.IntegrationTests.EndpointsTests
 {
     public class StationEndpointsTests
     {
