@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MrnWebApi.Common.Models;
 using System.Linq;
+using System.Net.Http;
 
 namespace UnitTests.IntegrationTests.EndpointsTests
 {
@@ -34,24 +35,60 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             var client = factory.CreateClient();
             //act
             var response = await client.GetAsync(url);
-            var text = await response.Content.ReadAsStringAsync();
             List<StationModel> models = 
-                JsonConvert
-                .DeserializeObject<IEnumerable<StationModel>>(text)
-                .ToList();
+                await GetStationsListFromResponse(response);
             //assert
             response.EnsureSuccessStatusCode();
             Assert.True(models.Count >= expectedNumberOfStations);
         }
 
-        /*
-        [Fact]
-        public void GetAllTheStations()
+        private static async Task<List<StationModel>> 
+            GetStationsListFromResponse(HttpResponseMessage response)
         {
-            throw new Xunit.Sdk.XunitException("test not developed");
+            var text = await response.Content.ReadAsStringAsync();
+            List<StationModel> models =
+                JsonConvert
+                .DeserializeObject<IEnumerable<StationModel>>(text)
+                .ToList();
+            return models;
         }
-        
-        
+
+        [Theory]
+        [InlineData("/api/station")]
+        public async Task 
+            GetAllStations_AllStationsContainsNameLongerThanSpecifiedNumber(string url)
+        {
+            //arrange
+            var client = factory.CreateClient();
+            int specifiedNameLength = 3;
+            Action<StationModel> stationNameLongerThanSpecifiedNumber = 
+                model => Assert.True(model.Name.Length > specifiedNameLength);
+            //act
+            var response = await client.GetAsync(url);
+            List<StationModel> models =
+                await GetStationsListFromResponse(response);
+            //assert
+            models.ForEach(stationNameLongerThanSpecifiedNumber);
+        }
+
+        [Theory]
+        [InlineData("/api/station")]
+        public async Task 
+            GetAllStations_AllStationsContainsExpectedUrl(string endpointUrl)
+        {
+            //arrange
+            var client = factory.CreateClient();
+            Action<StationModel> actualUrlEqualsExpectedUrl = 
+                model => Assert
+                    .Equal(model.Url, endpointUrl + "/" + model.Id.ToString());
+            //act
+            var response = await client.GetAsync(endpointUrl);
+            List<StationModel> models =
+                await GetStationsListFromResponse(response);
+            //assert 
+            models
+                .ForEach(actualUrlEqualsExpectedUrl);
+        }
         [Fact]
         public void GetSingleStation()
         {
@@ -71,7 +108,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         public void DeleteStation()
         {
             throw new Xunit.Sdk.XunitException("test not developed");
-        }*/
+        }
     }
 }
 
