@@ -1,5 +1,4 @@
-﻿using GeoAPI.Geometries;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MrnWebApi.Common.Models
 {

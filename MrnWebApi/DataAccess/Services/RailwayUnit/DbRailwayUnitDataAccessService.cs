@@ -10,11 +10,14 @@ using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
-    public class DbRailwayUnitDataAccessService : DbDataAccessAbstractService, IRailwayUnitDataAccessService
+    public class DbRailwayUnitDataAccessService :
+        DbDataAccessAbstractService, IRailwayUnitDataAccessService
     {
         private ITextGeometryReader geometryReader;
-        public DbRailwayUnitDataAccessService(MRN_developContext injectedContext,
-            ITextGeometryReader injectedGeometryReader) : base(injectedContext)
+        public DbRailwayUnitDataAccessService(
+            MRN_developContext injectedContext,
+            ITextGeometryReader injectedGeometryReader)
+            : base(injectedContext)
         {
             geometryReader = injectedGeometryReader;
         }
@@ -22,8 +25,10 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
         public async Task<RailwayUnitModel>
             GetRailwayUnitByStationAsync(StationModel station)
         {
-            bool requiredDataIsNull = (station.SerialisedGeometry == null || station.OwnerInfo.Id == 0);
-            if (requiredDataIsNull)
+            bool dataRequiredFromRequestIsIncomplete = (
+                station.SerialisedGeometry == null
+                || station.OwnerInfo.Id == 0);
+            if (dataRequiredFromRequestIsIncomplete)
             {
                 throw new ArgumentNullException();
             }
@@ -35,13 +40,14 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
             Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
                 unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
-            Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsPredicate =
+            Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsGeometryPredicate =
                 unit => unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
                 .Where(unitOwnerEqualsStationsOwnerPredicate)
-                .Where(unitsGeometryIntersectsStationsPredicate)
+                .Where(unitsGeometryIntersectsStationsGeometryPredicate)
+                //todo to be replaced by dto builder
                 .Select(unit => new RailwayUnitModel()
                 {
                     Id = unit.Id,

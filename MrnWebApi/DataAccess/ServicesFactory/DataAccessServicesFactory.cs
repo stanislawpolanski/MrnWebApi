@@ -4,10 +4,6 @@ using MrnWebApi.DataAccess.Services.Railway;
 using MrnWebApi.DataAccess.Services.RailwayUnit;
 using MrnWebApi.DataAccess.Services.Station;
 using MrnWebApi.DataAccess.Services.StationToPhoto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.ServicesFactory
 {
@@ -20,9 +16,9 @@ namespace MrnWebApi.DataAccess.ServicesFactory
         public IRailwayUnitDataAccessService RailwayUnitDataAccessService { get; private set; }
         public IGeometryDataAccessService GeometryDataAccessService { get; private set; }
         public IStationToPhotoRelationshipDataAccessService StationToPhotoRelationshipDataAccessService
-            { get; private set; }
+        { get; private set; }
         public IStationToRailwayRelationshipDataAccessService StationToRailwayRelationshipDataAccessService
-            { get; private set; }
+        { get; private set; }
         public DataAccessServicesFactory(IStationDataAccessService injectedStationDataAccessService,
             IPhotoDataAccessService injectedPhotosDataAccessSercice,
             IRailwayDataAccessService injectedRailwaysDataAccessService,

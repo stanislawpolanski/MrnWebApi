@@ -3,6 +3,7 @@ using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Photo
@@ -13,13 +14,18 @@ namespace MrnWebApi.DataAccess.Services.Photo
         {
         }
 
-        public async Task<IEnumerable<PhotoModel>> GetPhotosByStationIdAsync(int stationId)
+        public async Task<IEnumerable<PhotoModel>>
+            GetPhotosByStationIdAsync(int stationId)
         {
+            Expression<System.Func<Photos, bool>> photosThatShowsStationById =
+            photo => photo
+                .PhotosToObjectsOfInterest
+                .Any(relation => relation.ObjectOfInterestId.Equals(stationId));
+
             IEnumerable<PhotoModel> result = await context
                 .Photos
-                .Where(photo => photo
-                    .PhotosToObjectsOfInterest
-                    .Any(relation => relation.ObjectOfInterestId.Equals(stationId)))
+                .Where(photosThatShowsStationById)
+                //todo to be replaced by dto builder
                 .Select(photoEntity =>
                     new PhotoModel()
                     {

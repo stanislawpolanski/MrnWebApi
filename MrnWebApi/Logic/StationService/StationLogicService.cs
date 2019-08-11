@@ -37,7 +37,7 @@ namespace MrnWebApi.Logic.StationService
             get => dataAccessServicesFactory.GeometryDataAccessService;
         }
 
-        public StationLogicService(DataAccessServicesFactory 
+        public StationLogicService(DataAccessServicesFactory
             injectedDataAccessServicesFactory)
         {
             dataAccessServicesFactory = injectedDataAccessServicesFactory;
@@ -51,7 +51,7 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        private void InitialiseProcessor(StationModel inputStation, 
+        private void InitialiseProcessor(StationModel inputStation,
             AbstractStationLogicProcessor processor)
         {
             processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
@@ -62,6 +62,7 @@ namespace MrnWebApi.Logic.StationService
         {
             AbstractStationLogicProcessor processor =
                 new DeleteStationLogicProcessor();
+            //todo to be refactored to dto builder
             StationModel stationModel = new StationModel() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessGeometryWithRailwayUnitAsync();
@@ -72,7 +73,7 @@ namespace MrnWebApi.Logic.StationService
 
         public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
         {
-            IEnumerable<StationModel> stations = 
+            IEnumerable<StationModel> stations =
                 await stationDataAccessService.GetBasicStationsAsync();
             return stations.OrderBy(station => station.Name);
         }
@@ -81,6 +82,7 @@ namespace MrnWebApi.Logic.StationService
         {
             AbstractStationLogicProcessor processor =
                 new GetStationLogicProcessor();
+            //todo to be refactored to dto builder
             StationModel stationModel = new StationModel() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessStationRootAsync();

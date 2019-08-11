@@ -1,31 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
 using MrnWebApi.DataAccess.Inner.Scaffold;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.Geometry
 {
-    public class DbGeometryDataAccessService : DbDataAccessAbstractService, IGeometryDataAccessService
+    public class DbGeometryDataAccessService :
+        DbDataAccessAbstractService, IGeometryDataAccessService
     {
-        public DbGeometryDataAccessService(MRN_developContext injectedContext) 
+        public DbGeometryDataAccessService(MRN_developContext injectedContext)
             : base(injectedContext)
         {
         }
 
         public async Task DeleteGeometriesByStationIdAsync(int stationId)
         {
-            IEnumerable<Geometries> geometriesToDelete = 
+            IEnumerable<Geometries> geometriesToDelete =
                 await getGeometriesToBeDeletedAsync(stationId);
 
             context.Geometries.RemoveRange(geometriesToDelete);
             await context.SaveChangesAsync();
         }
 
-        private async Task<List<Geometries>> 
+        private async Task<List<Geometries>>
             getGeometriesToBeDeletedAsync(int stationId)
         {
             Expression<Func<Geometries, bool>> geometryRelatedToStation =
@@ -47,6 +48,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
                 .StationsToGeometries
                 .Where(relation => relation.StationId.Equals(id))
                 .Include(relation => relation.Geometry)
+                //todo to be replaced by dto builder
                 .Select(entity =>
                     new GeometryModel()
                     {

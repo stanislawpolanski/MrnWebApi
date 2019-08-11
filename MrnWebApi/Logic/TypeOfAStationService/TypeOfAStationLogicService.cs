@@ -9,13 +9,17 @@ namespace MrnWebApi.Logic.TypeOfAStationService
     {
         private ITypeOfAStationDataAccessService service;
 
-        public TypeOfAStationLogicService(ITypeOfAStationDataAccessService injectedService)
+        public TypeOfAStationLogicService(
+            ITypeOfAStationDataAccessService injectedService)
         {
             service = injectedService;
         }
         public ICollection<TypeOfAStationModel> GetTypesOfAStation()
         {
-            return service.GetTypesOfAStation().OrderBy(typeOfAStation => typeOfAStation.AbbreviatedName).ToList();
+            return service
+                .GetTypesOfAStation()
+                .OrderBy(typeOfAStation => typeOfAStation.AbbreviatedName)
+                .ToList();
         }
     }
 }

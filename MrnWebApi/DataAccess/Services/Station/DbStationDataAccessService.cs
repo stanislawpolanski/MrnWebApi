@@ -15,14 +15,18 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public async Task PostStationAsync(StationModel inputStation)
         {
-            ObjectsOfInterest objectOfInterest = await SaveToObjectOfInterestTableAsync(inputStation);
+            ObjectsOfInterest objectOfInterest =
+                await SaveToObjectOfInterestTableAsync(inputStation);
             int newStationId = objectOfInterest.Id;
             await SaveToStationTableAsync(inputStation, newStationId);
             inputStation.Id = newStationId;
         }
 
-        private async Task<Stations> SaveToStationTableAsync(StationModel inputStation, int newStationId)
+        private async Task<Stations> SaveToStationTableAsync(
+            StationModel inputStation,
+            int newStationId)
         {
+            //todo to be replaced by dto builder
             Stations station = new Stations()
             {
                 Id = newStationId,
@@ -40,6 +44,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         /// <returns>Saved entity.</returns>
         private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationModel inputStation)
         {
+            //todo to be replaced by dto builder
             ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
             {
                 Name = inputStation.Name,
@@ -70,6 +75,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Join(context.ObjectsOfInterest,
                     stationEntity => stationEntity.Id,
                     objectOfInterestEntity => objectOfInterestEntity.Id,
+                    //todo to be replaced by dto builder
                     (stationEntity, objectOfInterestEntity)
                         => new StationModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
                 .ToListAsync();
@@ -83,6 +89,7 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest)
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
+                //todo to be replaced by dto builder
                 .Select(entity => new StationModel()
                 {
                     Id = entity.Id,
@@ -111,13 +118,18 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         private async Task UpdateStationEntityAsync(StationModel inputStation)
         {
-            Stations queriedStation = await context.Stations.FirstAsync(station => station.Id.Equals(inputStation.Id));
+            Stations queriedStation =
+                await context
+                    .Stations
+                    .FirstAsync(station => station.Id.Equals(inputStation.Id));
             queriedStation.TypeOfAstationId = inputStation.TypeOfAStationInfo.Id;
         }
 
         private async Task UpdateObjectOfInterestEntityAsync(StationModel inputStation)
         {
-            ObjectsOfInterest queriedObjectOfInterest = await context.ObjectsOfInterest
+            ObjectsOfInterest queriedObjectOfInterest = await context
+                .ObjectsOfInterest
+                //todo should't be SingleAsync()?
                 .FirstAsync(entity => entity.Id.Equals(inputStation.Id));
             queriedObjectOfInterest.Name = inputStation.Name;
             queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
