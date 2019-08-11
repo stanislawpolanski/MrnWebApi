@@ -176,7 +176,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station", "Test station", 2, 1)]
+        [InlineData("/api/station", "Post test station", 2, 1)]
         public async Task PostStationAsync_AssignsIdToStationWithNameAsync(
             string url, 
             string newStationName, 
@@ -285,10 +285,45 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 await client.DeleteAsync(deletionUrl);
             }
         }
-        [Fact]
-        public void DeleteStation()
+
+        [Theory]
+        [InlineData("/api/station", "Delete test station", 2, 1)]
+        public async Task DeleteStationAsync_DeletesStation(
+            string url,
+            string newStationName,
+            int typeOfAStationId,
+            int ownerId)
         {
-            throw new Xunit.Sdk.XunitException("test not developed");
+            //arrange
+            var client = factory.CreateClient();
+            //todo to be refactored to dto builder
+            StationModel stationToPost =
+                new StationModel()
+                {
+                    Name = newStationName,
+                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    {
+                        Id = typeOfAStationId
+                    },
+                    OwnerInfo = new OwnerModel()
+                    {
+                        Id = ownerId
+                    }
+                };
+            HttpResponseMessage response = await client
+                .PostAsJsonAsync<StationModel>(url, stationToPost);
+            var text = response.Content.ReadAsStringAsync().Result;
+            StationModel createdStation =
+                DeserialiseObjectFromString<StationModel>(text);
+            string deletionUrl = UriRoute
+                .GetRouteFromNodes(url, createdStation.Id.ToString())
+                .ToString();
+            //act
+            await client.DeleteAsync(deletionUrl);
+            //assert
+            Assert.Equal(
+                HttpStatusCode.OK,
+                response.StatusCode);
         }
     }
 }
