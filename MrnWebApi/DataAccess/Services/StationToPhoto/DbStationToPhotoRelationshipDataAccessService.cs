@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Models;
+using MrnWebApi.DataAccess.Inner.Scaffold;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MrnWebApi.Common.Models;
-using MrnWebApi.DataAccess.Inner.Scaffold;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 
 namespace MrnWebApi.DataAccess.Services.StationToPhoto
 {
-    public class DbStationToPhotoRelationshipDataAccessService : 
-        DbDataAccessAbstractService, 
+    public class DbStationToPhotoRelationshipDataAccessService :
+        DbDataAccessAbstractService,
         IStationToPhotoRelationshipDataAccessService
     {
-        public DbStationToPhotoRelationshipDataAccessService(MRN_developContext injectedContext) : 
+        public DbStationToPhotoRelationshipDataAccessService(MRN_developContext injectedContext) :
             base(injectedContext)
         {
         }
@@ -28,7 +27,7 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
             await context.SaveChangesAsync();
         }
 
-        private Task<List<PhotosToObjectsOfInterest>> 
+        private Task<List<PhotosToObjectsOfInterest>>
             GetRelationshipsToBeDeleted(int stationId)
         {
             return context

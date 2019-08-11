@@ -14,10 +14,10 @@ namespace MrnWebApi.DataAccess.Services.Photo
         {
         }
 
-        public async Task<IEnumerable<PhotoModel>> 
+        public async Task<IEnumerable<PhotoModel>>
             GetPhotosByStationIdAsync(int stationId)
         {
-            Expression<System.Func<Photos, bool>> photosThatShowsStationById = 
+            Expression<System.Func<Photos, bool>> photosThatShowsStationById =
             photo => photo
                 .PhotosToObjectsOfInterest
                 .Any(relation => relation.ObjectOfInterestId.Equals(stationId));

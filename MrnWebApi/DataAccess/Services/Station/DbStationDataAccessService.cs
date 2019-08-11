@@ -15,7 +15,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         public async Task PostStationAsync(StationModel inputStation)
         {
-            ObjectsOfInterest objectOfInterest = 
+            ObjectsOfInterest objectOfInterest =
                 await SaveToObjectOfInterestTableAsync(inputStation);
             int newStationId = objectOfInterest.Id;
             await SaveToStationTableAsync(inputStation, newStationId);
@@ -23,7 +23,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         }
 
         private async Task<Stations> SaveToStationTableAsync(
-            StationModel inputStation, 
+            StationModel inputStation,
             int newStationId)
         {
             //todo to be replaced by dto builder
@@ -111,7 +111,7 @@ namespace MrnWebApi.DataAccess.Services.Station
 
         private async Task UpdateStationEntityAsync(StationModel inputStation)
         {
-            Stations queriedStation = 
+            Stations queriedStation =
                 await context
                     .Stations
                     .FirstAsync(station => station.Id.Equals(inputStation.Id));

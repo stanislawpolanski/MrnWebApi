@@ -16,11 +16,11 @@ namespace MrnWebApi.DataAccess.Services.Railway
 
         public async Task<IEnumerable<RailwayModel>> GetRailwaysByStationIdAsync(int stationId)
         {
-            Expression<System.Func<Railways, bool>> railwaysHasStation = 
-                railway => 
+            Expression<System.Func<Railways, bool>> railwaysHasStation =
+                railway =>
                     railway
                     .StationsToGeometries
-                    .Any(stationToGeometry => 
+                    .Any(stationToGeometry =>
                         stationToGeometry.StationId.Equals(stationId));
 
             IEnumerable<RailwayModel> result = await context

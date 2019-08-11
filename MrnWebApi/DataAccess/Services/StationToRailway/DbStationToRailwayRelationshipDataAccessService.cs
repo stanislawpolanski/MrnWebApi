@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MrnWebApi.Common.Models;
+using MrnWebApi.DataAccess.Inner.Scaffold;
+using MrnWebApi.DataAccess.Services.StationToPhoto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.Models;
-using MrnWebApi.DataAccess.Inner.Scaffold;
-using MrnWebApi.DataAccess.Services.StationToPhoto;
 
 namespace MrnWebApi.DataAccess.Services.StationToRailway
 {
-    public class DbStationToRailwayRelationshipDataAccessService : 
-        DbDataAccessAbstractService, 
+    public class DbStationToRailwayRelationshipDataAccessService :
+        DbDataAccessAbstractService,
         IStationToRailwayRelationshipDataAccessService
     {
         public DbStationToRailwayRelationshipDataAccessService
@@ -22,9 +22,9 @@ namespace MrnWebApi.DataAccess.Services.StationToRailway
         public async Task
             ClearGeometryInfoFromRelationshipEntityByStationidAsync(int stationId)
         {
-            Expression<Func<StationsToGeometries, bool>> pointsToRequiredStation = 
+            Expression<Func<StationsToGeometries, bool>> pointsToRequiredStation =
                 relationship => relationship.StationId.Equals(stationId);
-            Action<StationsToGeometries> clearGeometryInfo = 
+            Action<StationsToGeometries> clearGeometryInfo =
                 entity => entity.GeometryId = null;
 
             context
@@ -53,7 +53,7 @@ namespace MrnWebApi.DataAccess.Services.StationToRailway
                 .ToListAsync();
         }
 
-        public void UpdateRelationships(StationModel station, 
+        public void UpdateRelationships(StationModel station,
             IEnumerable<RailwayModel> railways)
         {
             throw new NotImplementedException();

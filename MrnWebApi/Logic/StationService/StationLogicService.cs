@@ -37,7 +37,7 @@ namespace MrnWebApi.Logic.StationService
             get => dataAccessServicesFactory.GeometryDataAccessService;
         }
 
-        public StationLogicService(DataAccessServicesFactory 
+        public StationLogicService(DataAccessServicesFactory
             injectedDataAccessServicesFactory)
         {
             dataAccessServicesFactory = injectedDataAccessServicesFactory;
@@ -51,7 +51,7 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        private void InitialiseProcessor(StationModel inputStation, 
+        private void InitialiseProcessor(StationModel inputStation,
             AbstractStationLogicProcessor processor)
         {
             processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
@@ -73,7 +73,7 @@ namespace MrnWebApi.Logic.StationService
 
         public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
         {
-            IEnumerable<StationModel> stations = 
+            IEnumerable<StationModel> stations =
                 await stationDataAccessService.GetBasicStationsAsync();
             return stations.OrderBy(station => station.Name);
         }

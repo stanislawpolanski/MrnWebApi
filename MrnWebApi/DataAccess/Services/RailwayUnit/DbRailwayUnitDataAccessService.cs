@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
-    public class DbRailwayUnitDataAccessService : 
+    public class DbRailwayUnitDataAccessService :
         DbDataAccessAbstractService, IRailwayUnitDataAccessService
     {
         private ITextGeometryReader geometryReader;
         public DbRailwayUnitDataAccessService(
             MRN_developContext injectedContext,
-            ITextGeometryReader injectedGeometryReader) 
+            ITextGeometryReader injectedGeometryReader)
             : base(injectedContext)
         {
             geometryReader = injectedGeometryReader;
@@ -26,7 +26,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             GetRailwayUnitByStationAsync(StationModel station)
         {
             bool dataRequiredFromRequestIsIncomplete = (
-                station.SerialisedGeometry == null 
+                station.SerialisedGeometry == null
                 || station.OwnerInfo.Id == 0);
             if (dataRequiredFromRequestIsIncomplete)
             {
