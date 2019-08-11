@@ -33,20 +33,20 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             int expectedNumberOfStations = 200;
             //act
             var response = await GetResponseByUrl(url);
-            List<StationModel> models = 
+            List<StationDTO> models = 
                 await GetStationsListFromResponse(response);
             //assert
             response.EnsureSuccessStatusCode();
             Assert.True(models.Count >= expectedNumberOfStations);
         }
 
-        private static async Task<List<StationModel>> 
+        private static async Task<List<StationDTO>> 
             GetStationsListFromResponse(HttpResponseMessage response)
         {
             var text = await response.Content.ReadAsStringAsync();
-            List<StationModel> models =
+            List<StationDTO> models =
                 JsonConvert
-                .DeserializeObject<IEnumerable<StationModel>>(text)
+                .DeserializeObject<IEnumerable<StationDTO>>(text)
                 .ToList();
             return models;
         }
@@ -58,11 +58,11 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         {
             //arrange
             int specifiedNameLength = 3;
-            Action<StationModel> stationNameLongerThanSpecifiedNumber = 
+            Action<StationDTO> stationNameLongerThanSpecifiedNumber = 
                 model => Assert.True(model.Name.Length > specifiedNameLength);
             //act
             var response = await GetResponseByUrl(url);
-            List<StationModel> models =
+            List<StationDTO> models =
                 await GetStationsListFromResponse(response);
             //assert
             models.ForEach(stationNameLongerThanSpecifiedNumber);
@@ -75,12 +75,12 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         {
             //arrange
             var client = factory.CreateClient();
-            Action<StationModel> actualUrlEqualsExpectedUrl = 
+            Action<StationDTO> actualUrlEqualsExpectedUrl = 
                 model => Assert
                     .Equal(model.Url, endpointUrl + "/" + model.Id.ToString());
             //act
             var response = await GetResponseByUrl(endpointUrl);
-            List<StationModel> models =
+            List<StationDTO> models =
                 await GetStationsListFromResponse(response);
             //assert 
             models.ForEach(actualUrlEqualsExpectedUrl);
@@ -94,8 +94,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 (string url, string expectedName)
         {
             //act
-            StationModel station = 
-                await GetObjectFromResponseTextByUrl<StationModel>(url);
+            StationDTO station = 
+                await GetObjectFromResponseTextByUrl<StationDTO>(url);
             //assert
             Assert.Equal(expectedName, station.Name);
         }
@@ -135,8 +135,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             GetStationById_ReturnsStationWithRailwaysAsync(string url, 
                 int expectedNumberOfRailways)
         {
-            StationModel model =
-                await GetObjectFromResponseTextByUrl<StationModel>(url);
+            StationDTO model =
+                await GetObjectFromResponseTextByUrl<StationDTO>(url);
             Assert.Equal(expectedNumberOfRailways, model.Railways.Count());
         }
         
@@ -145,8 +145,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         public async Task GetStationById_ReturnsStationWithPhotosAsync(string url, 
             int expectedNumberOfPhotos)
         {
-            StationModel model =
-                await GetObjectFromResponseTextByUrl<StationModel>(url);
+            StationDTO model =
+                await GetObjectFromResponseTextByUrl<StationDTO>(url);
             Assert.Equal(expectedNumberOfPhotos, model.Photos.Count());
         }
 
@@ -156,8 +156,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         public async Task GetStationById_ReturnsStationWithGeometry(string url, 
             string expectedGeometryValue)
         {
-            StationModel model =
-                await GetObjectFromResponseTextByUrl<StationModel>(url);
+            StationDTO model =
+                await GetObjectFromResponseTextByUrl<StationDTO>(url);
 
             Assert.Equal(expectedGeometryValue, 
                 model.SerialisedGeometry.SerialisedSpatialData);
@@ -169,8 +169,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             GetStationById_ReturnsStationWithRailwayUnitAsync(string url,
                 string expectedRailwayUnitName)
         {
-            StationModel model =
-                await GetObjectFromResponseTextByUrl<StationModel>(url);
+            StationDTO model =
+                await GetObjectFromResponseTextByUrl<StationDTO>(url);
 
             Assert.Equal(expectedRailwayUnitName, model.RailwayUnit.Name);
         }
@@ -187,25 +187,25 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             //arrange
             var client = factory.CreateClient();
             //todo to be refactored to dto builder
-            StationModel stationToPost = 
-                new StationModel()
+            StationDTO stationToPost = 
+                new StationDTO()
                 {
                     Name = newStationName,
-                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerModel()
+                    OwnerInfo = new OwnerDTO()
                     {
                         Id = ownerId
                     }
                 };
             //act
             HttpResponseMessage response = await client
-                .PostAsJsonAsync<StationModel>(url, stationToPost);
+                .PostAsJsonAsync<StationDTO>(url, stationToPost);
             var text = response.Content.ReadAsStringAsync().Result;
-            StationModel createdStation = 
-                DeserialiseObjectFromString<StationModel>(text);
+            StationDTO createdStation = 
+                DeserialiseObjectFromString<StationDTO>(text);
             //assert
             Assert.Equal(newStationName, createdStation.Name);
             Assert.True(createdStation.Id > 0);
@@ -228,34 +228,34 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             //arrange
             var client = factory.CreateClient();
             //todo to be refactored to dto builder
-            StationModel stationToPost =
-                new StationModel()
+            StationDTO stationToPost =
+                new StationDTO()
                 {
                     Name = originalStationName,
-                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerModel()
+                    OwnerInfo = new OwnerDTO()
                     {
                         Id = ownerId
                     }
                 };
             HttpResponseMessage postResponse = await client
-              .PostAsJsonAsync<StationModel>(url, stationToPost);
+              .PostAsJsonAsync<StationDTO>(url, stationToPost);
             var text = postResponse.Content.ReadAsStringAsync().Result;
-            StationModel createdStation =
-                DeserialiseObjectFromString<StationModel>(text);
-            StationModel putStation = 
-                new StationModel()
+            StationDTO createdStation =
+                DeserialiseObjectFromString<StationDTO>(text);
+            StationDTO putStation = 
+                new StationDTO()
                 {
                     Id = createdStation.Id,
                     Name = changedStationName,
-                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerModel()
+                    OwnerInfo = new OwnerDTO()
                     {
                         Id = ownerId
                     }
@@ -270,7 +270,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             {
                 //act
                 HttpResponseMessage response = await
-                    client.PutAsJsonAsync<StationModel>(putUrl, putStation);
+                    client.PutAsJsonAsync<StationDTO>(putUrl, putStation);
                 //assert
                 Assert.Equal(
                     HttpStatusCode.NoContent,
@@ -297,24 +297,24 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             //arrange
             var client = factory.CreateClient();
             //todo to be refactored to dto builder
-            StationModel stationToPost =
-                new StationModel()
+            StationDTO stationToPost =
+                new StationDTO()
                 {
                     Name = newStationName,
-                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerModel()
+                    OwnerInfo = new OwnerDTO()
                     {
                         Id = ownerId
                     }
                 };
             HttpResponseMessage response = await client
-                .PostAsJsonAsync<StationModel>(url, stationToPost);
+                .PostAsJsonAsync<StationDTO>(url, stationToPost);
             var text = response.Content.ReadAsStringAsync().Result;
-            StationModel createdStation =
-                DeserialiseObjectFromString<StationModel>(text);
+            StationDTO createdStation =
+                DeserialiseObjectFromString<StationDTO>(text);
             string deletionUrl = UriRoute
                 .GetRouteFromNodes(url, createdStation.Id.ToString())
                 .ToString();

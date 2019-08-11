@@ -19,7 +19,7 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TypeOfAStationModel> Get()
+        public IEnumerable<TypeOfAStationDTO> Get()
         {
             return logicService.GetTypesOfAStation();
         }

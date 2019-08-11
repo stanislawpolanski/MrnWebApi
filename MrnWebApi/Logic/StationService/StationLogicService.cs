@@ -43,7 +43,7 @@ namespace MrnWebApi.Logic.StationService
             dataAccessServicesFactory = injectedDataAccessServicesFactory;
         }
 
-        public async Task PostStationAsync(StationModel inputStation)
+        public async Task PostStationAsync(StationDTO inputStation)
         {
             AbstractStationLogicProcessor processor =
                 new PostStationLogicProcessor();
@@ -51,7 +51,7 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        private void InitialiseProcessor(StationModel inputStation,
+        private void InitialiseProcessor(StationDTO inputStation,
             AbstractStationLogicProcessor processor)
         {
             processor.SetDataAccessServicesFactory(dataAccessServicesFactory);
@@ -63,7 +63,7 @@ namespace MrnWebApi.Logic.StationService
             AbstractStationLogicProcessor processor =
                 new DeleteStationLogicProcessor();
             //todo to be refactored to dto builder
-            StationModel stationModel = new StationModel() { Id = inputId };
+            StationDTO stationModel = new StationDTO() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessGeometryWithRailwayUnitAsync();
             await processor.ProcessPhotosAsync();
@@ -71,19 +71,19 @@ namespace MrnWebApi.Logic.StationService
             await processor.ProcessStationRootAsync();
         }
 
-        public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
+        public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
         {
-            IEnumerable<StationModel> stations =
+            IEnumerable<StationDTO> stations =
                 await stationDataAccessService.GetBasicStationsAsync();
             return stations.OrderBy(station => station.Name);
         }
 
-        public async Task<StationModel> GetStationByIdAsync(int inputId)
+        public async Task<StationDTO> GetStationByIdAsync(int inputId)
         {
             AbstractStationLogicProcessor processor =
                 new GetStationLogicProcessor();
             //todo to be refactored to dto builder
-            StationModel stationModel = new StationModel() { Id = inputId };
+            StationDTO stationModel = new StationDTO() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessStationRootAsync();
             await processor.ProcessGeometryWithRailwayUnitAsync();
@@ -92,7 +92,7 @@ namespace MrnWebApi.Logic.StationService
             return processor.GetStation();
         }
 
-        public async Task PutStationAsync(StationModel inputStation)
+        public async Task PutStationAsync(StationDTO inputStation)
         {
             AbstractStationLogicProcessor processor =
                 new PutStationLogicProcessor();

@@ -42,7 +42,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
                 .ToListAsync();
         }
 
-        public async Task<GeometryModel> GetFirstGeometryByStationIdAsync(int id)
+        public async Task<GeometryDTO> GetFirstGeometryByStationIdAsync(int id)
         {
             return await context
                 .StationsToGeometries
@@ -50,7 +50,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
                 .Include(relation => relation.Geometry)
                 //todo to be replaced by dto builder
                 .Select(entity =>
-                    new GeometryModel()
+                    new GeometryDTO()
                     {
                         Id = entity.Geometry.Id,
                         SerialisedSpatialData = entity.Geometry.SpatialData.ToString()

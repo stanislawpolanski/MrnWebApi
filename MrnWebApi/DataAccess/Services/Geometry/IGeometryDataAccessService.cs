@@ -5,7 +5,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
 {
     public interface IGeometryDataAccessService
     {
-        Task<GeometryModel> GetFirstGeometryByStationIdAsync(int stationId);
+        Task<GeometryDTO> GetFirstGeometryByStationIdAsync(int stationId);
         Task DeleteGeometriesByStationIdAsync(int stationId);
     }
 }

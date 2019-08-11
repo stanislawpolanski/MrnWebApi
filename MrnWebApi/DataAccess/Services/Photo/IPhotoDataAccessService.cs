@@ -6,6 +6,6 @@ namespace MrnWebApi.DataAccess.Services.Photo
 {
     public interface IPhotoDataAccessService
     {
-        Task<IEnumerable<PhotoModel>> GetPhotosByStationIdAsync(int stationId);
+        Task<IEnumerable<PhotoDTO>> GetPhotosByStationIdAsync(int stationId);
     }
 }

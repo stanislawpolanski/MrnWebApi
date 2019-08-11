@@ -53,8 +53,8 @@ namespace MrnWebApi.DataAccess.Services.StationToRailway
                 .ToListAsync();
         }
 
-        public void UpdateRelationships(StationModel station,
-            IEnumerable<RailwayModel> railways)
+        public void UpdateRelationships(StationDTO station,
+            IEnumerable<RailwayDTO> railways)
         {
             throw new NotImplementedException();
         }

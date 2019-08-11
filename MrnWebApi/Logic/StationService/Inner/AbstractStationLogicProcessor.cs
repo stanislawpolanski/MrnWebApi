@@ -6,9 +6,9 @@ namespace MrnWebApi.Logic.StationService.Inner
 {
     public abstract class AbstractStationLogicProcessor
     {
-        protected StationModel station;
+        protected StationDTO station;
         protected DataAccessServicesFactory dataAccessServicesFactory;
-        public void SetStation(StationModel inputStation)
+        public void SetStation(StationDTO inputStation)
         {
             this.station = inputStation;
         }
@@ -17,7 +17,7 @@ namespace MrnWebApi.Logic.StationService.Inner
         {
             this.dataAccessServicesFactory = inputDataAccessServicesFactory;
         }
-        public StationModel GetStation()
+        public StationDTO GetStation()
         {
             return station;
         }

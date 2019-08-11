@@ -11,31 +11,31 @@ namespace UnitTests.Mocks
         {
         }
 
-        public async Task<IEnumerable<StationModel>> GetAllBasicStationsAsync()
+        public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
         {
-            List<StationModel> result = new List<StationModel>()
+            List<StationDTO> result = new List<StationDTO>()
             {
-                new StationModel() { Id = 15, Name = "Testowa stacja"},
-                new StationModel() { Id = 789, Name = "Druga stacja"}
+                new StationDTO() { Id = 15, Name = "Testowa stacja"},
+                new StationDTO() { Id = 789, Name = "Druga stacja"}
             };
             return await Task.FromResult(result);
         }
 
-        public Task<StationModel> GetStationByIdAsync(int id)
+        public Task<StationDTO> GetStationByIdAsync(int id)
         {
             return Task.FromResult(
-                new StationModel()
+                new StationDTO()
                 {
-                    RailwayUnit = new RailwayUnitModel()
+                    RailwayUnit = new RailwayUnitDTO()
                 });
         }
 
-        public async Task PutStationAsync(StationModel inputStation)
+        public async Task PutStationAsync(StationDTO inputStation)
         {
             throw new System.NotImplementedException();
         }
 
-        Task IStationLogicService.PostStationAsync(StationModel inputStation)
+        Task IStationLogicService.PostStationAsync(StationDTO inputStation)
         {
             throw new System.NotImplementedException();
         }

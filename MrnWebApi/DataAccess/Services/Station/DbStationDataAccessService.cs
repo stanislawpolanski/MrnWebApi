@@ -13,7 +13,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
         }
 
-        public async Task PostStationAsync(StationModel inputStation)
+        public async Task PostStationAsync(StationDTO inputStation)
         {
             ObjectsOfInterest objectOfInterest =
                 await SaveToObjectOfInterestTableAsync(inputStation);
@@ -23,7 +23,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         }
 
         private async Task<Stations> SaveToStationTableAsync(
-            StationModel inputStation,
+            StationDTO inputStation,
             int newStationId)
         {
             //todo to be replaced by dto builder
@@ -42,7 +42,7 @@ namespace MrnWebApi.DataAccess.Services.Station
         /// </summary>
         /// <param name="inputStation"></param>
         /// <returns>Saved entity.</returns>
-        private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationModel inputStation)
+        private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationDTO inputStation)
         {
             //todo to be replaced by dto builder
             ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
@@ -69,7 +69,7 @@ namespace MrnWebApi.DataAccess.Services.Station
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<StationModel>> GetBasicStationsAsync()
+        public async Task<IEnumerable<StationDTO>> GetBasicStationsAsync()
         {
             return await context.Stations
                 .Join(context.ObjectsOfInterest,
@@ -77,11 +77,11 @@ namespace MrnWebApi.DataAccess.Services.Station
                     objectOfInterestEntity => objectOfInterestEntity.Id,
                     //todo to be replaced by dto builder
                     (stationEntity, objectOfInterestEntity)
-                        => new StationModel { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
+                        => new StationDTO { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
                 .ToListAsync();
         }
 
-        public Task<StationModel> GetDetailedStationAsync(int id)
+        public Task<StationDTO> GetDetailedStationAsync(int id)
         {
             return context
                 .Stations
@@ -90,16 +90,16 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
                 //todo to be replaced by dto builder
-                .Select(entity => new StationModel()
+                .Select(entity => new StationDTO()
                 {
                     Id = entity.Id,
                     Name = entity.ParentObjectOfInterest.Name,
-                    OwnerInfo = new OwnerModel()
+                    OwnerInfo = new OwnerDTO()
                     {
                         Id = entity.ParentObjectOfInterest.Owner.Id,
                         Name = entity.ParentObjectOfInterest.Owner.Name
                     },
-                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
                     {
                         AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
                         Id = entity.TypeOfAstation.Id
@@ -109,14 +109,14 @@ namespace MrnWebApi.DataAccess.Services.Station
                 .FirstOrDefaultAsync();
         }
 
-        public async Task PutStationAsync(StationModel inputStation)
+        public async Task PutStationAsync(StationDTO inputStation)
         {
             await UpdateObjectOfInterestEntityAsync(inputStation);
             await UpdateStationEntityAsync(inputStation);
             await context.SaveChangesAsync();
         }
 
-        private async Task UpdateStationEntityAsync(StationModel inputStation)
+        private async Task UpdateStationEntityAsync(StationDTO inputStation)
         {
             Stations queriedStation =
                 await context
@@ -125,7 +125,7 @@ namespace MrnWebApi.DataAccess.Services.Station
             queriedStation.TypeOfAstationId = inputStation.TypeOfAStationInfo.Id;
         }
 
-        private async Task UpdateObjectOfInterestEntityAsync(StationModel inputStation)
+        private async Task UpdateObjectOfInterestEntityAsync(StationDTO inputStation)
         {
             ObjectsOfInterest queriedObjectOfInterest = await context
                 .ObjectsOfInterest

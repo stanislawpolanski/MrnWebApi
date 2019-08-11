@@ -15,6 +15,6 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
         /// <param name="stationId">Model of the input station. Only id is taken into account.</param>
         /// <param name="photos">Models of photos related to the station. Only ids of the input photos
         /// are taken into account.</param>
-        void UpdateRelationships(StationModel station, IEnumerable<PhotoModel> photos);
+        void UpdateRelationships(StationDTO station, IEnumerable<PhotoDTO> photos);
     }
 }

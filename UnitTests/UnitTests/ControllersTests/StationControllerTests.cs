@@ -13,27 +13,27 @@ namespace UnitTests.UnitTests.ControllersTests
         [Fact]
         public async void EnrichesStationsWithUrls()
         {
-            IEnumerable<StationModel> expectedList = GetExpectedStationModels();
+            IEnumerable<StationDTO> expectedList = GetExpectedStationModels();
             IStationLogicService mockedLogicService = new MockedStationLogicService();
             StationController controller = new StationController(mockedLogicService);
 
-            IEnumerable<StationModel> actualList = await controller.GetAllStations();
+            IEnumerable<StationDTO> actualList = await controller.GetAllStations();
 
             actualList.ToList().ForEach(actual =>
                 {
-                    StationModel expected =
+                    StationDTO expected =
                         expectedList.ToList().Where(x => x.Id.Equals(actual.Id)).FirstOrDefault();
                     Assert.Equal(actual.Name, expected.Name);
                     Assert.Equal(actual.Url, expected.Url);
                 });
         }
 
-        private IEnumerable<StationModel> GetExpectedStationModels()
+        private IEnumerable<StationDTO> GetExpectedStationModels()
         {
-            return new List<StationModel>()
+            return new List<StationDTO>()
             {
-                new StationModel() { Id = 15, Name = "Testowa stacja", Url = "/api/station/15" },
-                new StationModel() { Id = 789, Name = "Druga stacja", Url = "/api/station/789" }
+                new StationDTO() { Id = 15, Name = "Testowa stacja", Url = "/api/station/15" },
+                new StationDTO() { Id = 789, Name = "Druga stacja", Url = "/api/station/789" }
             };
         }
     }

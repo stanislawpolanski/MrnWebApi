@@ -11,12 +11,12 @@ namespace MrnWebApi.DataAccess.Services.TypeOfAStation
         {
         }
 
-        public ICollection<TypeOfAStationModel> GetTypesOfAStation()
+        public ICollection<TypeOfAStationDTO> GetTypesOfAStation()
         {
             return context.TypesOfAstation
                 //todo to be refactored to dto builder
                 .Select(stationType =>
-                    new TypeOfAStationModel
+                    new TypeOfAStationDTO
                     {
                         Id = stationType.Id,
                         AbbreviatedName = stationType.AbbreviatedName

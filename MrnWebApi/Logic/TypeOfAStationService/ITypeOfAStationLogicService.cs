@@ -5,6 +5,6 @@ namespace MrnWebApi.Logic.TypeOfAStationService
 {
     public interface ITypeOfAStationLogicService
     {
-        ICollection<TypeOfAStationModel> GetTypesOfAStation();
+        ICollection<TypeOfAStationDTO> GetTypesOfAStation();
     }
 }

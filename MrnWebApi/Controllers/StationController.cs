@@ -24,18 +24,18 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<StationModel>> GetAllStations()
+        public async Task<IEnumerable<StationDTO>> GetAllStations()
         {
-            IEnumerable<StationModel> stations =
+            IEnumerable<StationDTO> stations =
                 await stationLogicService.GetAllBasicStationsAsync();
             FillStationsWithUrls(stations);
             return stations;
         }
 
         private static void
-            FillStationsWithUrls(IEnumerable<StationModel> stations)
+            FillStationsWithUrls(IEnumerable<StationDTO> stations)
         {
-            Action<StationModel> setStationUrl =
+            Action<StationDTO> setStationUrl =
                 input =>
                 input.Url =
                     UriRoute
@@ -47,12 +47,12 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(StationModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StationDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<StationModel>>
+        public async Task<ActionResult<StationDTO>>
             GetStationByIdAsync(int id)
         {
-            StationModel station =
+            StationDTO station =
                 await stationLogicService.GetStationByIdAsync(id);
             if (station == null)
             {
@@ -63,7 +63,7 @@ namespace MrnWebApi.Controllers
             return Ok(station);
         }
 
-        private static void FillRailwayUnitWithUrl(StationModel station)
+        private static void FillRailwayUnitWithUrl(StationDTO station)
         {
             station.RailwayUnit.Url = UriRoute
                 .GetRouteFromNodes(
@@ -72,9 +72,9 @@ namespace MrnWebApi.Controllers
                 .ToString();
         }
 
-        private static void FillRailwaysWithUrls(StationModel station)
+        private static void FillRailwaysWithUrls(StationDTO station)
         {
-            Action<RailwayModel> setRailwayUrl =
+            Action<RailwayDTO> setRailwayUrl =
                 railway =>
                 railway.Url =
                     UriRoute
@@ -85,8 +85,8 @@ namespace MrnWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<StationModel>>
-            PostStationAsync(StationModel inputStation)
+        public async Task<ActionResult<StationDTO>>
+            PostStationAsync(StationDTO inputStation)
         {
             await stationLogicService.PostStationAsync(inputStation);
             return inputStation;
@@ -94,7 +94,7 @@ namespace MrnWebApi.Controllers
 
         [HttpPut("{id}")]
         public async Task<ActionResult>
-            PutStation(int id, [FromBody] StationModel inputStation)
+            PutStation(int id, [FromBody] StationDTO inputStation)
         {
             if (id != inputStation.Id)
             {

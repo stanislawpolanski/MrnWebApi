@@ -14,7 +14,7 @@ namespace MrnWebApi.DataAccess.Services.Photo
         {
         }
 
-        public async Task<IEnumerable<PhotoModel>>
+        public async Task<IEnumerable<PhotoDTO>>
             GetPhotosByStationIdAsync(int stationId)
         {
             Expression<System.Func<Photos, bool>> photosThatShowsStationById =
@@ -22,12 +22,12 @@ namespace MrnWebApi.DataAccess.Services.Photo
                 .PhotosToObjectsOfInterest
                 .Any(relation => relation.ObjectOfInterestId.Equals(stationId));
 
-            IEnumerable<PhotoModel> result = await context
+            IEnumerable<PhotoDTO> result = await context
                 .Photos
                 .Where(photosThatShowsStationById)
                 //todo to be replaced by dto builder
                 .Select(photoEntity =>
-                    new PhotoModel()
+                    new PhotoDTO()
                     {
                         Id = photoEntity.Id,
                         FilePath = photoEntity.FilePath

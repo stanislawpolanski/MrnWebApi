@@ -2,7 +2,7 @@
 
 namespace MrnWebApi.Common.Models
 {
-    public class GeometryModel
+    public class GeometryDTO
     {
         public int Id;
         public String SerialisedSpatialData;

@@ -6,6 +6,6 @@ namespace MrnWebApi.DataAccess.Services.Railway
 {
     public interface IRailwayDataAccessService
     {
-        Task<IEnumerable<RailwayModel>> GetRailwaysByStationIdAsync(int stationId);
+        Task<IEnumerable<RailwayDTO>> GetRailwaysByStationIdAsync(int stationId);
     }
 }

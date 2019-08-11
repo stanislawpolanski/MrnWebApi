@@ -14,7 +14,7 @@ namespace MrnWebApi.DataAccess.Services.Railway
         {
         }
 
-        public async Task<IEnumerable<RailwayModel>> GetRailwaysByStationIdAsync(int stationId)
+        public async Task<IEnumerable<RailwayDTO>> GetRailwaysByStationIdAsync(int stationId)
         {
             Expression<System.Func<Railways, bool>> railwaysHasStation =
                 railway =>
@@ -23,18 +23,18 @@ namespace MrnWebApi.DataAccess.Services.Railway
                     .Any(stationToGeometry =>
                         stationToGeometry.StationId.Equals(stationId));
 
-            IEnumerable<RailwayModel> result = await context
+            IEnumerable<RailwayDTO> result = await context
                 .Railways
                 .Include(railway => railway.StationsToGeometries)
                 .Where(railwaysHasStation)
                 //todo to be replaced by dto builder
                 .Select(railwayEntity =>
-                    new RailwayModel()
+                    new RailwayDTO()
                     {
                         Id = railwayEntity.Id,
                         Name = railwayEntity.Name,
                         Number = railwayEntity.Number,
-                        Owner = new OwnerModel()
+                        Owner = new OwnerDTO()
                         {
                             Id = railwayEntity.Owner.Id,
                             Name = railwayEntity.Owner.Name

@@ -36,7 +36,7 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
                 .ToListAsync();
         }
 
-        public void UpdateRelationships(StationModel station, IEnumerable<PhotoModel> photos)
+        public void UpdateRelationships(StationDTO station, IEnumerable<PhotoDTO> photos)
         {
             throw new NotImplementedException();
             /*

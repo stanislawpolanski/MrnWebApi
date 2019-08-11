@@ -22,8 +22,8 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             geometryReader = injectedGeometryReader;
         }
 
-        public async Task<RailwayUnitModel>
-            GetRailwayUnitByStationAsync(StationModel station)
+        public async Task<RailwayUnitDTO>
+            GetRailwayUnitByStationAsync(StationDTO station)
         {
             bool dataRequiredFromRequestIsIncomplete = (
                 station.SerialisedGeometry == null
@@ -35,7 +35,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
             return await GetRailwayUnitFromDatasource(station);
         }
 
-        private async Task<RailwayUnitModel> GetRailwayUnitFromDatasource(StationModel station)
+        private async Task<RailwayUnitDTO> GetRailwayUnitFromDatasource(StationDTO station)
         {
             IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
             Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
@@ -48,7 +48,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
                 .Where(unitOwnerEqualsStationsOwnerPredicate)
                 .Where(unitsGeometryIntersectsStationsGeometryPredicate)
                 //todo to be replaced by dto builder
-                .Select(unit => new RailwayUnitModel()
+                .Select(unit => new RailwayUnitDTO()
                 {
                     Id = unit.Id,
                     Name = unit.Name
@@ -56,7 +56,7 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
                 .FirstOrDefaultAsync();
         }
 
-        private IGeometry DeserialiseStationsGeometry(StationModel station)
+        private IGeometry DeserialiseStationsGeometry(StationDTO station)
         {
             return geometryReader
                 .Read(station.SerialisedGeometry.SerialisedSpatialData);

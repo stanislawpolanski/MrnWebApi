@@ -5,6 +5,6 @@ namespace MrnWebApi.DataAccess.Services.TypeOfAStation
 {
     public interface ITypeOfAStationDataAccessService
     {
-        ICollection<TypeOfAStationModel> GetTypesOfAStation();
+        ICollection<TypeOfAStationDTO> GetTypesOfAStation();
     }
 }

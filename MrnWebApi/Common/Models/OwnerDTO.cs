@@ -1,6 +1,6 @@
 ﻿namespace MrnWebApi.Common.Models
 {
-    public class OwnerModel
+    public class OwnerDTO
     {
         public int Id;
         public string Name;

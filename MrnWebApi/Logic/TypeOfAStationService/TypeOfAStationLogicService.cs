@@ -14,7 +14,7 @@ namespace MrnWebApi.Logic.TypeOfAStationService
         {
             service = injectedService;
         }
-        public ICollection<TypeOfAStationModel> GetTypesOfAStation()
+        public ICollection<TypeOfAStationDTO> GetTypesOfAStation()
         {
             return service
                 .GetTypesOfAStation()

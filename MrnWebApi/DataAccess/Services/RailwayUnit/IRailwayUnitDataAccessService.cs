@@ -5,6 +5,6 @@ namespace MrnWebApi.DataAccess.Services.RailwayUnit
 {
     public interface IRailwayUnitDataAccessService
     {
-        Task<RailwayUnitModel> GetRailwayUnitByStationAsync(StationModel station);
+        Task<RailwayUnitDTO> GetRailwayUnitByStationAsync(StationDTO station);
     }
 }
