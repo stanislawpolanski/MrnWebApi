@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MrnWebApi.Common.Models;
@@ -21,11 +22,16 @@ namespace MrnWebApi.DataAccess.Services.StationToRailway
         public async Task
             ClearGeometryInfoFromRelationshipEntityByStationidAsync(int stationId)
         {
+            Expression<Func<StationsToGeometries, bool>> pointsToRequiredStation = 
+                relationship => relationship.StationId.Equals(stationId);
+            Action<StationsToGeometries> clearGeometryInfo = 
+                entity => entity.GeometryId = null;
+
             context
                 .StationsToGeometries
-                .Where(relationship => relationship.GeometryId.Equals(stationId))
+                .Where(pointsToRequiredStation)
                 .ToList()
-                .ForEach(entity => entity.GeometryId = null);
+                .ForEach(clearGeometryInfo);
             await context.SaveChangesAsync();
         }
 

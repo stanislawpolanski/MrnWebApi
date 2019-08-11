@@ -14,6 +14,7 @@ namespace MrnWebApi.DataAccess.Services.TypeOfAStation
         public ICollection<TypeOfAStationModel> GetTypesOfAStation()
         {
             return context.TypesOfAstation
+                //todo to be refactored to dto builder
                 .Select(stationType =>
                     new TypeOfAStationModel
                     {

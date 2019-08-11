@@ -26,24 +26,34 @@ namespace MrnWebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<StationModel>> GetAllStations()
         {
-            IEnumerable<StationModel> stations = await stationLogicService.GetAllBasicStationsAsync();
+            IEnumerable<StationModel> stations = 
+                await stationLogicService.GetAllBasicStationsAsync();
             FillStationsWithUrls(stations);
             return stations;
         }
 
-        private static void FillStationsWithUrls(IEnumerable<StationModel> stations)
+        private static void 
+            FillStationsWithUrls(IEnumerable<StationModel> stations)
         {
-            stations
-                .ToList()
-                .ForEach(input => input.Url = UriRoute.GetRouteFromNodes(STATION_PATH, input.Id.ToString()).ToString());
+            Action<StationModel> setStationUrl = 
+                input => 
+                input.Url = 
+                    UriRoute
+                    .GetRouteFromNodes(
+                        STATION_PATH, 
+                        input.Id.ToString())
+                    .ToString();
+            stations.ToList().ForEach(setStationUrl);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(StationModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<StationModel>> GetStationByIdAsync(int id)
+        public async Task<ActionResult<StationModel>> 
+            GetStationByIdAsync(int id)
         {
-            StationModel station = await stationLogicService.GetStationByIdAsync(id);
+            StationModel station = 
+                await stationLogicService.GetStationByIdAsync(id);
             if(station == null)
             {
                 return NotFound();
@@ -56,29 +66,35 @@ namespace MrnWebApi.Controllers
         private static void FillRailwayUnitWithUrl(StationModel station)
         {
             station.RailwayUnit.Url = UriRoute
-                .GetRouteFromNodes(RailwayUnitController.RAILWAY_UNIT_PATH, station.RailwayUnit.Id .ToString())
+                .GetRouteFromNodes(
+                    RailwayUnitController.RAILWAY_UNIT_PATH, 
+                    station.RailwayUnit.Id .ToString())
                 .ToString();
         }
 
         private static void FillRailwaysWithUrls(StationModel station)
         {
-            station
-                .Railways
-                .ToList()
-                .ForEach(railway =>
-                    railway.Url = UriRoute.GetRouteFromNodes(RailwayController.RAILWAY_PATH,
-                        railway.Id.ToString()).ToString());
+            Action<RailwayModel> setRailwayUrl = 
+                railway =>
+                railway.Url = 
+                    UriRoute
+                    .GetRouteFromNodes(
+                        RailwayController.RAILWAY_PATH,
+                        railway.Id.ToString()).ToString();
+            station.Railways.ToList().ForEach(setRailwayUrl);
         }
 
         [HttpPost]
-        public async Task<ActionResult<StationModel>> PostStationAsync(StationModel inputStation)
+        public async Task<ActionResult<StationModel>> 
+            PostStationAsync(StationModel inputStation)
         {
             await stationLogicService.PostStationAsync(inputStation);
             return inputStation;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutStation(int id, [FromBody] StationModel inputStation)
+        public async Task<ActionResult> 
+            PutStation(int id, [FromBody] StationModel inputStation)
         {
             if(id != inputStation.Id)
             {

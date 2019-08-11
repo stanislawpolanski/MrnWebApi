@@ -28,7 +28,8 @@ namespace MrnWebApi.DataAccess.Services.StationToPhoto
             await context.SaveChangesAsync();
         }
 
-        private Task<List<PhotosToObjectsOfInterest>> GetRelationshipsToBeDeleted(int stationId)
+        private Task<List<PhotosToObjectsOfInterest>> 
+            GetRelationshipsToBeDeleted(int stationId)
         {
             return context
                 .PhotosToObjectsOfInterest

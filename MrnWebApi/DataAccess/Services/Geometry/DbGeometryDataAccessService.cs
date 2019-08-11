@@ -9,7 +9,8 @@ using System.Collections.Generic;
 
 namespace MrnWebApi.DataAccess.Services.Geometry
 {
-    public class DbGeometryDataAccessService : DbDataAccessAbstractService, IGeometryDataAccessService
+    public class DbGeometryDataAccessService : 
+        DbDataAccessAbstractService, IGeometryDataAccessService
     {
         public DbGeometryDataAccessService(MRN_developContext injectedContext) 
             : base(injectedContext)
@@ -47,6 +48,7 @@ namespace MrnWebApi.DataAccess.Services.Geometry
                 .StationsToGeometries
                 .Where(relation => relation.StationId.Equals(id))
                 .Include(relation => relation.Geometry)
+                //todo to be replaced by dto builder
                 .Select(entity =>
                     new GeometryModel()
                     {

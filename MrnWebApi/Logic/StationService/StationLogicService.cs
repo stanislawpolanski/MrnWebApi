@@ -62,6 +62,7 @@ namespace MrnWebApi.Logic.StationService
         {
             AbstractStationLogicProcessor processor =
                 new DeleteStationLogicProcessor();
+            //todo to be refactored to dto builder
             StationModel stationModel = new StationModel() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessGeometryWithRailwayUnitAsync();
@@ -81,6 +82,7 @@ namespace MrnWebApi.Logic.StationService
         {
             AbstractStationLogicProcessor processor =
                 new GetStationLogicProcessor();
+            //todo to be refactored to dto builder
             StationModel stationModel = new StationModel() { Id = inputId };
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessStationRootAsync();
