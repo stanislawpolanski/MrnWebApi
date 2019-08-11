@@ -54,6 +54,13 @@ namespace MrnWebApi.DataAccess.Services.Station
         {
             Stations station = await context.Stations.FindAsync(id);
             context.Stations.Remove(station);
+
+            ObjectsOfInterest objectsOfInterest =
+                await context
+                .ObjectsOfInterest
+                .FindAsync(id);
+            context.Remove(objectsOfInterest);
+
             await context.SaveChangesAsync();
         }
 

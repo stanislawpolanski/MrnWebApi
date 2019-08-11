@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using MrnWebApi.Common.Models;
+using MrnWebApi.Common.Routing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -92,21 +93,28 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         {
             //act
             StationModel station = 
-                await GetDeserialisedTextFromResponseByUrl<StationModel>(url);
+                await GetObjectFromResponseTextByUrl<StationModel>(url);
             //assert
             Assert.Equal(expectedName, station.Name);
         }
 
         private async Task<T> 
-            GetDeserialisedTextFromResponseByUrl<T>(string url)
+            GetObjectFromResponseTextByUrl<T>(string url)
         {
             HttpResponseMessage response = await GetResponseByUrl(url);
-            var text = await response.Content.ReadAsStringAsync();
-            T result = DeserialiseJson<T>(text);
+            T result = await DeserialiseObjectFromResponse<T>(response);
             return result;
         }
 
-        private static T DeserialiseJson<T>(string text)
+        private static async Task<T> 
+            DeserialiseObjectFromResponse<T>(HttpResponseMessage response)
+        {
+            var text = await response.Content.ReadAsStringAsync();
+            T result = DeserialiseObjectFromString<T>(text);
+            return result;
+        }
+
+        private static T DeserialiseObjectFromString<T>(string text)
         {
             return JsonConvert.DeserializeObject<T>(text);
         }
@@ -126,7 +134,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 int expectedNumberOfRailways)
         {
             StationModel model =
-                await GetDeserialisedTextFromResponseByUrl<StationModel>(url);
+                await GetObjectFromResponseTextByUrl<StationModel>(url);
             Assert.Equal(expectedNumberOfRailways, model.Railways.Count());
         }
         
@@ -136,7 +144,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             int expectedNumberOfPhotos)
         {
             StationModel model =
-                await GetDeserialisedTextFromResponseByUrl<StationModel>(url);
+                await GetObjectFromResponseTextByUrl<StationModel>(url);
             Assert.Equal(expectedNumberOfPhotos, model.Photos.Count());
         }
 
@@ -147,7 +155,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             string expectedGeometryValue)
         {
             StationModel model =
-                await GetDeserialisedTextFromResponseByUrl<StationModel>(url);
+                await GetObjectFromResponseTextByUrl<StationModel>(url);
 
             Assert.Equal(expectedGeometryValue, 
                 model.SerialisedGeometry.SerialisedSpatialData);
@@ -160,18 +168,52 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 string expectedRailwayUnitName)
         {
             StationModel model =
-                await GetDeserialisedTextFromResponseByUrl<StationModel>(url);
+                await GetObjectFromResponseTextByUrl<StationModel>(url);
 
             Assert.Equal(expectedRailwayUnitName, model.RailwayUnit.Name);
         }
 
-        [Fact]
-        public void PostStation()
+        [Theory]
+        [InlineData("/api/station", "Test station", 2, 1)]
+        public async Task PostStationAsync_AssignsIdToStationWithNameAsync(
+            string url, 
+            string newStationName, 
+            int    typeOfAStationId, 
+            int    ownerId)
         {
-            throw new Xunit.Sdk.XunitException("test not developed");
+
+            //arrange
+            var client = factory.CreateClient();
+            StationModel stationToPost = 
+                new StationModel()
+                {
+                    Name = newStationName,
+                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    {
+                        Id = typeOfAStationId
+                    },
+                    OwnerInfo = new OwnerModel()
+                    {
+                        Id = ownerId
+                    }
+                };
+            //act
+            HttpResponseMessage response = await client
+                .PostAsJsonAsync<StationModel>(url, stationToPost);
+            var text = response.Content.ReadAsStringAsync().Result;
+            StationModel createdStation = 
+                DeserialiseObjectFromString<StationModel>(text);
+            //assert
+            Assert.Equal(newStationName, createdStation.Name);
+            Assert.True(createdStation.Id > 0);
+            //clear
+            string deletionUrl = UriRoute
+                .GetRouteFromNodes(url, createdStation.Id.ToString())
+                .ToString();
+            await client.DeleteAsync(deletionUrl);
         }
         [Fact]
-        public void PutStation()
+        public void PutStationAsync_ChangesNameOfAStation()
         {
             throw new Xunit.Sdk.XunitException("test not developed");
         }
