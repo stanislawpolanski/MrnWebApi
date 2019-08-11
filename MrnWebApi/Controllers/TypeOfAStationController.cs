@@ -18,7 +18,6 @@ namespace MrnWebApi.Controllers
             this.logicService = injectedService;
         }
 
-        // GET: /api/type-of-a-station
         [HttpGet]
         public IEnumerable<TypeOfAStationModel> Get()
         {
