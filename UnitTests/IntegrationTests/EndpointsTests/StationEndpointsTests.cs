@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Testing;
 using MrnWebApi.Common.Models;
 using MrnWebApi.Common.Routing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -184,6 +186,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
 
             //arrange
             var client = factory.CreateClient();
+            //todo to be refactored to dto builder
             StationModel stationToPost = 
                 new StationModel()
                 {
@@ -212,10 +215,75 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 .ToString();
             await client.DeleteAsync(deletionUrl);
         }
-        [Fact]
-        public void PutStationAsync_ChangesNameOfAStation()
+        
+        [Theory]
+        [InlineData("/api/station", "Put test station", "Put test station, changed name", 2, 1)]
+        public async Task PutStationAsync_Returns204OnRequest(
+            string url,
+            string originalStationName,
+            string changedStationName,
+            int typeOfAStationId,
+            int ownerId)
         {
-            throw new Xunit.Sdk.XunitException("test not developed");
+            //arrange
+            var client = factory.CreateClient();
+            //todo to be refactored to dto builder
+            StationModel stationToPost =
+                new StationModel()
+                {
+                    Name = originalStationName,
+                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    {
+                        Id = typeOfAStationId
+                    },
+                    OwnerInfo = new OwnerModel()
+                    {
+                        Id = ownerId
+                    }
+                };
+            HttpResponseMessage postResponse = await client
+              .PostAsJsonAsync<StationModel>(url, stationToPost);
+            var text = postResponse.Content.ReadAsStringAsync().Result;
+            StationModel createdStation =
+                DeserialiseObjectFromString<StationModel>(text);
+            StationModel putStation = 
+                new StationModel()
+                {
+                    Id = createdStation.Id,
+                    Name = changedStationName,
+                    TypeOfAStationInfo = new TypeOfAStationModel()
+                    {
+                        Id = typeOfAStationId
+                    },
+                    OwnerInfo = new OwnerModel()
+                    {
+                        Id = ownerId
+                    }
+                };
+            String putUrl = 
+                UriRoute
+                    .GetRouteFromNodes(
+                        url,
+                        createdStation.Id.ToString())
+                    .ToString();
+            try
+            {
+                //act
+                HttpResponseMessage response = await
+                    client.PutAsJsonAsync<StationModel>(putUrl, putStation);
+                //assert
+                Assert.Equal(
+                    HttpStatusCode.NoContent,
+                    response.StatusCode);
+            }
+            finally
+            {
+                //clear
+                string deletionUrl = UriRoute
+                    .GetRouteFromNodes(url, createdStation.Id.ToString())
+                    .ToString();
+                await client.DeleteAsync(deletionUrl);
+            }
         }
         [Fact]
         public void DeleteStation()
