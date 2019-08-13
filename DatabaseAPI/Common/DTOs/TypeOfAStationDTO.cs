@@ -7,14 +7,14 @@
         public class Builder
         {
             private TypeOfAStationDTO item = new TypeOfAStationDTO();
-            public Builder Id(id)
+            public Builder Id(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder AbbreviatedName(abbreviatedname)
+            public Builder AbbreviatedName(string abbreviatedName)
             {
-                item.AbbreviatedName = abbreviatedname;
+                item.AbbreviatedName = abbreviatedName;
                 return this;
             }
             public TypeOfAStationDTO Build()

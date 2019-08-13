@@ -31,34 +31,34 @@ namespace DatabaseAPI.Common.DTOs
                 item.Url = url;
                 return this;
             }
-            public Builder Geometry(GeometryDTO serialisedgeometry)
+            public Builder Geometry(GeometryDTO geometryDTO)
             {
-                item.SerialisedGeometry = serialisedgeometry;
+                item.SerialisedGeometry = geometryDTO;
                 return this;
             }
-            public Builder Owner(OwnerDTO ownerinfo)
+            public Builder Owner(OwnerDTO ownerDTO)
             {
-                item.OwnerInfo = ownerinfo;
+                item.OwnerInfo = ownerDTO;
                 return this;
             }
-            public Builder TypeOfAStation(TypeOfAStationDTO typeofastationinfo)
+            public Builder TypeOfAStation(TypeOfAStationDTO typeOfAStation)
             {
-                item.TypeOfAStationInfo = typeofastationinfo;
+                item.TypeOfAStationInfo = typeOfAStation;
                 return this;
             }
-            public Builder RailwayUnit(RailwayUnitDTO railwayunit)
+            public Builder RailwayUnit(RailwayUnitDTO railwayUnitDTO)
             {
-                item.RailwayUnit = railwayunit;
+                item.RailwayUnit = railwayUnitDTO;
                 return this;
             }
-            public Builder Photos(IEnumerable<PhotoDTO> photos)
+            public Builder Photos(IEnumerable<PhotoDTO> photosDTOs)
             {
-                item.Photos = photos;
+                item.Photos = photosDTOs;
                 return this;
             }
-            public Builder Railways(IEnumerable<RailwayDTO> railways)
+            public Builder Railways(IEnumerable<RailwayDTO> railwaysDTOs)
             {
-                item.Railways = railways;
+                item.Railways = railwaysDTOs;
                 return this;
             }
             public StationDTO Build()

@@ -30,9 +30,9 @@
                 item.Url = url;
                 return this;
             }
-            public Builder Owner(OwnerDTO owner)
+            public Builder Owner(OwnerDTO ownerDTO)
             {
-                item.Owner = owner;
+                item.Owner = ownerDTO;
                 return this;
             }
             public RailwayDTO Build()
