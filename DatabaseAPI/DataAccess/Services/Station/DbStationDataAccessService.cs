@@ -77,7 +77,11 @@ namespace DatabaseAPI.DataAccess.Services.Station
                     objectOfInterestEntity => objectOfInterestEntity.Id,
                     //todo to be replaced by dto builder
                     (stationEntity, objectOfInterestEntity)
-                        => new StationDTO { Id = stationEntity.Id, Name = objectOfInterestEntity.Name })
+                        => new StationDTO
+                        {
+                            Id = stationEntity.Id,
+                            Name = objectOfInterestEntity.Name
+                        })
                 .ToListAsync();
         }
 

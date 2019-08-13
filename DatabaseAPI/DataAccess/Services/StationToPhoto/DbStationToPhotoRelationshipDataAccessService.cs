@@ -39,15 +39,6 @@ namespace DatabaseAPI.DataAccess.Services.StationToPhoto
         public void UpdateRelationships(StationDTO station, IEnumerable<PhotoDTO> photos)
         {
             throw new NotImplementedException();
-            /*
-            int stationId = station.Id;
-            HashSet<int> updatePhotoIds = new HashSet<int>(photos.Select(photo => photo.Id));
-
-            List<PhotosToObjectsOfInterest> existingInDatabase = context.PhotosToObjectsOfInterest
-                .Where(relationship => relationship.ObjectOfInterestId.Equals(stationId))
-                .ToList();
-                */
-
         }
     }
 }
