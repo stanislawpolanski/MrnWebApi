@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Station
+namespace DatabaseAPI.DataAccess.Services.Station
 {
     public class DbStationDataAccessService : DbDataAccessAbstractService, IStationDataAccessService
     {

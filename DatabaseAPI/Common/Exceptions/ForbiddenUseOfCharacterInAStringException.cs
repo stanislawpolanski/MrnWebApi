@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MrnWebApi.Common.Exceptions
+namespace DatabaseAPI.Common.Exceptions
 {
     public class ForbiddenUseOfCharacterInAStringException : ArgumentException
     {

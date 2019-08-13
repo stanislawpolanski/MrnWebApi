@@ -1,4 +1,4 @@
-﻿namespace MrnWebApi.Common.DTOs
+﻿namespace DatabaseAPI.Common.DTOs
 {
     public class RailwayDTO
     {

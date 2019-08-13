@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.Logic.StationService
+namespace DatabaseAPI.Logic.StationService
 {
     public interface IStationLogicService
     {

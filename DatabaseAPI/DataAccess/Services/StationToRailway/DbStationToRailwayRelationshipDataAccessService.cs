@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.Inner.Scaffold;
-using MrnWebApi.DataAccess.Services.StationToPhoto;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.StationToRailway
+namespace DatabaseAPI.DataAccess.Services.StationToRailway
 {
     public class DbStationToRailwayRelationshipDataAccessService :
         DbDataAccessAbstractService,

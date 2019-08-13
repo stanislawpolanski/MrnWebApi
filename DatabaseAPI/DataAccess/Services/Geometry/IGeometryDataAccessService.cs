@@ -1,7 +1,7 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Geometry
+namespace DatabaseAPI.DataAccess.Services.Geometry
 {
     public interface IGeometryDataAccessService
     {

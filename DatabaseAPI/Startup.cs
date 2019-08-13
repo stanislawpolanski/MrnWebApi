@@ -5,22 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MrnWebApi.Common.Routing;
-using MrnWebApi.DataAccess.Inner.Scaffold;
-using MrnWebApi.DataAccess.Services.Geometry;
-using MrnWebApi.DataAccess.Services.Photo;
-using MrnWebApi.DataAccess.Services.Railway;
-using MrnWebApi.DataAccess.Services.RailwayUnit;
-using MrnWebApi.DataAccess.Services.Station;
-using MrnWebApi.DataAccess.Services.StationToPhoto;
-using MrnWebApi.DataAccess.Services.StationToRailway;
-using MrnWebApi.DataAccess.Services.TypeOfAStation;
-using MrnWebApi.DataAccess.ServicesFactory;
-using MrnWebApi.Logic.StationService;
-using MrnWebApi.Logic.TypeOfAStationService;
+using DatabaseAPI.Common.Routing;
+using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.DataAccess.Services.Geometry;
+using DatabaseAPI.DataAccess.Services.Photo;
+using DatabaseAPI.DataAccess.Services.Railway;
+using DatabaseAPI.DataAccess.Services.RailwayUnit;
+using DatabaseAPI.DataAccess.Services.Station;
+using DatabaseAPI.DataAccess.Services.StationToPhoto;
+using DatabaseAPI.DataAccess.Services.StationToRailway;
+using DatabaseAPI.DataAccess.Services.TypeOfAStation;
+using DatabaseAPI.DataAccess.ServicesFactory;
+using DatabaseAPI.Logic.StationService;
+using DatabaseAPI.Logic.TypeOfAStationService;
 using NetTopologySuite.IO;
 
-namespace MrnWebApi
+namespace DatabaseAPI
 {
     public class Startup
     {

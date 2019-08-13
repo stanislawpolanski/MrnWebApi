@@ -1,9 +1,9 @@
-﻿using MrnWebApi.Common.Exceptions;
+﻿using DatabaseAPI.Common.Exceptions;
 using System;
 using System.Linq;
 using System.Text;
 
-namespace MrnWebApi.Common.Routing
+namespace DatabaseAPI.Common.Routing
 {
     public class UriRoute
     {

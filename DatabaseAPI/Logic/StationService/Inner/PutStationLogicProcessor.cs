@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.Logic.StationService.Inner
+namespace DatabaseAPI.Logic.StationService.Inner
 {
     public class PutStationLogicProcessor : AbstractStationLogicProcessor
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold
+namespace DatabaseAPI.DataAccess.Inner.Scaffold
 {
     public partial class MRN_developContext : DbContext
     {

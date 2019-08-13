@@ -1,4 +1,4 @@
-﻿namespace MrnWebApi.DataAccess.Inner.Scaffold
+﻿namespace DatabaseAPI.DataAccess.Inner.Scaffold
 {
     public partial class PhotosToObjectsOfInterest
     {

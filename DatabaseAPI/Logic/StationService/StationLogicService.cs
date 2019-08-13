@@ -1,16 +1,16 @@
-﻿using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.Services.Geometry;
-using MrnWebApi.DataAccess.Services.Photo;
-using MrnWebApi.DataAccess.Services.Railway;
-using MrnWebApi.DataAccess.Services.RailwayUnit;
-using MrnWebApi.DataAccess.Services.Station;
-using MrnWebApi.DataAccess.ServicesFactory;
-using MrnWebApi.Logic.StationService.Inner;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Services.Geometry;
+using DatabaseAPI.DataAccess.Services.Photo;
+using DatabaseAPI.DataAccess.Services.Railway;
+using DatabaseAPI.DataAccess.Services.RailwayUnit;
+using DatabaseAPI.DataAccess.Services.Station;
+using DatabaseAPI.DataAccess.ServicesFactory;
+using DatabaseAPI.Logic.StationService.Inner;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.Logic.StationService
+namespace DatabaseAPI.Logic.StationService
 {
     public class StationLogicService : IStationLogicService
     {

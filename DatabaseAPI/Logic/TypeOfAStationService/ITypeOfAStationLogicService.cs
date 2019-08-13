@@ -1,7 +1,7 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 
-namespace MrnWebApi.Logic.TypeOfAStationService
+namespace DatabaseAPI.Logic.TypeOfAStationService
 {
     public interface ITypeOfAStationLogicService
     {

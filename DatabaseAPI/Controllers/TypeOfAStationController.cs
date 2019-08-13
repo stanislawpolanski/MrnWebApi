@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.Logic.TypeOfAStationService;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Logic.TypeOfAStationService;
 using System.Collections.Generic;
 
-namespace MrnWebApi.Controllers
+namespace DatabaseAPI.Controllers
 {
     [Route(TYPE_OF_A_STATION_PATH)]
     [ApiController]

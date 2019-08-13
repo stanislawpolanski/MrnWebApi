@@ -1,6 +1,6 @@
-﻿using MrnWebApi.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
 
-namespace MrnWebApi.DataAccess.Services
+namespace DatabaseAPI.DataAccess.Services
 {
     public abstract class DbDataAccessAbstractService
     {

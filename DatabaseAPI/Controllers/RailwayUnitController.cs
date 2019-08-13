@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MrnWebApi.Controllers
+namespace DatabaseAPI.Controllers
 {
     [Route(RAILWAY_UNIT_PATH)]
     [ApiController]

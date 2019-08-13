@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Railway
+namespace DatabaseAPI.DataAccess.Services.Railway
 {
     public interface IRailwayDataAccessService
     {

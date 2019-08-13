@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Photo
+namespace DatabaseAPI.DataAccess.Services.Photo
 {
     public class DbPhotoDataAccessService : DbDataAccessAbstractService, IPhotoDataAccessService
     {

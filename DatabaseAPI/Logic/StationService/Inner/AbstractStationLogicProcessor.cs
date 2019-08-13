@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.ServicesFactory;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.ServicesFactory;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.Logic.StationService.Inner
+namespace DatabaseAPI.Logic.StationService.Inner
 {
     public abstract class AbstractStationLogicProcessor
     {

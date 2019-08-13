@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Station
+namespace DatabaseAPI.DataAccess.Services.Station
 {
     public interface IStationDataAccessService
     {

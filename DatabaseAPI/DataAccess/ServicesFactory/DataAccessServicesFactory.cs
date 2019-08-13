@@ -1,11 +1,11 @@
-﻿using MrnWebApi.DataAccess.Services.Geometry;
-using MrnWebApi.DataAccess.Services.Photo;
-using MrnWebApi.DataAccess.Services.Railway;
-using MrnWebApi.DataAccess.Services.RailwayUnit;
-using MrnWebApi.DataAccess.Services.Station;
-using MrnWebApi.DataAccess.Services.StationToPhoto;
+﻿using DatabaseAPI.DataAccess.Services.Geometry;
+using DatabaseAPI.DataAccess.Services.Photo;
+using DatabaseAPI.DataAccess.Services.Railway;
+using DatabaseAPI.DataAccess.Services.RailwayUnit;
+using DatabaseAPI.DataAccess.Services.Station;
+using DatabaseAPI.DataAccess.Services.StationToPhoto;
 
-namespace MrnWebApi.DataAccess.ServicesFactory
+namespace DatabaseAPI.DataAccess.ServicesFactory
 {
     public class DataAccessServicesFactory
     {

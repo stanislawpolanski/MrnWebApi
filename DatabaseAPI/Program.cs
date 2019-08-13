@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MrnWebApi
+namespace DatabaseAPI
 {
     public class Program
     {

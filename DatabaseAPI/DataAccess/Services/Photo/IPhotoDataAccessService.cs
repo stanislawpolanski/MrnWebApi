@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.Photo
+namespace DatabaseAPI.DataAccess.Services.Photo
 {
     public interface IPhotoDataAccessService
     {

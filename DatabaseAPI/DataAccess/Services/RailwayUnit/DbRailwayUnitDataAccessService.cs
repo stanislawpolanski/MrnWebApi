@@ -1,14 +1,14 @@
 ﻿using GeoAPI.Geometries;
 using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Inner.Scaffold;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.RailwayUnit
+namespace DatabaseAPI.DataAccess.Services.RailwayUnit
 {
     public class DbRailwayUnitDataAccessService :
         DbDataAccessAbstractService, IRailwayUnitDataAccessService

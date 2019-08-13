@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.Common.Routing;
-using MrnWebApi.Logic.StationService;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.Routing;
+using DatabaseAPI.Logic.StationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.Controllers
+namespace DatabaseAPI.Controllers
 {
     [Route(STATION_PATH)]
     [ApiController]

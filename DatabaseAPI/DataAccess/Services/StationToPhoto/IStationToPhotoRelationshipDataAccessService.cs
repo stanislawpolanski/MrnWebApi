@@ -1,8 +1,8 @@
-﻿using MrnWebApi.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MrnWebApi.DataAccess.Services.StationToPhoto
+namespace DatabaseAPI.DataAccess.Services.StationToPhoto
 {
     public interface IStationToPhotoRelationshipDataAccessService
     {

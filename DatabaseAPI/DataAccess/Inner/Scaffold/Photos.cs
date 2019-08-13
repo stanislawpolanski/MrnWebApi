@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MrnWebApi.DataAccess.Inner.Scaffold
+namespace DatabaseAPI.DataAccess.Inner.Scaffold
 {
     public partial class Photos
     {
