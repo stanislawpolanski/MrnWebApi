@@ -1,4 +1,4 @@
-﻿namespace MrnWebApi.Common.Models
+﻿namespace MrnWebApi.Common.DTOs
 {
     public class PhotoDTO
     {

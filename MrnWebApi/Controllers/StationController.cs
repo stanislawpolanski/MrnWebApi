@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MrnWebApi.Common.Models;
+using MrnWebApi.Common.DTOs;
 using MrnWebApi.Common.Routing;
 using MrnWebApi.Logic.StationService;
 using System;

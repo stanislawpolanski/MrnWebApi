@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MrnWebApi.Common.Models;
+using MrnWebApi.Common.DTOs;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System;
 using System.Collections.Generic;

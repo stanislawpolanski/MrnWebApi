@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using System.Threading.Tasks;
 
 namespace MrnWebApi.DataAccess.Services.RailwayUnit

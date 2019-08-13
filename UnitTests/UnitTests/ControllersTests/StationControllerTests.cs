@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using MrnWebApi.Controllers;
 using MrnWebApi.Logic.StationService;
 using System.Collections.Generic;

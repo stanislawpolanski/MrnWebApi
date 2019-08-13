@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

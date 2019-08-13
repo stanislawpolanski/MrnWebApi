@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MrnWebApi.Common.Models
+namespace MrnWebApi.Common.DTOs
 {
     public class StationDTO
     {

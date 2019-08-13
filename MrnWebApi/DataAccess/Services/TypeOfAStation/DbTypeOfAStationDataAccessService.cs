@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using MrnWebApi.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;

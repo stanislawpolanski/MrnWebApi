@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using MrnWebApi.DataAccess.Services.Geometry;
 using MrnWebApi.DataAccess.Services.Photo;
 using MrnWebApi.DataAccess.Services.Railway;

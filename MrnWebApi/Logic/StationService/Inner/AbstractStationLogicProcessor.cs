@@ -1,4 +1,4 @@
-﻿using MrnWebApi.Common.Models;
+﻿using MrnWebApi.Common.DTOs;
 using MrnWebApi.DataAccess.ServicesFactory;
 using System.Threading.Tasks;
 

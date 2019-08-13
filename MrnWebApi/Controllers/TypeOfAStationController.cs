@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MrnWebApi.Common.Models;
+using MrnWebApi.Common.DTOs;
 using MrnWebApi.Logic.TypeOfAStationService;
 using System.Collections.Generic;
 

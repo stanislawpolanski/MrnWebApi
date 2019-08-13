@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using MrnWebApi.Common.Models;
+using MrnWebApi.Common.DTOs;
 using MrnWebApi.Common.Routing;
 using Newtonsoft.Json;
 using System;
