@@ -1,5 +1,5 @@
-using MrnWebApi.Common.Exceptions;
-using MrnWebApi.Common.Routing;
+using DatabaseAPI.Common.Exceptions;
+using DatabaseAPI.Common.Routing;
 using System;
 using Xunit;
 

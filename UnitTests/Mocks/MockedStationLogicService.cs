@@ -1,5 +1,5 @@
-﻿using MrnWebApi.Common.DTOs;
-using MrnWebApi.Logic.StationService;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Logic.StationService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

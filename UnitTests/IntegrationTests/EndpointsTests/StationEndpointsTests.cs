@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.Routing;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using MrnWebApi.Common.DTOs;
-using MrnWebApi.Common.Routing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,12 +14,12 @@ using Xunit;
 namespace UnitTests.IntegrationTests.EndpointsTests
 {
     public class StationEndpointsTests
-        : IClassFixture<WebApplicationFactory<MrnWebApi.Startup>>
+        : IClassFixture<WebApplicationFactory<DatabaseAPI.Startup>>
     {
-        private readonly WebApplicationFactory<MrnWebApi.Startup> factory;
+        private readonly WebApplicationFactory<DatabaseAPI.Startup> factory;
 
         public StationEndpointsTests(
-            WebApplicationFactory<MrnWebApi.Startup> injectedFactory)
+            WebApplicationFactory<DatabaseAPI.Startup> injectedFactory)
         {
             factory = injectedFactory;
         }

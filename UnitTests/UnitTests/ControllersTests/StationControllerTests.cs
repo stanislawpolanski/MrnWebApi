@@ -1,6 +1,6 @@
-﻿using MrnWebApi.Common.DTOs;
-using MrnWebApi.Controllers;
-using MrnWebApi.Logic.StationService;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Controllers;
+using DatabaseAPI.Logic.StationService;
 using System.Collections.Generic;
 using System.Linq;
 using UnitTests.Mocks;
