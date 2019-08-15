@@ -6,14 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DataAccess\DTOs\**" />
-    <Compile Remove="DataAccess\Services\Station\Inner\**" />
-    <Content Remove="DataAccess\DTOs\**" />
-    <Content Remove="DataAccess\Services\Station\Inner\**" />
-    <EmbeddedResource Remove="DataAccess\DTOs\**" />
-    <EmbeddedResource Remove="DataAccess\Services\Station\Inner\**" />
-    <None Remove="DataAccess\DTOs\**" />
-    <None Remove="DataAccess\Services\Station\Inner\**" />
+    <Compile Remove="Inner\Layers\DataAccess\DTOs\**" />
+    <Compile Remove="Inner\Layers\DataAccess\Services\Station\Inner\**" />
+    <Content Remove="Inner\Layers\DataAccess\DTOs\**" />
+    <Content Remove="Inner\Layers\DataAccess\Services\Station\Inner\**" />
+    <EmbeddedResource Remove="Inner\Layers\DataAccess\DTOs\**" />
+    <EmbeddedResource Remove="Inner\Layers\DataAccess\Services\Station\Inner\**" />
+    <None Remove="Inner\Layers\DataAccess\DTOs\**" />
+    <None Remove="Inner\Layers\DataAccess\Services\Station\Inner\**" />
   </ItemGroup>
 
   <ItemGroup>
