@@ -2,6 +2,7 @@
 using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
 using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
 using System;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
         {
             bool dataRequiredFromRequestIsIncomplete = (
                 station.SerialisedGeometry == null
-                || station.OwnerInfo.Id == 0);
+                || station.OwnerInfo == null);
             if (dataRequiredFromRequestIsIncomplete)
             {
                 throw new ArgumentNullException();
@@ -42,17 +43,14 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
                 unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
             Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsGeometryPredicate =
                 unit => unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
+
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
                 .Where(unitOwnerEqualsStationsOwnerPredicate)
                 .Where(unitsGeometryIntersectsStationsGeometryPredicate)
-                //todo to be replaced by dto builder
-                .Select(unit => new RailwayUnitDTO()
-                {
-                    Id = unit.Id,
-                    Name = unit.Name
-                })
+                .Select(unitEntity => 
+                    new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity))
                 .FirstOrDefaultAsync();
         }
 
