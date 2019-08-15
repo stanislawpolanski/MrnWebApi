@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -25,14 +26,7 @@ namespace DatabaseAPI.DataAccess.Services.Photo
             IEnumerable<PhotoDTO> result = await context
                 .Photos
                 .Where(photosThatShowsStationById)
-                //todo to be replaced by dto builder
-                .Select(photoEntity =>
-                    new PhotoDTO()
-                    {
-                        Id = photoEntity.Id,
-                        FilePath = photoEntity.FilePath
-                    }
-                )
+                .Select(photoEntity => new PhotoEntityToPhotoDTOAdapter(photoEntity))
                 .ToListAsync();
             return result;
         }

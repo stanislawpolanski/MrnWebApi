@@ -63,7 +63,10 @@ namespace DatabaseAPI.Logic.StationService
             AbstractStationLogicProcessor processor =
                 new DeleteStationLogicProcessor();
             //todo to be refactored to dto builder
-            StationDTO stationModel = new StationDTO() { Id = inputId };
+            StationDTO stationModel = new StationDTO
+                .Builder()
+                .Id(inputId)
+                .Build();
             InitialiseProcessor(stationModel, processor);
             await processor.ProcessGeometryWithRailwayUnitAsync();
             await processor.ProcessPhotosAsync();

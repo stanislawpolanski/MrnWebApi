@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 
 namespace DatabaseAPI.DataAccess.Services.Railway
 {
@@ -17,8 +18,7 @@ namespace DatabaseAPI.DataAccess.Services.Railway
         public async Task<IEnumerable<RailwayDTO>> GetRailwaysByStationIdAsync(int stationId)
         {
             Expression<System.Func<Railways, bool>> railwaysHasStation =
-                railway =>
-                    railway
+                railway => railway
                     .StationsToGeometries
                     .Any(stationToGeometry =>
                         stationToGeometry.StationId.Equals(stationId));
@@ -27,7 +27,6 @@ namespace DatabaseAPI.DataAccess.Services.Railway
                 .Railways
                 .Include(railway => railway.StationsToGeometries)
                 .Where(railwaysHasStation)
-                //todo to be replaced by dto builder
                 .Select(railwayEntity =>
                     new RailwayDTO()
                     {
