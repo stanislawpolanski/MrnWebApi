@@ -1,8 +1,8 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.CollectionOfStations;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Implementations;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +34,11 @@ namespace DatabaseAPI.Logic.StationService
 
         public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
         {
-            throw new NotImplementedException();
-            IEnumerable<StationDTO> stations = null;
+            List<StationDTO> stations = new List<StationDTO>();
+            ICollectionOfStationsCommand command = 
+                new GetCollectionOfStationsCommand();
+            command.SetStationsCollection(stations);
+            await commandExecutor.ExecuteCommand(command);
             return stations.OrderBy(station => station.Name);
         }
 

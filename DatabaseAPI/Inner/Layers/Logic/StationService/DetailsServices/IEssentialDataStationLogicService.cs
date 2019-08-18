@@ -9,5 +9,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
     public interface IEssentialDataStationLogicService
     {
         Task FillStationWithEssentialDataAsync(StationDTO inputStation);
+        Task FillCollectionWithStations(List<StationDTO> collection);
     }
 }
