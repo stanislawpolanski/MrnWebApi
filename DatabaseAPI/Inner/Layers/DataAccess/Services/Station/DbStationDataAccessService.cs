@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
+using System.Linq.Expressions;
 
 namespace DatabaseAPI.DataAccess.Services.Station
 {
@@ -72,42 +73,46 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<IEnumerable<StationDTO>> GetBasicStationsAsync()
         {
-            return await context
-                .Stations
-                .Include(station => station.ParentObjectOfInterest)
-                .Select(entity => new StationDTO
+            Expression<System.Func<Stations, StationDTO>> 
+                selectToDTO = entity => new StationDTO
                     .Builder()
                     .Id(entity.Id)
                     .Name(entity.ParentObjectOfInterest.Name)
-                    .Build())
+                    .Build();
+
+            return await context
+                .Stations
+                .Include(station => station.ParentObjectOfInterest)
+                .Select(selectToDTO)
                 .ToListAsync();
         }
 
         public async Task<StationDTO> GetDetailedStationAsync(int id)
         {
+            //todo to be replaced by dto builder
+            Expression<System.Func<Stations, StationDTO>> selectToStationDTO = 
+                entity => new StationDTO()
+                {
+                    Id = entity.Id,
+                    Name = entity.ParentObjectOfInterest.Name,
+                    OwnerInfo = new OwnerDTO()
+                    {
+                        Id = entity.ParentObjectOfInterest.Owner.Id,
+                        Name = entity.ParentObjectOfInterest.Owner.Name
+                    },
+                    TypeOfAStationInfo = new TypeOfAStationDTO()
+                    {
+                        AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
+                        Id = entity.TypeOfAstation.Id
+                    }
+                };
             return await context
                 .Stations
                 .Where(station => station.Id.Equals(id))
                 .Include(station => station.ParentObjectOfInterest)
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
-                 //todo to be replaced by dto builder
-                 .Select(entity => new StationDTO()
-                 {
-                     Id = entity.Id,
-                     Name = entity.ParentObjectOfInterest.Name,
-                     OwnerInfo = new OwnerDTO()
-                     {
-                         Id = entity.ParentObjectOfInterest.Owner.Id,
-                         Name = entity.ParentObjectOfInterest.Owner.Name
-                     },
-                     TypeOfAStationInfo = new TypeOfAStationDTO()
-                     {
-                         AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
-                         Id = entity.TypeOfAstation.Id
-                     }
-                 }
-                )
+                .Select(selectToStationDTO)
                 .FirstOrDefaultAsync();
         }
 

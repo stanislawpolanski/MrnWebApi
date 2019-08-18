@@ -10,27 +10,27 @@
         public class Builder
         {
             private RailwayDTO item = new RailwayDTO();
-            public Builder Id(int id)
+            public Builder WithId(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder Number(int number)
+            public Builder WithNumber(int number)
             {
                 item.Number = number;
                 return this;
             }
-            public Builder Name(string name)
+            public Builder WithName(string name)
             {
                 item.Name = name;
                 return this;
             }
-            public Builder Url(string url)
+            public Builder WithUrl(string url)
             {
                 item.Url = url;
                 return this;
             }
-            public Builder Owner(OwnerDTO ownerDTO)
+            public Builder WithOwner(OwnerDTO ownerDTO)
             {
                 item.Owner = ownerDTO;
                 return this;

@@ -2,6 +2,7 @@
 using DatabaseAPI.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DatabaseAPI.DataAccess.Services.TypeOfAStation
 {
@@ -13,14 +14,15 @@ namespace DatabaseAPI.DataAccess.Services.TypeOfAStation
 
         public ICollection<TypeOfAStationDTO> GetTypesOfAStation()
         {
+            Expression<System.Func<TypesOfAstation, TypeOfAStationDTO>> 
+                selectToDTO = stationType =>
+                new TypeOfAStationDTO
+                {
+                    Id = stationType.Id,
+                    AbbreviatedName = stationType.AbbreviatedName
+                };
             return context.TypesOfAstation
-                //todo to be refactored to dto builder
-                .Select(stationType =>
-                    new TypeOfAStationDTO
-                    {
-                        Id = stationType.Id,
-                        AbbreviatedName = stationType.AbbreviatedName
-                    })
+                .Select(selectToDTO)
                 .ToList();
         }
     }
