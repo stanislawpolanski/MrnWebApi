@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 
 namespace DatabaseAPI.Logic.StationService.Inner
 {
     public class PostStationLogicProcessor : AbstractStationLogicProcessor
     {
-        public override Task ProcessGeometryWithRailwayUnitAsync()
+        public PostStationLogicProcessor(
+            IEssentialDataStationLogicService essentialDataService, 
+            IGeographicDataStationLogicService geographicDataService) : 
+            base(essentialDataService, 
+                geographicDataService)
         {
-            throw new NotImplementedException();
         }
 
-        public override Task ProcessPhotosAsync()
+        public override Task<StationDTO> GetStationAsync()
         {
             throw new NotImplementedException();
-        }
-
-        public override Task ProcessRailwaysAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override async Task ProcessStationRootAsync()
-        {
-            await dataAccessServicesFactory
-                .StationDataAccessService
-                .PostStationAsync(station);
         }
     }
 }

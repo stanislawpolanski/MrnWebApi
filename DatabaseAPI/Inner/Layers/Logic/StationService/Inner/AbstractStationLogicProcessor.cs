@@ -1,5 +1,6 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.ServicesFactory;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Logic.StationService.Inner
@@ -7,23 +8,29 @@ namespace DatabaseAPI.Logic.StationService.Inner
     public abstract class AbstractStationLogicProcessor
     {
         protected StationDTO station;
-        protected DataAccessServicesFactory dataAccessServicesFactory;
-        public void SetStation(StationDTO inputStation)
+        protected readonly IEssentialDataStationLogicService essentialDataService;
+        protected readonly IGeographicDataStationLogicService geographicDataService;
+
+        protected bool ProcessGeographicData;
+        public AbstractStationLogicProcessor(
+            IEssentialDataStationLogicService essentialDataService,
+            IGeographicDataStationLogicService geographicDataService)
         {
-            this.station = inputStation;
+            this.essentialDataService = essentialDataService;
+            this.geographicDataService = geographicDataService;
         }
-        public void SetDataAccessServicesFactory(DataAccessServicesFactory
-            inputDataAccessServicesFactory)
+
+        public AbstractStationLogicProcessor ProcessStation(StationDTO station)
         {
-            this.dataAccessServicesFactory = inputDataAccessServicesFactory;
+            this.station = station;
+            return this;
         }
-        public StationDTO GetStation()
+        public AbstractStationLogicProcessor WithGeographicData()
         {
-            return station;
+            this.ProcessGeographicData = true;
+            return this;
         }
-        public abstract Task ProcessStationRootAsync();
-        public abstract Task ProcessGeometryWithRailwayUnitAsync();
-        public abstract Task ProcessPhotosAsync();
-        public abstract Task ProcessRailwaysAsync();
+
+        public abstract Task<StationDTO> GetStationAsync();
     }
 }

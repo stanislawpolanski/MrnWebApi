@@ -1,52 +1,26 @@
 ﻿using System.Threading.Tasks;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 
 namespace DatabaseAPI.Logic.StationService.Inner
 {
     public class GetStationLogicProcessor : AbstractStationLogicProcessor
     {
-        public GetStationLogicProcessor() : base()
+        public GetStationLogicProcessor(
+            IEssentialDataStationLogicService essentialDataService, 
+            IGeographicDataStationLogicService geographicDataService) : 
+            base(essentialDataService, 
+                geographicDataService)
         {
         }
 
-        public async override Task ProcessGeometryWithRailwayUnitAsync()
+        public override async Task<StationDTO> GetStationAsync()
         {
-            await ProcessGeometryAsync();
-            await ProcessRailwayUnitAsync();
-        }
-
-        private async Task ProcessRailwayUnitAsync()
-        {
-            station.RailwayUnit = await dataAccessServicesFactory
-                .RailwayUnitDataAccessService
-                .GetRailwayUnitByStationAsync(station);
-        }
-
-        private async Task ProcessGeometryAsync()
-        {
-            station.SerialisedGeometry = await dataAccessServicesFactory
-               .GeometryDataAccessService
-               .GetFirstGeometryByStationIdAsync(station.Id);
-        }
-
-        public async override Task ProcessPhotosAsync()
-        {
-            station.Photos = await dataAccessServicesFactory
-                .PhotoDataAccessService
-                .GetPhotosByStationIdAsync(station.Id);
-        }
-
-        public async override Task ProcessRailwaysAsync()
-        {
-            station.Railways = await dataAccessServicesFactory
-                .RailwayDataAccessService
-                .GetRailwaysByStationIdAsync(station.Id);
-        }
-
-        public async override Task ProcessStationRootAsync()
-        {
-            station = await dataAccessServicesFactory
-               .StationDataAccessService
-               .GetDetailedStationAsync(station.Id);
+            await essentialDataService
+                .FillStationWithEssentialDataAsync(this.station);
+            await geographicDataService
+                .FillStationWithGeographicDataAsync(this.station);
+            return this.station;
         }
     }
 }

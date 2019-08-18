@@ -19,6 +19,7 @@ using DatabaseAPI.DataAccess.ServicesFactory;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using NetTopologySuite.IO;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 
 namespace DatabaseAPI
 {
@@ -62,6 +63,8 @@ namespace DatabaseAPI
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
             services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
+            services.AddTransient<IEssentialDataStationLogicService, EssentialDataStationLogicService>();
+            services.AddTransient<IGeographicDataStationLogicService, GeographicDataStationLogicService>();
         }
 
         private void RegisterCommonServices(IServiceCollection services)

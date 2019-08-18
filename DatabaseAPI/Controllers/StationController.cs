@@ -58,7 +58,6 @@ namespace DatabaseAPI.Controllers
             {
                 return NotFound();
             }
-            FillRailwaysWithUrls(station);
             FillRailwayUnitWithUrl(station);
             return Ok(station);
         }
@@ -70,18 +69,6 @@ namespace DatabaseAPI.Controllers
                     RailwayUnitController.RAILWAY_UNIT_PATH,
                     station.RailwayUnit.Id.ToString())
                 .ToString();
-        }
-
-        private static void FillRailwaysWithUrls(StationDTO station)
-        {
-            Action<RailwayDTO> setRailwayUrl =
-                railway =>
-                railway.Url =
-                    UriRoute
-                    .GetRouteFromNodes(
-                        RailwayController.RAILWAY_PATH,
-                        railway.Id.ToString()).ToString();
-            station.Railways.ToList().ForEach(setRailwayUrl);
         }
 
         [HttpPost]

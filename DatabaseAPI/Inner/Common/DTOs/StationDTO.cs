@@ -11,8 +11,6 @@ namespace DatabaseAPI.Common.DTOs
         public OwnerDTO OwnerInfo { get; set; }
         public TypeOfAStationDTO TypeOfAStationInfo { get; set; }
         public RailwayUnitDTO RailwayUnit { get; set; }
-        public IEnumerable<PhotoDTO> Photos { get; set; }
-        public IEnumerable<RailwayDTO> Railways { get; set; }
         public class Builder
         {
             private StationDTO item = new StationDTO();
@@ -49,16 +47,6 @@ namespace DatabaseAPI.Common.DTOs
             public Builder RailwayUnit(RailwayUnitDTO railwayUnitDTO)
             {
                 item.RailwayUnit = railwayUnitDTO;
-                return this;
-            }
-            public Builder Photos(IEnumerable<PhotoDTO> photosDTOs)
-            {
-                item.Photos = photosDTOs;
-                return this;
-            }
-            public Builder Railways(IEnumerable<RailwayDTO> railwaysDTOs)
-            {
-                item.Railways = railwaysDTOs;
                 return this;
             }
             public StationDTO Build()

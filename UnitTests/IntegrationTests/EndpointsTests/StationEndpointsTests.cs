@@ -127,29 +127,6 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             var response = await client.GetAsync(url);
             return response;
         }
-
-        
-        [Theory]
-        [InlineData("/api/station/78", 5)]
-        public async Task 
-            GetStationById_ReturnsStationWithRailwaysAsync(string url, 
-                int expectedNumberOfRailways)
-        {
-            StationDTO model =
-                await GetObjectFromResponseTextByUrl<StationDTO>(url);
-            Assert.Equal(expectedNumberOfRailways, model.Railways.Count());
-        }
-        
-        [Theory]
-        [InlineData("api/station/78", 16)]
-        public async Task GetStationById_ReturnsStationWithPhotosAsync(string url, 
-            int expectedNumberOfPhotos)
-        {
-            StationDTO model =
-                await GetObjectFromResponseTextByUrl<StationDTO>(url);
-            Assert.Equal(expectedNumberOfPhotos, model.Photos.Count());
-        }
-
         
         [Theory]
         [InlineData("api/station/78", "POINT (532345.109 254186.948)")]

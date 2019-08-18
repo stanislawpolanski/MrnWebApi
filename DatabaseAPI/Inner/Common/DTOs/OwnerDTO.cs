@@ -4,24 +4,23 @@
     {
         public int Id;
         public string Name;
-    }
-    public class Builder
-    {
-        private OwnerDTO item = new OwnerDTO();
-        public Builder Id(int id)
+        public class Builder
         {
-            item.Id = id;
-            return this;
+            private OwnerDTO item = new OwnerDTO();
+            public Builder WithId(int id)
+            {
+                item.Id = id;
+                return this;
+            }
+            public Builder WithName(string name)
+            {
+                item.Name = name;
+                return this;
+            }
+            public OwnerDTO Build()
+            {
+                return item;
+            }
         }
-        public Builder Name(string name)
-        {
-            item.Name = name;
-            return this;
-        }
-        public OwnerDTO Build()
-        {
-            return item;
-        }
-
     }
 }

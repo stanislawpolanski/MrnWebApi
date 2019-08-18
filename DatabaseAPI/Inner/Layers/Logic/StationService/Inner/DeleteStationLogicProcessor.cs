@@ -1,40 +1,22 @@
 ﻿using System.Threading.Tasks;
+using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 
 namespace DatabaseAPI.Logic.StationService.Inner
 {
     public class DeleteStationLogicProcessor : AbstractStationLogicProcessor
     {
-        public override async Task ProcessGeometryWithRailwayUnitAsync()
+        public DeleteStationLogicProcessor(
+            IEssentialDataStationLogicService essentialDataService, 
+            IGeographicDataStationLogicService geographicDataService) : 
+            base(essentialDataService, 
+                geographicDataService)
         {
-            await dataAccessServicesFactory
-                .GeometryDataAccessService
-                .DeleteGeometriesByStationIdAsync(station.Id);
-            await dataAccessServicesFactory
-                .StationToRailwayRelationshipDataAccessService
-                .ClearGeometryInfoFromRelationshipEntityByStationidAsync(station.Id);
         }
 
-        public override async Task ProcessPhotosAsync()
+        public override Task<StationDTO> GetStationAsync()
         {
-            await dataAccessServicesFactory
-                .StationToPhotoRelationshipDataAccessService
-                .DeleteRelationshipByStationIdAsync(station.Id);
-        }
-
-        public override async Task ProcessRailwaysAsync()
-        {
-            //if run before deleting geometry, then throw exception
-            await dataAccessServicesFactory
-                .StationToRailwayRelationshipDataAccessService
-                .DeleteRelationshipsByStationIdAsync(station.Id);
-        }
-
-        public override async Task ProcessStationRootAsync()
-        {
-            //if ran before all the other methods, then throw exception
-            await dataAccessServicesFactory
-                .StationDataAccessService
-                .DeleteStationByIdAsync(station.Id);
+            throw new System.NotImplementedException();
         }
     }
 }
