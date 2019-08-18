@@ -23,23 +23,24 @@ namespace DatabaseAPI.DataAccess.Services.Railway
                     .Any(stationToGeometry =>
                         stationToGeometry.StationId.Equals(stationId));
 
+            Expression<System.Func<Railways, RailwayDTO>> selectNewDTO = 
+                railwayEntity => new RailwayDTO()
+                {
+                    Id = railwayEntity.Id,
+                    Name = railwayEntity.Name,
+                    Number = railwayEntity.Number,
+                    Owner = new OwnerDTO()
+                    {
+                        Id = railwayEntity.Owner.Id,
+                        Name = railwayEntity.Owner.Name
+                    }
+                };
+
             IEnumerable<RailwayDTO> result = await context
                 .Railways
                 .Include(railway => railway.StationsToGeometries)
                 .Where(railwaysHasStation)
-                .Select(railwayEntity =>
-                    new RailwayDTO()
-                    {
-                        Id = railwayEntity.Id,
-                        Name = railwayEntity.Name,
-                        Number = railwayEntity.Number,
-                        Owner = new OwnerDTO()
-                        {
-                            Id = railwayEntity.Owner.Id,
-                            Name = railwayEntity.Owner.Name
-                        }
-                    }
-                )
+                .Select(selectNewDTO)
                 .ToListAsync();
             return result;
         }

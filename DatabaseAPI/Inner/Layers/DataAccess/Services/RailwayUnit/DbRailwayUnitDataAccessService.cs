@@ -43,14 +43,16 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
                 unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
             Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsGeometryPredicate =
                 unit => unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
+            Expression<Func<RailwayUnits, RailwayUnitEntityToRailwayUnitDTOAdapter>> 
+                selectToDTO = unitEntity =>
+                    new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity);
 
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
                 .Where(unitOwnerEqualsStationsOwnerPredicate)
                 .Where(unitsGeometryIntersectsStationsGeometryPredicate)
-                .Select(unitEntity => 
-                    new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity))
+                .Select(selectToDTO)
                 .FirstOrDefaultAsync();
         }
 
