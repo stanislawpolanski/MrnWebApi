@@ -20,6 +20,7 @@ using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using NetTopologySuite.IO;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 
 namespace DatabaseAPI
 {
@@ -65,6 +66,7 @@ namespace DatabaseAPI
             services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
             services.AddTransient<IEssentialDataStationLogicService, EssentialDataStationLogicService>();
             services.AddTransient<IGeographicDataStationLogicService, GeographicDataStationLogicService>();
+            services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
         }
 
         private void RegisterCommonServices(IServiceCollection services)

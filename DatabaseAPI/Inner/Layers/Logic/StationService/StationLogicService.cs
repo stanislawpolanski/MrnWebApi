@@ -1,12 +1,8 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Services.Geometry;
-using DatabaseAPI.DataAccess.Services.Photo;
-using DatabaseAPI.DataAccess.Services.Railway;
-using DatabaseAPI.DataAccess.Services.RailwayUnit;
-using DatabaseAPI.DataAccess.Services.Station;
-using DatabaseAPI.DataAccess.ServicesFactory;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Implementations;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
-using DatabaseAPI.Logic.StationService.Inner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +12,10 @@ namespace DatabaseAPI.Logic.StationService
 {
     public class StationLogicService : IStationLogicService
     {
-        private IEssentialDataStationLogicService essentialsService;
-        private IGeographicDataStationLogicService geographicsService;
-        public StationLogicService(
-            IEssentialDataStationLogicService essentialsService,
-            IGeographicDataStationLogicService geographicsService)
+        private IStationCommandExecutor commandExecutor;
+        public StationLogicService(IStationCommandExecutor commandExecutor)
         {
-            this.essentialsService = essentialsService;
-            this.geographicsService = geographicsService;
+            this.commandExecutor = commandExecutor;
         }
 
         public async Task PostStationAsync(StationDTO inputStation)
@@ -54,8 +46,9 @@ namespace DatabaseAPI.Logic.StationService
                 .Builder()
                 .Id(inputId)
                 .Build();
-            await essentialsService.FillStationWithEssentialDataAsync(station);
-            await geographicsService.FillStationWithGeographicDataAsync(station);
+            ISingleStationCommand command = new GetSingleStationCommand();
+            command.SetStation(station);
+            await commandExecutor.ExecuteCommand(command);
             return station;
         }
 
