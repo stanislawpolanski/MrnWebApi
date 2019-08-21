@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Services.Station;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
@@ -14,6 +12,11 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
             IStationDataAccessService stationDataAccessService)
         {
             this.stationDataAccessService = stationDataAccessService;
+        }
+
+        public async Task DeleteStationAsync(StationDTO station)
+        {
+            await stationDataAccessService.DeleteStationByIdAsync(station.Id);
         }
 
         public async Task FillCollectionWithStations(List<StationDTO> collection)
@@ -31,6 +34,16 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
                 .WithId(station.OwnerInfo.Id)
                 .WithName(station.OwnerInfo.Name)
                 .Build();
+        }
+
+        public async Task PostStationAsync(StationDTO station)
+        {
+            await stationDataAccessService.PostStationAsync(station);
+        }
+
+        public async Task PutStationAsync(StationDTO station)
+        {
+            await stationDataAccessService.PutStationAsync(station);
         }
     }
 }

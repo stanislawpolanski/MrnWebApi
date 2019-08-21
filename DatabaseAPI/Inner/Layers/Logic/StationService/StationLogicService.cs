@@ -3,7 +3,7 @@ using DatabaseAPI.Inner.Layers.Logic.StationService.Commands;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.CollectionOfStations;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Implementations;
-using System;
+using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.SingleStation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,16 +20,20 @@ namespace DatabaseAPI.Logic.StationService
 
         public async Task PostStationAsync(StationDTO inputStation)
         {
-            throw new NotImplementedException();
+            ISingleStationCommand command = new PostSingleStationCommand();
+            command.SetStation(inputStation);
+            await commandExecutor.ExecuteCommand(command);
         }
 
         public async Task DeleteStationByIdAsync(int inputId)
         {
-            StationDTO stationModel = new StationDTO
+            StationDTO station = new StationDTO
                 .Builder()
                 .Id(inputId)
                 .Build();
-            throw new NotImplementedException();
+            ISingleStationCommand command = new DeleteSingleStationCommand();
+            command.SetStation(station);
+            await commandExecutor.ExecuteCommand(command);
         }
 
         public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
@@ -44,7 +48,6 @@ namespace DatabaseAPI.Logic.StationService
 
         public async Task<StationDTO> GetStationByIdAsync(int inputId)
         {
-            //todo to be refactored to dto builder
             StationDTO station = new StationDTO
                 .Builder()
                 .Id(inputId)
@@ -57,7 +60,9 @@ namespace DatabaseAPI.Logic.StationService
 
         public async Task PutStationAsync(StationDTO inputStation)
         {
-            throw new NotImplementedException();
+            ISingleStationCommand command = new PutSingleStationCommand();
+            command.SetStation(inputStation);
+            await commandExecutor.ExecuteCommand(command);
         }
     }
 }

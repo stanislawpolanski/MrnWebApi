@@ -1,7 +1,5 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
@@ -9,6 +7,9 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
     public interface IEssentialDataStationLogicService
     {
         Task FillStationWithEssentialDataAsync(StationDTO inputStation);
+        Task DeleteStationAsync(StationDTO station);
+        Task PutStationAsync(StationDTO station);
+        Task PostStationAsync(StationDTO station);
         Task FillCollectionWithStations(List<StationDTO> collection);
     }
 }
