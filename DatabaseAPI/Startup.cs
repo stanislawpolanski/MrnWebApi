@@ -15,7 +15,6 @@ using DatabaseAPI.DataAccess.Services.Station;
 using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
-using DatabaseAPI.DataAccess.ServicesFactory;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using NetTopologySuite.IO;
@@ -73,7 +72,6 @@ namespace DatabaseAPI
         {
             services.AddTransient<UriRoute, UriRoute>();
             services.AddTransient<ITextGeometryReader, WKTReader>();
-            services.AddTransient<DataAccessServicesFactory, DataAccessServicesFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
