@@ -14,37 +14,37 @@ namespace DatabaseAPI.Common.DTOs
         public class Builder
         {
             private StationDTO item = new StationDTO();
-            public Builder Id(int id)
+            public Builder WithId(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder Name(string name)
+            public Builder WithName(string name)
             {
                 item.Name = name;
                 return this;
             }
-            public Builder Url(string url)
+            public Builder WithUrl(string url)
             {
                 item.Url = url;
                 return this;
             }
-            public Builder Geometry(GeometryDTO geometryDTO)
+            public Builder WithGeometry(GeometryDTO geometryDTO)
             {
                 item.SerialisedGeometry = geometryDTO;
                 return this;
             }
-            public Builder Owner(OwnerDTO ownerDTO)
+            public Builder WithOwner(OwnerDTO ownerDTO)
             {
                 item.OwnerInfo = ownerDTO;
                 return this;
             }
-            public Builder TypeOfAStation(TypeOfAStationDTO typeOfAStation)
+            public Builder WithTypeOfAStation(TypeOfAStationDTO typeOfAStation)
             {
                 item.TypeOfAStationInfo = typeOfAStation;
                 return this;
             }
-            public Builder RailwayUnit(RailwayUnitDTO railwayUnitDTO)
+            public Builder WithRailwayUnit(RailwayUnitDTO railwayUnitDTO)
             {
                 item.RailwayUnit = railwayUnitDTO;
                 return this;

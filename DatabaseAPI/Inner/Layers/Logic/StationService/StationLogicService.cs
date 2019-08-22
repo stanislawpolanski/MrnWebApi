@@ -29,7 +29,7 @@ namespace DatabaseAPI.Logic.StationService
         {
             StationDTO station = new StationDTO
                 .Builder()
-                .Id(inputId)
+                .WithId(inputId)
                 .Build();
             ISingleStationCommand command = new DeleteSingleStationCommand();
             command.SetStation(station);
@@ -50,7 +50,7 @@ namespace DatabaseAPI.Logic.StationService
         {
             StationDTO station = new StationDTO
                 .Builder()
-                .Id(inputId)
+                .WithId(inputId)
                 .Build();
             ISingleStationCommand command = new GetSingleStationCommand();
             command.SetStation(station);

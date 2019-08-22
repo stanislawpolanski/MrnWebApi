@@ -28,7 +28,6 @@ namespace DatabaseAPI.DataAccess.Services.Station
             StationDTO inputStation,
             int newStationId)
         {
-            //todo to be replaced by dto builder
             Stations station = new Stations()
             {
                 Id = newStationId,
@@ -46,7 +45,6 @@ namespace DatabaseAPI.DataAccess.Services.Station
         /// <returns>Saved entity.</returns>
         private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationDTO inputStation)
         {
-            //todo to be replaced by dto builder
             ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
             {
                 Name = inputStation.Name,
@@ -76,8 +74,8 @@ namespace DatabaseAPI.DataAccess.Services.Station
             Expression<System.Func<Stations, StationDTO>> 
                 selectToDTO = entity => new StationDTO
                     .Builder()
-                    .Id(entity.Id)
-                    .Name(entity.ParentObjectOfInterest.Name)
+                    .WithId(entity.Id)
+                    .WithName(entity.ParentObjectOfInterest.Name)
                     .Build();
 
             return await context
@@ -89,31 +87,34 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<StationDTO> GetDetailedStationAsync(int id)
         {
-            //todo to be replaced by dto builder
-            Expression<System.Func<Stations, StationDTO>> selectToStationDTO = 
-                entity => new StationDTO()
-                {
-                    Id = entity.Id,
-                    Name = entity.ParentObjectOfInterest.Name,
-                    OwnerInfo = new OwnerDTO()
-                    {
-                        Id = entity.ParentObjectOfInterest.Owner.Id,
-                        Name = entity.ParentObjectOfInterest.Owner.Name
-                    },
-                    TypeOfAStationInfo = new TypeOfAStationDTO()
-                    {
-                        AbbreviatedName = entity.TypeOfAstation.AbbreviatedName,
-                        Id = entity.TypeOfAstation.Id
-                    }
-                };
             return await context
                 .Stations
                 .Where(station => station.Id.Equals(id))
                 .Include(station => station.ParentObjectOfInterest)
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
-                .Select(selectToStationDTO)
+                .Select(GetStationEntityToDTOSelectionExpression())
                 .FirstOrDefaultAsync();
+        }
+
+        private Expression<System.Func<Stations, StationDTO>> 
+            GetStationEntityToDTOSelectionExpression()
+        {
+            return entity => new StationDTO
+                    .Builder()
+                    .WithId(entity.Id)
+                    .WithName(entity.ParentObjectOfInterest.Name)
+                    .WithOwner(new OwnerDTO
+                        .Builder()
+                        .WithId(entity.ParentObjectOfInterest.Owner.Id)
+                        .WithName(entity.ParentObjectOfInterest.Owner.Name)
+                        .Build())
+                    .WithTypeOfAStation(new TypeOfAStationDTO
+                        .Builder()
+                        .WithId(entity.TypeOfAstation.Id)
+                        .WithAbbreviatedName(entity.TypeOfAstation.AbbreviatedName)
+                        .Build())
+                    .Build();
         }
 
         public async Task PutStationAsync(StationDTO inputStation)

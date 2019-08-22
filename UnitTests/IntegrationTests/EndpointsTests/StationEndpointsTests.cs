@@ -163,7 +163,6 @@ namespace UnitTests.IntegrationTests.EndpointsTests
 
             //arrange
             var client = factory.CreateClient();
-            //todo to be refactored to dto builder
             StationDTO stationToPost = 
                 new StationDTO()
                 {
@@ -273,7 +272,6 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         {
             //arrange
             var client = factory.CreateClient();
-            //todo to be refactored to dto builder
             StationDTO stationToPost =
                 new StationDTO()
                 {
