@@ -7,8 +7,9 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
 {
     public interface IStationCommand
     {
-        void SetServices(IEssentialDataStationLogicService essentialsService,
-            IGeographicDataStationLogicService geographicsService);
+        void SetDataAcessClients(
+            IEssentialDataStationDataAccessClient essentialsService,
+            IGeographicDataStationDataAccessClient geographicsService);
         Task ExecuteAsync();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public interface IGeographicDataStationLogicService
+    public interface IGeographicDataStationDataAccessClient
     {
         Task FillStationWithGeographicDataAsync(StationDTO station);
     }

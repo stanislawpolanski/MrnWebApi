@@ -7,11 +7,11 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
     public abstract class AbstractSingleStationCommand : ISingleStationCommand
     {
         protected StationDTO station;
-        protected IEssentialDataStationLogicService essentialsService;
-        protected IGeographicDataStationLogicService geographicsService;
+        protected IEssentialDataStationDataAccessClient essentialsService;
+        protected IGeographicDataStationDataAccessClient geographicsService;
         public abstract Task ExecuteAsync();
 
-        public void SetServices(IEssentialDataStationLogicService essentialsService, IGeographicDataStationLogicService geographicsService)
+        public void SetDataAcessClients(IEssentialDataStationDataAccessClient essentialsService, IGeographicDataStationDataAccessClient geographicsService)
         {
             this.essentialsService = essentialsService;
             this.geographicsService = geographicsService;

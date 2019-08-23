@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public class EssentialDataStationLogicService : IEssentialDataStationLogicService
+    public class EssentialDataStationDataAccessClient : 
+        IEssentialDataStationDataAccessClient
     {
         private IStationDataAccessService stationDataAccessService;
-        public EssentialDataStationLogicService(
+        public EssentialDataStationDataAccessClient(
             IStationDataAccessService stationDataAccessService)
         {
             this.stationDataAccessService = stationDataAccessService;

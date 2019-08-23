@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public interface IEssentialDataStationLogicService
+    public interface IEssentialDataStationDataAccessClient
     {
         Task FillStationWithEssentialDataAsync(StationDTO inputStation);
         Task DeleteStationAsync(StationDTO station);

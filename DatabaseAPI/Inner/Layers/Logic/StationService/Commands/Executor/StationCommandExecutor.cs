@@ -8,18 +8,18 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor
 {
     public class StationCommandExecutor : IStationCommandExecutor
     {
-        private IEssentialDataStationLogicService essentialsService;
-        private IGeographicDataStationLogicService geographicsService;
+        private IEssentialDataStationDataAccessClient essentialsService;
+        private IGeographicDataStationDataAccessClient geographicsService;
         public StationCommandExecutor(
-            IEssentialDataStationLogicService essentialsService, 
-            IGeographicDataStationLogicService geographicsService)
+            IEssentialDataStationDataAccessClient essentialsService, 
+            IGeographicDataStationDataAccessClient geographicsService)
         {
             this.essentialsService = essentialsService;
             this.geographicsService = geographicsService;
         }
         public async Task ExecuteCommand(IStationCommand command)
         {
-            command.SetServices(essentialsService, geographicsService);
+            command.SetDataAcessClients(essentialsService, geographicsService);
             await command.ExecuteAsync();
         }
     }

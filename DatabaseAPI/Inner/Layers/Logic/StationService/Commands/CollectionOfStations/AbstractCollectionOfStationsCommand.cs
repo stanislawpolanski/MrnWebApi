@@ -9,11 +9,11 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
 {
     public abstract class AbstractCollectionOfStationsCommand : ICollectionOfStationsCommand
     {
-        protected IEssentialDataStationLogicService essentialsService;
+        protected IEssentialDataStationDataAccessClient essentialsService;
         protected List<StationDTO> collection;
         public abstract Task ExecuteAsync();
 
-        public void SetServices(IEssentialDataStationLogicService essentialsService, IGeographicDataStationLogicService geographicsService)
+        public void SetDataAcessClients(IEssentialDataStationDataAccessClient essentialsService, IGeographicDataStationDataAccessClient geographicsService)
         {
             this.essentialsService = essentialsService;
         }

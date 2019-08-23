@@ -63,8 +63,8 @@ namespace DatabaseAPI
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
             services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
-            services.AddTransient<IEssentialDataStationLogicService, EssentialDataStationLogicService>();
-            services.AddTransient<IGeographicDataStationLogicService, GeographicDataStationLogicService>();
+            services.AddTransient<IEssentialDataStationDataAccessClient, EssentialDataStationDataAccessClient>();
+            services.AddTransient<IGeographicDataStationDataAccessClient, GeographicDataStationDataAccessClient>();
             services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
         }
 

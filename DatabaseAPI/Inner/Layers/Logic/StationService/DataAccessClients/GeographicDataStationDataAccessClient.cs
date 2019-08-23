@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public class GeographicDataStationLogicService : IGeographicDataStationLogicService
+    public class GeographicDataStationDataAccessClient : 
+        IGeographicDataStationDataAccessClient
     {
         private IGeometryDataAccessService geometryDataAccessService;
         private IRailwayUnitDataAccessService railwayUnitDataAccessService;
-        public GeographicDataStationLogicService(
+        public GeographicDataStationDataAccessClient(
             IGeometryDataAccessService geometryDataAccessService,
             IRailwayUnitDataAccessService railwayUnitDataAccessService)
         {
