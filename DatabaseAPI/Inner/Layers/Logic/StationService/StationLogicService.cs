@@ -21,6 +21,12 @@ namespace DatabaseAPI.Logic.StationService
         public async Task PostStationAsync(StationDTO inputStation)
         {
             ISingleStationCommand command = new PostSingleStationCommand();
+            await RunSingleStationCommand(inputStation, command);
+        }
+
+        private async Task RunSingleStationCommand(StationDTO inputStation, 
+            ISingleStationCommand command)
+        {
             command.SetStation(inputStation);
             await commandExecutor.ExecuteCommand(command);
         }
@@ -32,8 +38,7 @@ namespace DatabaseAPI.Logic.StationService
                 .WithId(inputId)
                 .Build();
             ISingleStationCommand command = new DeleteSingleStationCommand();
-            command.SetStation(station);
-            await commandExecutor.ExecuteCommand(command);
+            await RunSingleStationCommand(station, command);
         }
 
         public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
@@ -53,16 +58,14 @@ namespace DatabaseAPI.Logic.StationService
                 .WithId(inputId)
                 .Build();
             ISingleStationCommand command = new GetSingleStationCommand();
-            command.SetStation(station);
-            await commandExecutor.ExecuteCommand(command);
+            await RunSingleStationCommand(station, command);
             return station;
         }
 
         public async Task PutStationAsync(StationDTO inputStation)
         {
             ISingleStationCommand command = new PutSingleStationCommand();
-            command.SetStation(inputStation);
-            await commandExecutor.ExecuteCommand(command);
+            await RunSingleStationCommand(inputStation, command);
         }
     }
 }
