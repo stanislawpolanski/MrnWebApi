@@ -32,8 +32,15 @@ namespace UnitTests.UnitTests.ControllersTests
         {
             return new List<StationDTO>()
             {
-                new StationDTO() { Id = 15, Name = "Testowa stacja", Url = "/api/station/15" },
-                new StationDTO() { Id = 789, Name = "Druga stacja", Url = "/api/station/789" }
+                new StationDTO() {
+                    Id = 15, Name = "Testowa stacja",
+                    Url = "/database-api/station/15"
+                },
+                new StationDTO() {
+                    Id = 789,
+                    Name = "Druga stacja",
+                    Url = "/database-api/station/789"
+                }
             };
         }
     }

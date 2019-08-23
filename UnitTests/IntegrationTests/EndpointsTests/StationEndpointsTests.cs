@@ -25,7 +25,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station")]
+        [InlineData("/database-api/station")]
         public async Task 
             GetAllStations_ReturnsAtLeastExpectedNumberOfStations(string url)
         {
@@ -52,7 +52,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station")]
+        [InlineData("/database-api/station")]
         public async Task 
             GetAllStations_AllStationsContainsNameLongerThanSpecifiedNumber(string url)
         {
@@ -69,7 +69,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station")]
+        [InlineData("/database-api/station")]
         public async Task 
             GetAllStations_AllStationsContainsExpectedUrl(string endpointUrl)
         {
@@ -87,8 +87,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station/78", "Trzebinia")]
-        [InlineData("api/station/10112","Łęg Tarnowski")]
+        [InlineData("/database-api/station/78", "Trzebinia")]
+        [InlineData("/database-api/station/10112", "Łęg Tarnowski")]
         public async Task 
             GetStationById_ReturnsStationWithExpectedName
                 (string url, string expectedName)
@@ -129,7 +129,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
         
         [Theory]
-        [InlineData("api/station/78", "POINT (532345.109 254186.948)")]
+        [InlineData("/database-api/station/78", "POINT (532345.109 254186.948)")]
         public async Task GetStationById_ReturnsStationWithGeometry(string url, 
             string expectedGeometryValue)
         {
@@ -141,7 +141,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
         
         [Theory]
-        [InlineData("api/station/78", "KRAKÓW")]
+        [InlineData("/database-api/station/78", "KRAKÓW")]
         public async Task 
             GetStationById_ReturnsStationWithRailwayUnitAsync(string url,
                 string expectedRailwayUnitName)
@@ -153,7 +153,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station", "Post test station", 2, 1)]
+        [InlineData("/database-api/station", "Post test station", 2, 1)]
         public async Task PostStationAsync_AssignsIdToStationWithNameAsync(
             string url, 
             string newStationName, 
@@ -193,7 +193,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
         
         [Theory]
-        [InlineData("/api/station", "Put test station", "Put test station, changed name", 2, 1)]
+        [InlineData("/database-api/station", "Put test station", "Put test station, changed name", 2, 1)]
         public async Task PutStationAsync_Returns204OnRequest(
             string url,
             string originalStationName,
@@ -263,7 +263,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
-        [InlineData("/api/station", "Delete test station", 2, 1)]
+        [InlineData("/database-api/station", "Delete test station", 2, 1)]
         public async Task DeleteStationAsync_DeletesStation(
             string url,
             string newStationName,
