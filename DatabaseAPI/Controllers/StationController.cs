@@ -24,12 +24,12 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<StationDTO>> GetAllStations()
+        public async Task<ActionResult<IEnumerable<StationDTO>>> GetAllStationsAsync()
         {
             IEnumerable<StationDTO> stations =
                 await stationLogicService.GetAllBasicStationsAsync();
             FillStationsWithUrls(stations);
-            return stations;
+            return Ok(stations);
         }
 
         private static void
