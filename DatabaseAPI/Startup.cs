@@ -35,43 +35,11 @@ namespace DatabaseAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterCommonServices(services);
-            RegisterLogicServices(services);
-            RegisterDataAccessServices(services);
-
+            services.AddDbContext<MRN_developContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("Database"), 
+                    x => x.UseNetTopologySuite()));
+            ApiServicesRegistrator.RegisterServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-        }
-
-        private void RegisterDataAccessServices(IServiceCollection services)
-        {
-            services.AddDbContext<MRN_developContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Database"), x => x.UseNetTopologySuite()));
-
-            services.AddTransient<IStationDataAccessService, DbStationDataAccessService>();
-            services.AddTransient<ITypeOfAStationDataAccessService, DbTypeOfAStationDataAccessService>();
-            services.AddTransient<IRailwayDataAccessService, DbRailwayDataAccessService>();
-            services.AddTransient<IPhotoDataAccessService, DbPhotoDataAccessService>();
-            services.AddTransient<IRailwayUnitDataAccessService, DbRailwayUnitDataAccessService>();
-            services.AddTransient<IGeometryDataAccessService, DbGeometryDataAccessService>();
-            services.AddTransient<
-                IStationToPhotoRelationshipDataAccessService, DbStationToPhotoRelationshipDataAccessService>();
-            services.AddTransient<
-                IStationToRailwayRelationshipDataAccessService, DbStationToRailwayRelationshipDataAccessService>();
-        }
-
-        private void RegisterLogicServices(IServiceCollection services)
-        {
-            services.AddTransient<IStationLogicService, StationLogicService>();
-            services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
-            services.AddTransient<IEssentialDataStationDataAccessClient, EssentialDataStationDataAccessClient>();
-            services.AddTransient<IGeographicDataStationDataAccessClient, GeographicDataStationDataAccessClient>();
-            services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
-        }
-
-        private void RegisterCommonServices(IServiceCollection services)
-        {
-            services.AddTransient<UriRoute, UriRoute>();
-            services.AddTransient<ITextGeometryReader, WKTReader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

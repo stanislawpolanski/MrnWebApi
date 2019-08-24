@@ -32,21 +32,21 @@ namespace DatabaseAPI
         {
 
 
-            services.AddTransient<IStationDataAccessService, 
+            services.AddTransient<IStationDataAccessService,
                 DbStationDataAccessService>();
-            services.AddTransient<ITypeOfAStationDataAccessService, 
+            services.AddTransient<ITypeOfAStationDataAccessService,
                 DbTypeOfAStationDataAccessService>();
-            services.AddTransient<IRailwayDataAccessService, 
+            services.AddTransient<IRailwayDataAccessService,
                 DbRailwayDataAccessService>();
-            services.AddTransient<IPhotoDataAccessService, 
+            services.AddTransient<IPhotoDataAccessService,
                 DbPhotoDataAccessService>();
-            services.AddTransient<IRailwayUnitDataAccessService, 
+            services.AddTransient<IRailwayUnitDataAccessService,
                 DbRailwayUnitDataAccessService>();
-            services.AddTransient<IGeometryDataAccessService, 
+            services.AddTransient<IGeometryDataAccessService,
                 DbGeometryDataAccessService>();
-            services.AddTransient<IStationToPhotoRelationshipDataAccessService, 
+            services.AddTransient<IStationToPhotoRelationshipDataAccessService,
                 DbStationToPhotoRelationshipDataAccessService>();
-            services.AddTransient<IStationToRailwayRelationshipDataAccessService, 
+            services.AddTransient<IStationToRailwayRelationshipDataAccessService,
                 DbStationToRailwayRelationshipDataAccessService>();
         }
 
@@ -54,13 +54,13 @@ namespace DatabaseAPI
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
             services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
-            services.AddTransient<ITypeOfAStationLogicService, 
+            services.AddTransient<ITypeOfAStationLogicService,
                 TypeOfAStationLogicService>();
-            services.AddTransient<IEssentialDataStationDataAccessClient, 
+            services.AddTransient<IEssentialDataStationDataAccessClient,
                 EssentialDataStationDataAccessClient>();
-            services.AddTransient<IGeographicDataStationDataAccessClient, 
+            services.AddTransient<IGeographicDataStationDataAccessClient,
                 GeographicDataStationDataAccessClient>();
-            
+
         }
 
         private static void RegisterCommonServices(IServiceCollection services)
