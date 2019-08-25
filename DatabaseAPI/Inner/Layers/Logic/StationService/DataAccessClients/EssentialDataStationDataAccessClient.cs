@@ -30,11 +30,8 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
             StationDTO station = await stationDataAccessService
                 .GetDetailedStationAsync(inputStation.Id);
             inputStation.Name = station.Name;
-            inputStation.OwnerInfo = new OwnerDTO
-                .Builder()
-                .WithId(station.OwnerInfo.Id)
-                .WithName(station.OwnerInfo.Name)
-                .Build();
+            inputStation.OwnerInfo = station.OwnerInfo;
+            inputStation.TypeOfAStationInfo = station.TypeOfAStationInfo;
         }
 
         public async Task PostStationAsync(StationDTO station)

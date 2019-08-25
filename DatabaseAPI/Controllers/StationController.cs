@@ -58,7 +58,10 @@ namespace DatabaseAPI.Controllers
             {
                 return NotFound();
             }
-            FillRailwayUnitWithUrl(station);
+            if (station.RailwayUnit != null)
+            {
+                FillRailwayUnitWithUrl(station);
+            }
             return Ok(station);
         }
 

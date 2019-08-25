@@ -31,18 +31,25 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
                 || station.OwnerInfo == null);
             if (dataRequiredFromRequestIsIncomplete)
             {
-                throw new ArgumentNullException();
+                return null;
             }
             return await GetRailwayUnitFromDatasource(station);
         }
 
-        private async Task<RailwayUnitDTO> GetRailwayUnitFromDatasource(StationDTO station)
+        private async Task<RailwayUnitDTO> 
+            GetRailwayUnitFromDatasource(StationDTO station)
         {
+            if (station.SerialisedGeometry == null || station.OwnerInfo == null)
+            {
+                return null;
+            }
+
             IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
             Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
                 unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
-            Expression<Func<RailwayUnits, bool>> unitsGeometryIntersectsStationsGeometryPredicate =
-                unit => unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
+            Expression<Func<RailwayUnits, bool>> 
+                unitsGeometryIntersectsStationsGeometryPredicate = unit => 
+                unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
             Expression<Func<RailwayUnits, RailwayUnitEntityToRailwayUnitDTOAdapter>> 
                 selectToDTO = unitEntity =>
                     new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity);

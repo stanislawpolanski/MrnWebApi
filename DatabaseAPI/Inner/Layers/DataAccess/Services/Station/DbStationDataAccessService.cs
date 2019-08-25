@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using System.Linq.Expressions;
+using System;
 
 namespace DatabaseAPI.DataAccess.Services.Station
 {
@@ -90,34 +91,60 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<StationDTO> GetDetailedStationAsync(int id)
         {
+
+            Stations entity = await GetEntityFromContextById(id);
+            StationDTO dto = GetDTOFromEntity(entity);
+            return dto;
+        }
+
+        private async Task<Stations> GetEntityFromContextById(int id)
+        {
             return await context
                 .Stations
                 .Where(station => station.Id.Equals(id))
                 .Include(station => station.ParentObjectOfInterest)
                 .Include(station => station.ParentObjectOfInterest.Owner)
                 .Include(station => station.TypeOfAstation)
-                .Select(GetStationEntityToDTOSelectionExpression())
                 .FirstOrDefaultAsync();
         }
 
-        private Expression<System.Func<Stations, StationDTO>> 
-            GetStationEntityToDTOSelectionExpression()
+        private StationDTO GetDTOFromEntity(Stations entity)
         {
-            return entity => new StationDTO
+            TypeOfAStationDTO typeOfAStation = GetTypeOfAStationDTOFromEntity(entity);
+            OwnerDTO owner = GetOwnerDTOFromEntity(entity);
+            return new StationDTO
                     .Builder()
                     .WithId(entity.Id)
                     .WithName(entity.ParentObjectOfInterest.Name)
-                    .WithOwner(new OwnerDTO
+                    .WithOwner(owner)
+                    .WithTypeOfAStation(typeOfAStation)
+                    .Build();
+        }
+
+        private static OwnerDTO GetOwnerDTOFromEntity(Stations entity)
+        {
+            if(entity.ParentObjectOfInterest.Owner == null)
+            {
+                return null;
+            }
+            return new OwnerDTO
                         .Builder()
                         .WithId(entity.ParentObjectOfInterest.Owner.Id)
                         .WithName(entity.ParentObjectOfInterest.Owner.Name)
-                        .Build())
-                    .WithTypeOfAStation(new TypeOfAStationDTO
+                        .Build();
+        }
+
+        private static TypeOfAStationDTO GetTypeOfAStationDTOFromEntity(Stations entity)
+        {
+            if(entity.TypeOfAstation == null)
+            {
+                return null;
+            }
+            return new TypeOfAStationDTO
                         .Builder()
                         .WithId(entity.TypeOfAstation.Id)
                         .WithAbbreviatedName(entity.TypeOfAstation.AbbreviatedName)
-                        .Build())
-                    .Build();
+                        .Build();
         }
 
         public async Task PutStationAsync(StationDTO inputStation)
