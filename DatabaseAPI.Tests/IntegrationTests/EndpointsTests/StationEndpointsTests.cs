@@ -108,6 +108,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         [Theory]
         [InlineData("/database-api/station/78", "Trzebinia")]
         [InlineData("/database-api/station/10112", "Łęg Tarnowski")]
+        [InlineData("/database-api/station/168", "Szczakowa Południe")]
         public async Task 
             GetStationById_ReturnsStationWithExpectedName
                 (string url, string expectedName)
