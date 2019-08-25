@@ -87,6 +87,25 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
 
         [Theory]
+        [InlineData("/database-api/station", 78, "Trzebinia")]
+        [InlineData("/database-api/station", 10112, "Łęg Tarnowski")]
+        public async Task
+            GetAllStations_ContainsSpecificStation(string url, int id, string name)
+        {
+            //arrange
+            var client = factory.CreateClient();
+            //act
+            var response = await GetResponseByUrl(url);
+            List<StationDTO> models =
+                await GetStationsListFromResponse(response);
+            //assert
+            Predicate<StationDTO> containsSpecificStation = station => 
+                station.Id.Equals(id) && 
+                station.Name.Equals(name);
+            Assert.Contains(models, containsSpecificStation);
+        }
+
+        [Theory]
         [InlineData("/database-api/station/78", "Trzebinia")]
         [InlineData("/database-api/station/10112", "Łęg Tarnowski")]
         public async Task 
