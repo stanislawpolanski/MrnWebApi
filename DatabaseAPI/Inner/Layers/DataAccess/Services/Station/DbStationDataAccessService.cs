@@ -71,19 +71,19 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<IEnumerable<StationDTO>> GetBasicStationsAsync()
         {
-            IEnumerable<Stations> queried = await context
+            IEnumerable<Stations> entities = await context
                 .Stations
                 .Include(station => station.ParentObjectOfInterest)
                 .ToListAsync();
 
-            System.Func<Stations, StationDTO> stationEntityToDTO = entity => 
+            System.Func<Stations, StationDTO> entityToDTO = entity => 
                 new StationDTO
                     .Builder()
                     .WithId(entity.ParentObjectOfInterest.Id)
                     .WithName(entity.ParentObjectOfInterest.Name)
                     .Build();
 
-            List<StationDTO> dtos = queried.Select(stationEntityToDTO).ToList();
+            List<StationDTO> dtos = entities.Select(entityToDTO).ToList();
 
             return dtos;
         }
