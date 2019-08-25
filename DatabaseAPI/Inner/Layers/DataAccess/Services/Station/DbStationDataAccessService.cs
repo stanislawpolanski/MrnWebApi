@@ -71,18 +71,21 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<IEnumerable<StationDTO>> GetBasicStationsAsync()
         {
-            Expression<System.Func<Stations, StationDTO>> 
-                selectToDTO = entity => new StationDTO()
-                {
-                    Id = entity.ParentObjectOfInterest.Id,
-                    Name = entity.ParentObjectOfInterest.Name
-                };
-
-            return await context
+            IEnumerable<Stations> queried = await context
                 .Stations
                 .Include(station => station.ParentObjectOfInterest)
-                .Select(selectToDTO)
                 .ToListAsync();
+
+            System.Func<Stations, StationDTO> selector = entity => 
+                new StationDTO
+                    .Builder()
+                    .WithId(entity.ParentObjectOfInterest.Id)
+                    .WithName(entity.ParentObjectOfInterest.Name)
+                    .Build();
+
+            List<StationDTO> dtos = queried.Select(selector).ToList();
+
+            return dtos;
         }
 
         public async Task<StationDTO> GetDetailedStationAsync(int id)
