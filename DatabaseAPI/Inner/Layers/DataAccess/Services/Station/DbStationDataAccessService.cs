@@ -76,14 +76,14 @@ namespace DatabaseAPI.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest)
                 .ToListAsync();
 
-            System.Func<Stations, StationDTO> selector = entity => 
+            System.Func<Stations, StationDTO> stationEntityToDTO = entity => 
                 new StationDTO
                     .Builder()
                     .WithId(entity.ParentObjectOfInterest.Id)
                     .WithName(entity.ParentObjectOfInterest.Name)
                     .Build();
 
-            List<StationDTO> dtos = queried.Select(selector).ToList();
+            List<StationDTO> dtos = queried.Select(stationEntityToDTO).ToList();
 
             return dtos;
         }
