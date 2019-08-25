@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using DatabaseAPI.Common.Routing;
 
 namespace DatabaseAPI.Controllers
 {
@@ -10,10 +15,29 @@ namespace DatabaseAPI.Controllers
     {
         public const String RAILWAY_PATH = API_PATH + "/railway";
 
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IRailwayLogicService service;
+
+        public RailwayController(IRailwayLogicService service)
         {
-            throw new NotImplementedException();
+            this.service = service;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RailwayDTO>>> GetAllRailwaysAsync()
+        {
+            IEnumerable<RailwayDTO> railways = await service.GetAllRailwaysAsync();
+            FillWithUrls(railways);
+            return Ok(railways);
+        }
+
+        private void FillWithUrls(IEnumerable<RailwayDTO> railways)
+        {
+            Action<RailwayDTO> addUrlFromId = railway => 
+                railway.Url = UriRoute
+                    .GetRouteStringFromNodes(RAILWAY_PATH, railway.Id.ToString());
+            railways
+                .ToList()
+                .ForEach(addUrlFromId);
         }
 
         [HttpGet("{id}")]
