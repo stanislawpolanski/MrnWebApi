@@ -9,6 +9,23 @@ namespace DatabaseAPI.Common.Routing
     {
         private String uriRoute = String.Empty;
 
+        public static string GetRouteStringFromNodes(params string[] nodes)
+        {
+            return GetRouteFromNodes(nodes).ToString();
+        }
+
+        public static UriRoute GetRouteFromNodes(params string[] nodes)
+        {
+            UriRoute route = new UriRoute();
+            route.AddNodesToTheRoute(nodes);
+            return route;
+        }
+
+        public override string ToString()
+        {
+            return uriRoute;
+        }
+
         public void AddNodesToTheRoute(params string[] nodes)
         {
             uriRoute += BuildRouteFromNodes(nodes).ToString();
@@ -44,18 +61,6 @@ namespace DatabaseAPI.Common.Routing
             {
                 throw new ForbiddenUseOfCharacterInAStringException("Slash in the end of a path.");
             }
-        }
-
-        public static UriRoute GetRouteFromNodes(params string[] nodes)
-        {
-            UriRoute route = new UriRoute();
-            route.AddNodesToTheRoute(nodes);
-            return route;
-        }
-
-        public override string ToString()
-        {
-            return uriRoute;
         }
     }
 }
