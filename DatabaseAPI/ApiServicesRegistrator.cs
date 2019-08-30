@@ -8,6 +8,9 @@ using DatabaseAPI.DataAccess.Services.Station;
 using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 using DatabaseAPI.Logic.StationService;
@@ -25,42 +28,73 @@ namespace DatabaseAPI
         {
             RegisterCommonServices(services);
             RegisterLogicServices(services);
+            RegisterLogicServicesHelpers(services);
             RegisterDataAccessServices(services);
         }
 
         private static void RegisterDataAccessServices(IServiceCollection services)
         {
-
-
-            services.AddTransient<IStationDataAccessService,
+            services.AddTransient<
+                IStationDataAccessService,
                 DbStationDataAccessService>();
-            services.AddTransient<ITypeOfAStationDataAccessService,
+            services.AddTransient<
+                ITypeOfAStationDataAccessService,
                 DbTypeOfAStationDataAccessService>();
-            services.AddTransient<IRailwayDataAccessService,
+            services.AddTransient<
+                IRailwayDataAccessService,
                 DbRailwayDataAccessService>();
-            services.AddTransient<IPhotoDataAccessService,
+            services.AddTransient<
+                IPhotoDataAccessService,
                 DbPhotoDataAccessService>();
-            services.AddTransient<IRailwayUnitDataAccessService,
+            services.AddTransient<
+                IRailwayUnitDataAccessService,
                 DbRailwayUnitDataAccessService>();
-            services.AddTransient<IGeometryDataAccessService,
+            services.AddTransient<
+                IGeometryDataAccessService,
                 DbGeometryDataAccessService>();
-            services.AddTransient<IStationToPhotoRelationshipDataAccessService,
+            services.AddTransient<
+                IStationToPhotoRelationshipDataAccessService,
                 DbStationToPhotoRelationshipDataAccessService>();
-            services.AddTransient<IStationToRailwayRelationshipDataAccessService,
+            services.AddTransient<
+                IStationToRailwayRelationshipDataAccessService,
                 DbStationToRailwayRelationshipDataAccessService>();
         }
 
         private static void RegisterLogicServices(IServiceCollection services)
         {
             services.AddTransient<IStationLogicService, StationLogicService>();
-            services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
-            services.AddTransient<ITypeOfAStationLogicService,
-                TypeOfAStationLogicService>();
-            services.AddTransient<IEssentialDataStationDataAccessClient,
-                EssentialDataStationDataAccessClient>();
-            services.AddTransient<IGeographicDataStationDataAccessClient,
-                GeographicDataStationDataAccessClient>();
+            services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
+            services.AddTransient<IRailwayLogicService, RailwayLogicService>();
+        }
 
+        private static void RegisterLogicServicesHelpers(IServiceCollection services)
+        {
+            RegisterStationLogicHelpers(services);
+            RegisterRailwayLogicHelpers(services);
+        }
+
+        private static void RegisterRailwayLogicHelpers(IServiceCollection services)
+        {
+            services.AddTransient<
+                IRailwayDataEssentialsClient, 
+                RailwayDataEssentialsClient>();
+            services.AddTransient<
+                IRailwayDataStationsClient, 
+                RailwayDataStationsClient>();
+            services.AddTransient<
+                IRailwayLogicDataAccessClientsProvider, 
+                RailwayLogicDataAccessClientsProvider>();
+        }
+
+        private static void RegisterStationLogicHelpers(IServiceCollection services)
+        {
+            services.AddTransient<
+                IEssentialDataStationDataAccessClient,
+                EssentialDataStationDataAccessClient>();
+            services.AddTransient<
+                IGeographicDataStationDataAccessClient,
+                GeographicDataStationDataAccessClient>();
+            services.AddTransient<IStationCommandExecutor, StationCommandExecutor>();
         }
 
         private static void RegisterCommonServices(IServiceCollection services)

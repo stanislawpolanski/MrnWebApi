@@ -1,15 +1,12 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.Command;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
 {
-    public interface IStationCommand
+    public interface IStationCommand : ICommand
     {
         void SetDataAcessClients(
             IEssentialDataStationDataAccessClient essentialsService,
             IGeographicDataStationDataAccessClient geographicsService);
-        Task ExecuteAsync();
     }
 }

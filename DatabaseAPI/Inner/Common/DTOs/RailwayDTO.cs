@@ -1,4 +1,7 @@
-﻿namespace DatabaseAPI.Common.DTOs
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using System.Collections.Generic;
+
+namespace DatabaseAPI.Common.DTOs
 {
     public class RailwayDTO
     {
@@ -7,6 +10,7 @@
         public string Name { get; set; }
         public string Url { get; set; }
         public OwnerDTO Owner { get; set; }
+        public IEnumerable<StationOnARailwayLocationDTO> StationsKmPosts { get; set; }
         public class Builder
         {
             private RailwayDTO item = new RailwayDTO();
@@ -23,6 +27,13 @@
             public Builder WithName(string name)
             {
                 item.Name = name;
+                return this;
+            }
+
+            public Builder WithStationsKmPosts(
+                IEnumerable<StationOnARailwayLocationDTO> stations)
+            {
+                item.StationsKmPosts = stations;
                 return this;
             }
             public Builder WithUrl(string url)

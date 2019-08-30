@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using DatabaseAPI.Common.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace DatabaseAPI.Controllers
 {
@@ -23,6 +24,7 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<RailwayDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<RailwayDTO>>> GetAllRailwaysAsync()
         {
             IEnumerable<RailwayDTO> railways = await service.GetAllRailwaysAsync();
@@ -41,9 +43,16 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(RailwayDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<RailwayDTO>> Get(int id)
         {
-            throw new NotImplementedException();
+            RailwayDTO railway = await service.GetRailwayById(id);
+            if (railway == null)
+            {
+                return NotFound();
+            }
+            return Ok(railway);
         }
     }
 }
