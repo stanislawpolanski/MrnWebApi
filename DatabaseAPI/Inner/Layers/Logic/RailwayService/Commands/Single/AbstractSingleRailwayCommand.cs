@@ -11,8 +11,14 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
     {
         protected IRailwayDataEssentialsClient essentialsClient;
         protected IRailwayDataStationsClient stationsClient;
-        protected RailwayDTO railway;
+        protected RailwayDTO inputRailway;
+        protected RailwayDTO executionResult;
         public abstract Task ExecuteAsync();
+
+        public RailwayDTO GetExecutionResult()
+        {
+            return executionResult;
+        }
 
         public void SetEssentialsClient(IRailwayDataEssentialsClient client)
         {
@@ -21,7 +27,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
 
         public void SetRailway(RailwayDTO railway)
         {
-            this.railway = railway;
+            this.inputRailway = railway;
         }
 
         public void SetStationsClient(IRailwayDataStationsClient client)

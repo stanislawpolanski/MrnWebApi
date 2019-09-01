@@ -24,10 +24,27 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
 
         public async Task<RailwayDTO> GetRailwayById(int id)
         {
-            RailwayDTO railway = new RailwayDTO.Builder().WithId(id).Build();
-            await FillRailway(railway);
-            OrderStationsByKmPosts(railway);
-            return railway;
+            RailwayDTO inputRailway = new RailwayDTO.Builder().WithId(id).Build();
+            ISingleRailwayCommand command = new GetSingleRailwayCommand();
+            RailwayDTO result = await ExecuteSingleRailwayCommand(inputRailway, command);
+            if(result == null)
+            {
+                return null;
+            }
+            OrderStationsByKmPosts(result);
+            return result;
+        }
+
+        private async Task<RailwayDTO> ExecuteSingleRailwayCommand(
+            RailwayDTO inputRailway, 
+            ISingleRailwayCommand command)
+        {
+            command.SetRailway(inputRailway);
+            clientsProvider.InjectClients(command);
+            IRailwayCommandExecutor executor = new RailwayCommandExecutor();
+            await executor.ExecuteCommand(command);
+            RailwayDTO result = command.GetExecutionResult();
+            return result;
         }
 
         private static void OrderStationsByKmPosts(RailwayDTO railway)
@@ -35,15 +52,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             railway.StationsKmPosts = railway
                 .StationsKmPosts
                 .OrderBy(station => station.CentreKmPost);
-        }
-
-        private async Task FillRailway(RailwayDTO railway)
-        {
-            ISingleRailwayCommand command = new GetSingleRailwayCommand();
-            command.SetRailway(railway);
-            clientsProvider.InjectClients(command);
-            IRailwayCommandExecutor executor = new RailwayCommandExecutor();
-            await executor.ExecuteCommand(command);
         }
     }
 }

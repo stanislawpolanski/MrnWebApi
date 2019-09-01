@@ -8,13 +8,15 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
     {
         public override async Task ExecuteAsync()
         {
-            RailwayDTO outcomeRailway = 
-                await essentialsClient.GetRailwayWithEssentialDataAsync(railway);
-            railway.Name = outcomeRailway.Name;
-            railway.Number = outcomeRailway.Number;
-            railway.Owner = outcomeRailway.Owner;
-            railway.StationsKmPosts = 
-                await stationsClient.GetStationsLocationsOnARailway(railway);
+
+            executionResult = 
+                await essentialsClient.GetRailwayWithEssentialDataAsync(inputRailway);
+            if(executionResult == null)
+            {
+                return;
+            }
+            executionResult.StationsKmPosts = 
+                await stationsClient.GetStationsLocationsOnARailway(inputRailway);
         }
     }
 }

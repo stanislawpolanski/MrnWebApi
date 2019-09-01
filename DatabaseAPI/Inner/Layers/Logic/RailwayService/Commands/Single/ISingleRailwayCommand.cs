@@ -7,5 +7,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
     {
         void SetRailway(RailwayDTO railway);
         void SetStationsClient(IRailwayDataStationsClient client);
+        RailwayDTO GetExecutionResult();
     }
 }

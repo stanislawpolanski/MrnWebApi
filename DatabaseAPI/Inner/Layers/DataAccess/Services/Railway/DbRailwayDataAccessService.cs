@@ -17,6 +17,10 @@ namespace DatabaseAPI.DataAccess.Services.Railway
         public async Task<RailwayDTO> GetRailwayByIdAsync(int id)
         {
             Railways entity = await GetRailwayEntityById(id);
+            if(entity == null)
+            {
+                return null;
+            }
             RailwayDTO dto = GetRailwayDTO(entity);
             return dto;
         }
