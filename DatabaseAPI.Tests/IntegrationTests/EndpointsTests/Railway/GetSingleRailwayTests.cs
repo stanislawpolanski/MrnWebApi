@@ -1,21 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
 {
-    public class GetSingleRailwayTests
-        : IClassFixture<WebApplicationFactory<Startup>>
+    public class GetSingleRailwayTests : AbstractEndpointTests
     {
-        private readonly WebApplicationFactory<DatabaseAPI.Startup> factory;
-
-        public GetSingleRailwayTests(
-            WebApplicationFactory<DatabaseAPI.Startup> injectedFactory)
+        public GetSingleRailwayTests(WebApplicationFactory<Startup> injectedFactory) 
+            : base(injectedFactory)
         {
-            factory = injectedFactory;
         }
 
         [Theory]
@@ -23,14 +21,16 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [InlineData("/database-api/railway/23")]
         public async Task Returns200OnExistingRailway(string url)
         {
-            throw new NotImplementedException();
+            HttpResponseMessage response = await GetResponseAsync(url);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Theory]
         [InlineData("/database-api/railway/123456789")]
         public async Task Returns404OnNonExistingRailway(string url)
         {
-            throw new NotImplementedException();
+            var response = await GetResponseAsync(url);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Theory]

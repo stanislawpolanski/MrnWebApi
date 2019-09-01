@@ -47,7 +47,7 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<RailwayDTO>> Get(int id)
         {
-            RailwayDTO railway = await service.GetRailwayById(id);
+           RailwayDTO railway = await service.GetRailwayById(id);
             if (railway == null)
             {
                 return NotFound();
