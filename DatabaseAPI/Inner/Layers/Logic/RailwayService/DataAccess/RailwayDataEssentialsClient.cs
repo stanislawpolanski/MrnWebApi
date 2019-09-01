@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.DataAccess.Services.Railway;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients
 {
     public class RailwayDataEssentialsClient : IRailwayDataEssentialsClient
     {
-        public Task<RailwayDTO> GetRailwayWithEssentialData(RailwayDTO railway)
+        private IRailwayDataAccessService service;
+        public RailwayDataEssentialsClient(IRailwayDataAccessService service)
         {
-            throw new NotImplementedException();
+            this.service = service;
+        }
+        public async Task<RailwayDTO> GetRailwayWithEssentialDataAsync(RailwayDTO railway)
+        {
+            return await service.GetRailwayByIdAsync(railway.Id);
         }
     }
 }

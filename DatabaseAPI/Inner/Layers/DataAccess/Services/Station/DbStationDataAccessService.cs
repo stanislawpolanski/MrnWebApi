@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using System.Linq.Expressions;
 using System;
+using DatabaseAPI.Inner.Common.DTOs;
+using System.Collections;
 
 namespace DatabaseAPI.DataAccess.Services.Station
 {
-    public class DbStationDataAccessService : DbDataAccessAbstractService, IStationDataAccessService
+    public class DbStationDataAccessService : DbDataAccessAbstractService, 
+        IStationDataAccessService
     {
-        public DbStationDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
+        public DbStationDataAccessService(MRN_developContext injectedContext) : 
+            base(injectedContext)
         {
         }
 
@@ -123,7 +127,7 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         private static OwnerDTO GetOwnerDTOFromEntity(Stations entity)
         {
-            if(entity.ParentObjectOfInterest.Owner == null)
+            if (entity.ParentObjectOfInterest.Owner == null)
             {
                 return null;
             }
@@ -136,7 +140,7 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         private static TypeOfAStationDTO GetTypeOfAStationDTOFromEntity(Stations entity)
         {
-            if(entity.TypeOfAstation == null)
+            if (entity.TypeOfAstation == null)
             {
                 return null;
             }
@@ -171,6 +175,39 @@ namespace DatabaseAPI.DataAccess.Services.Station
                 .FirstAsync(entity => entity.Id.Equals(inputStation.Id));
             queriedObjectOfInterest.Name = inputStation.Name;
             queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
+        }
+
+        public async Task<IEnumerable<StationOnARailwayLocationDTO>> 
+            GetStationsLocationsByRailwayAsync(RailwayDTO railway)
+        {
+            List<StationsToGeometries> entities = await GetLocationEntities(railway);
+            IEnumerable<StationOnARailwayLocationDTO> dtos = GetLocationDTOs(entities);
+            return dtos;
+        }
+
+        private static IEnumerable<StationOnARailwayLocationDTO> 
+            GetLocationDTOs(List<StationsToGeometries> entities)
+        {
+            return entities
+                .Select(entity =>
+                    new StationOnARailwayLocationDTO
+                    .Builder()
+                    .WithStationId(entity.Station.Id)
+                    .WithName(entity.Station.ParentObjectOfInterest.Name)
+                    .WithKmPosts(entity.BeginningKmpost,
+                                 entity.CentreKmpost,
+                                 entity.EndingKmpost)
+                    .Build());
+        }
+
+        private async Task<List<StationsToGeometries>> GetLocationEntities(RailwayDTO railway)
+        {
+            return await context
+                .StationsToGeometries
+                .Include(relationship => relationship.Station)
+                .Include(relationship => relationship.Station.ParentObjectOfInterest)
+                .Where(relationship => relationship.RailwayId.Equals(railway.Id))
+                .ToListAsync();
         }
     }
 }

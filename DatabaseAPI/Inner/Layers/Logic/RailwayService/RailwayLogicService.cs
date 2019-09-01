@@ -6,6 +6,7 @@ using DatabaseAPI.Inner.Layers.Logic.RailwayService.Executor;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
 {
@@ -23,13 +24,26 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
 
         public async Task<RailwayDTO> GetRailwayById(int id)
         {
-            ISingleRailwayCommand command = new GetSingleRailwayCommand();
             RailwayDTO railway = new RailwayDTO.Builder().WithId(id).Build();
+            await FillRailway(railway);
+            OrderStationsByKmPosts(railway);
+            return railway;
+        }
+
+        private static void OrderStationsByKmPosts(RailwayDTO railway)
+        {
+            railway.StationsKmPosts = railway
+                .StationsKmPosts
+                .OrderBy(station => station.CentreKmPost);
+        }
+
+        private async Task FillRailway(RailwayDTO railway)
+        {
+            ISingleRailwayCommand command = new GetSingleRailwayCommand();
             command.SetRailway(railway);
             clientsProvider.InjectClients(command);
             IRailwayCommandExecutor executor = new RailwayCommandExecutor();
             await executor.ExecuteCommand(command);
-            return railway;
         }
     }
 }

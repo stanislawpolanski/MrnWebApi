@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 
 namespace DatabaseAPI.DataAccess.Services.Railway
 {
@@ -13,6 +12,42 @@ namespace DatabaseAPI.DataAccess.Services.Railway
     {
         public DbRailwayDataAccessService(MRN_developContext injectedContext) : base(injectedContext)
         {
+        }
+
+        public async Task<RailwayDTO> GetRailwayByIdAsync(int id)
+        {
+            Railways entity = await GetRailwayEntityById(id);
+            RailwayDTO dto = GetRailwayDTO(entity);
+            return dto;
+        }
+
+        private static RailwayDTO GetRailwayDTO(Railways entity)
+        {
+            return new RailwayDTO
+                .Builder()
+                .WithId(entity.Id)
+                .WithName(entity.Name)
+                .WithNumber(entity.Number)
+                .WithOwner(GetOwnerDTO(entity))
+                .Build();
+        }
+
+        private static OwnerDTO GetOwnerDTO(Railways entity)
+        {
+            return new OwnerDTO
+                .Builder()
+                .WithId(entity.Owner.Id)
+                .WithName(entity.Owner.Name)
+                .Build();
+        }
+
+        private async Task<Railways> GetRailwayEntityById(int id)
+        {
+            return await context
+                .Railways
+                .Include(railways => railways.Owner)
+                .Where(railway => railway.Id.Equals(id))
+                .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<RailwayDTO>> GetRailwaysByStationIdAsync(int stationId)

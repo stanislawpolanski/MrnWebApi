@@ -11,7 +11,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
     {
         protected IRailwayDataEssentialsClient essentialsClient;
         protected IRailwayDataStationsClient stationsClient;
-        private RailwayDTO railway;
+        protected RailwayDTO railway;
         public abstract Task ExecuteAsync();
 
         public void SetEssentialsClient(IRailwayDataEssentialsClient client)

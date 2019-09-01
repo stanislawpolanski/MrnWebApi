@@ -8,6 +8,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients
 {
     public interface IRailwayDataEssentialsClient
     {
-        Task<RailwayDTO> GetRailwayWithEssentialData(RailwayDTO railway);
+        Task<RailwayDTO> GetRailwayWithEssentialDataAsync(RailwayDTO railway);
     }
 }

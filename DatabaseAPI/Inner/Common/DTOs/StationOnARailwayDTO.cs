@@ -7,20 +7,20 @@ namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class StationOnARailwayLocationDTO
     {
-        public int Id;
+        public int StationId;
         public string Name;
-        public decimal BeginningKmPost;
+        public decimal? BeginningKmPost;
         public decimal CentreKmPost;
-        public decimal EndingKmPost;
+        public decimal? EndingKmPost;
 
         public class Builder
         {
             private StationOnARailwayLocationDTO item = 
                 new StationOnARailwayLocationDTO();
 
-            public Builder WithId(int id)
+            public Builder WithStationId(int id)
             {
-                item.Id = id;
+                item.StationId = id;
                 return this;
             }
 
@@ -30,7 +30,7 @@ namespace DatabaseAPI.Inner.Common.DTOs
                 return this;
             }
 
-            public Builder WithKmPosts(decimal beginning, decimal centre, decimal ending)
+            public Builder WithKmPosts(decimal? beginning, decimal centre, decimal? ending)
             {
                 item.BeginningKmPost = beginning;
                 item.CentreKmPost = centre;
