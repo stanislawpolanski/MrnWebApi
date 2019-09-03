@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
@@ -17,7 +15,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             factory = injectedFactory;
         }
 
-        protected async System.Threading.Tasks.Task<HttpResponseMessage> GetResponseAsync(string url)
+        protected async Task<HttpResponseMessage> GetGetResponseAsync(string url)
         {
             return await factory.CreateClient().GetAsync(url);
         }
