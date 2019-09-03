@@ -8,6 +8,7 @@ using DatabaseAPI.DataAccess.Services.Station;
 using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
+using DatabaseAPI.Inner.Common.Command.Executor;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
@@ -101,6 +102,7 @@ namespace DatabaseAPI
         {
             services.AddTransient<UriRoute, UriRoute>();
             services.AddTransient<ITextGeometryReader, WKTReader>();
+            services.AddTransient<ICommandExecutor, CommandExecutor>();
         }
     }
 }

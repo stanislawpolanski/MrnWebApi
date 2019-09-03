@@ -2,20 +2,24 @@
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Executor;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using DatabaseAPI.Inner.Common.Command.Executor;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
 {
     public class RailwayLogicService : IRailwayLogicService
     {
         private IRailwayLogicDataAccessClientsProvider clientsProvider;
-        public RailwayLogicService(IRailwayLogicDataAccessClientsProvider clientsProvider)
+        private ICommandExecutor executor;
+        public RailwayLogicService(
+            IRailwayLogicDataAccessClientsProvider clientsProvider,
+            ICommandExecutor executor)
         {
             this.clientsProvider = clientsProvider;
+            this.executor = executor;
         }
         public async Task<IEnumerable<RailwayDTO>> GetAllRailwaysAsync()
         {
@@ -41,8 +45,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
         {
             command.SetRailway(inputRailway);
             clientsProvider.InjectClients(command);
-            IRailwayCommandExecutor executor = new RailwayCommandExecutor();
-            await executor.ExecuteCommand(command);
+            await executor.ExecuteCommandAsync(command);
             RailwayDTO result = command.GetExecutionResult();
             return result;
         }
