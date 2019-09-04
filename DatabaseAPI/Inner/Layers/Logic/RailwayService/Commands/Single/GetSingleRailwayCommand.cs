@@ -9,14 +9,14 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
         public override async Task ExecuteAsync()
         {
 
-            executionResult = 
-                await essentialsClient.GetRailwayWithEssentialDataAsync(inputRailway);
+            executionResult = await essentialsClient
+                .GetRailwayWithEssentialDataAsync(inputRailway);
             if(executionResult == null)
             {
                 return;
             }
-            executionResult.StationsKmPosts = 
-                await stationsClient.GetStationsLocationsOnARailway(inputRailway);
+            executionResult.StationsKmPosts = await stationsClient
+                .GetStationsLocationsOnARailway(inputRailway);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
     public class RailwayLogicService : IRailwayLogicService
     {
         private IRailwayLogicDataAccessClientsProvider clientsProvider;
-        private ICommandExecutor executor;
+        private ICommandExecutor executor;                                                                                                                                              
         public RailwayLogicService(
             IRailwayLogicDataAccessClientsProvider clientsProvider,
             ICommandExecutor executor)

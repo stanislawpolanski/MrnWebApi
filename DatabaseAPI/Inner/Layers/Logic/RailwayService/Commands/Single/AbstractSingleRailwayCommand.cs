@@ -13,6 +13,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
         protected IRailwayDataStationsClient stationsClient;
         protected RailwayDTO inputRailway;
         protected RailwayDTO executionResult;
+
         public abstract Task ExecuteAsync();
 
         public RailwayDTO GetExecutionResult()
