@@ -1,35 +1,36 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
 using DatabaseAPI.Inner.Common.Command.Executor;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
 {
     public class RailwayLogicService : IRailwayLogicService
     {
-        private IRailwayLogicDataAccessClientsProvider clientsProvider;
-        private ICommandExecutor executor;                                                                                                                                              
+        private IRailwayCommandFactory factory;
+        private ICommandExecutor executor;
         public RailwayLogicService(
-            IRailwayLogicDataAccessClientsProvider clientsProvider,
+            IRailwayCommandFactory factory,
             ICommandExecutor executor)
         {
-            this.clientsProvider = clientsProvider;
+            this.factory = factory;
             this.executor = executor;
         }
         public async Task<IEnumerable<RailwayDTO>> GetAllRailwaysAsync()
         {
-            throw new NotImplementedException();
+            ISetOfRailwayCommand command = factory.GetGetSetOfRailwaysCommand();
+            await executor.ExecuteCommandAsync(command);
+            return command.GetExecutionResult();
         }
 
         public async Task<RailwayDTO> GetRailwayById(int id)
         {
             RailwayDTO inputRailway = new RailwayDTO.Builder().WithId(id).Build();
-            ISingleRailwayCommand command = new GetSingleRailwayCommand();
+            ISingleRailwayCommand command = factory.GetGetSingleRailwayCommand();
             RailwayDTO result = await ExecuteSingleRailwayCommand(inputRailway, command);
             if(result == null)
             {
@@ -44,10 +45,8 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             ISingleRailwayCommand command)
         {
             command.SetRailway(inputRailway);
-            clientsProvider.InjectClients(command);
             await executor.ExecuteCommandAsync(command);
-            RailwayDTO result = command.GetExecutionResult();
-            return result;
+            return command.GetExecutionResult();
         }
 
         private static void OrderStationsByKmPosts(RailwayDTO railway)

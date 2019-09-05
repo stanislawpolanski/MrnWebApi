@@ -10,6 +10,8 @@ using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
 using DatabaseAPI.Inner.Common.Command.Executor;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
@@ -85,6 +87,9 @@ namespace DatabaseAPI
             services.AddTransient<
                 IRailwayLogicDataAccessClientsProvider, 
                 RailwayLogicDataAccessClientsProvider>();
+            services.AddTransient<
+                IRailwayCommandFactory,
+                RailwayCommandFactory>();
         }
 
         private static void RegisterStationLogicHelpers(IServiceCollection services)

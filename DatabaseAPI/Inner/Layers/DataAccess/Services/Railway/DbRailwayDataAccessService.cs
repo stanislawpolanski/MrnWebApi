@@ -25,7 +25,7 @@ namespace DatabaseAPI.DataAccess.Services.Railway
             return dto;
         }
 
-        private static RailwayDTO GetRailwayDTO(Railways entity)
+        private RailwayDTO GetRailwayDTO(Railways entity)
         {
             return new RailwayDTO
                 .Builder()
@@ -36,7 +36,7 @@ namespace DatabaseAPI.DataAccess.Services.Railway
                 .Build();
         }
 
-        private static OwnerDTO GetOwnerDTO(Railways entity)
+        private OwnerDTO GetOwnerDTO(Railways entity)
         {
             return new OwnerDTO
                 .Builder()
@@ -82,6 +82,16 @@ namespace DatabaseAPI.DataAccess.Services.Railway
                 .Select(selectNewDTO)
                 .ToListAsync();
             return result;
+        }
+
+        public async Task<IEnumerable<RailwayDTO>> GetAllRailwaysAsync()
+        {
+            List<RailwayDTO> dtos = await context
+                .Railways
+                .Include(railway => railway.Owner)
+                .Select(entity => GetRailwayDTO(entity))
+                .ToListAsync();
+            return dtos;
         }
     }
 }

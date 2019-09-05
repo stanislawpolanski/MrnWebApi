@@ -8,5 +8,6 @@ namespace DatabaseAPI.DataAccess.Services.Railway
     {
         Task<IEnumerable<RailwayDTO>> GetRailwaysByStationIdAsync(int stationId);
         Task<RailwayDTO> GetRailwayByIdAsync(int id);
+        Task<IEnumerable<RailwayDTO>> GetAllRailwaysAsync();
     }
 }
