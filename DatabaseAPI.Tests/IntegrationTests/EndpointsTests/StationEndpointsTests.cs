@@ -161,7 +161,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         }
         
         [Theory]
-        [InlineData("/database-api/station/78", "KRAKÓW")]
+        [InlineData("/database-api/station/78", "Kraków")]
         public async Task 
             GetStationById_ReturnsStationWithRailwayUnitAsync(string url,
                 string expectedRailwayUnitName)
