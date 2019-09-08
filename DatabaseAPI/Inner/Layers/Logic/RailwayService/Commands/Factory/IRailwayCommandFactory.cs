@@ -6,6 +6,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory
     public interface IRailwayCommandFactory
     {
         ISingleRailwayCommand GetGetSingleRailwayCommand();
-        ISetOfRailwayCommand GetGetSetOfRailwaysCommand();
+        ICollectionOfRailwayCommand GetGetSetOfRailwaysCommand();
     }
 }
