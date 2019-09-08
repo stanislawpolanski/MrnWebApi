@@ -17,9 +17,9 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands
             this.essentialsClient = essentialsClient;
             this.stationsClient = stationsClient;
         }
-        public ISetOfRailwayCommand GetGetSetOfRailwaysCommand()
+        public ICollectionOfRailwayCommand GetGetSetOfRailwaysCommand()
         {
-            ISetOfRailwayCommand command = new GetSetOfRailwayCommand();
+            ICollectionOfRailwayCommand command = new GetCollectionOfRailwayCommand();
             command.SetEssentialsClient(essentialsClient);
             return command;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set
 {
-    public interface ISetOfRailwayCommand : IRailwayCommand
+    public interface ICollectionOfRailwayCommand : IRailwayCommand
     {
         IEnumerable<RailwayDTO> GetExecutionResult();
     }

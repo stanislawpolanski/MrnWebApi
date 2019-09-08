@@ -8,7 +8,7 @@ using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set
 {
-    public class GetSetOfRailwayCommand : ISetOfRailwayCommand
+    public class GetCollectionOfRailwayCommand : ICollectionOfRailwayCommand
     {
         private IRailwayDataEssentialsClient client;
         private IEnumerable<RailwayDTO> executionResult;

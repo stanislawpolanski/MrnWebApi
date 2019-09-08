@@ -22,7 +22,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
         }
         public async Task<IEnumerable<RailwayDTO>> GetAllRailwaysAsync()
         {
-            ISetOfRailwayCommand command = factory.GetGetSetOfRailwaysCommand();
+            ICollectionOfRailwayCommand command = factory.GetGetSetOfRailwaysCommand();
             await executor.ExecuteCommandAsync(command);
             return command.GetExecutionResult();
         }
