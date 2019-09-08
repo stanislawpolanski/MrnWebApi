@@ -6,9 +6,9 @@ namespace DatabaseAPI.Controllers
 {
     [Route(RAILWAY_UNIT_PATH)]
     [ApiController]
-    public class RailwayUnitController : ApiController
+    public class RailwayUnitController : DatabaseApiController
     {
-        public const String RAILWAY_UNIT_PATH = API_PATH + "/railway-unit";
+        public const String RAILWAY_UNIT_PATH = DATABASE_ROOT_API_PATH + "/railway-unit";
         [HttpGet]
         public IEnumerable<string> Get()
         {

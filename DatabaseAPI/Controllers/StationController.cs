@@ -12,9 +12,9 @@ namespace DatabaseAPI.Controllers
 {
     [Route(STATION_PATH)]
     [ApiController]
-    public class StationController : ApiController
+    public class StationController : DatabaseApiController
     {
-        public const String STATION_PATH = API_PATH + "/station";
+        public const String STATION_PATH = DATABASE_ROOT_API_PATH + "/station";
 
         private readonly IStationLogicService stationLogicService;
 

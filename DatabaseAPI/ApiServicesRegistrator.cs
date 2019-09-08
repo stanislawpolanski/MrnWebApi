@@ -16,6 +16,7 @@ using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+using DatabaseAPI.Inner.Logic.RollingStockService;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using GeoAPI.IO;
@@ -68,6 +69,7 @@ namespace DatabaseAPI
             services.AddTransient<IStationLogicService, StationLogicService>();
             services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
             services.AddTransient<IRailwayLogicService, RailwayLogicService>();
+            services.AddTransient<IRollingStockLogicService, RollingStockLogicService>();
         }
 
         private static void RegisterLogicServicesHelpers(IServiceCollection services)

@@ -7,9 +7,9 @@ namespace DatabaseAPI.Controllers
 {
     [Route(TYPE_OF_A_STATION_PATH)]
     [ApiController]
-    public class TypeOfAStationController : ApiController
+    public class TypeOfAStationController : DatabaseApiController
     {
-        public const string TYPE_OF_A_STATION_PATH = API_PATH + "/type-of-a-station";
+        public const string TYPE_OF_A_STATION_PATH = DATABASE_ROOT_API_PATH + "/type-of-a-station";
 
         private readonly ITypeOfAStationLogicService logicService;
 
