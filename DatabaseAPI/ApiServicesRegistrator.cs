@@ -9,6 +9,7 @@ using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
 using DatabaseAPI.Inner.Common.Command.Executor;
+using DatabaseAPI.Inner.DataAccess.Services.RollingStock;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
@@ -17,6 +18,7 @@ using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
 using DatabaseAPI.Inner.Logic.RollingStockService;
+using DatabaseAPI.Inner.Logic.RollingStockService.Commands;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using GeoAPI.IO;
@@ -62,6 +64,9 @@ namespace DatabaseAPI
             services.AddTransient<
                 IStationToRailwayRelationshipDataAccessService,
                 DbStationToRailwayRelationshipDataAccessService>();
+            services.AddTransient<
+                IRollingStockDataAccessService,
+                DbRollingStockDataAccessService>();
         }
 
         private static void RegisterLogicServices(IServiceCollection services)
@@ -76,6 +81,13 @@ namespace DatabaseAPI
         {
             RegisterStationLogicHelpers(services);
             RegisterRailwayLogicHelpers(services);
+            RegisterRollingStockLogicHelpers(services);
+        }
+
+        private static void RegisterRollingStockLogicHelpers(IServiceCollection services)
+        {
+            services.AddTransient<IRollingStockDataAccessClient, RollingStockDataAccessClient>();
+            services.AddTransient<IRollingStockCommandFactory, RollingStockCommandFactory>();
         }
 
         private static void RegisterRailwayLogicHelpers(IServiceCollection services)

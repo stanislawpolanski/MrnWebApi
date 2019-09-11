@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 {
-    public interface ISingleRollingStockCommand : IRollingStockCommand
+    public interface IRollingStockDataAccessClient
     {
-        void SetQueryItem(RollingStockDTO item);
-        RollingStockDTO GetExecutionResult();
+        Task<RollingStockDTO> GetRollingStockById(int id);
     }
 }
