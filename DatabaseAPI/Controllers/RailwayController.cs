@@ -12,9 +12,9 @@ namespace DatabaseAPI.Controllers
 {
     [Route(RAILWAY_PATH)]
     [ApiController]
-    public class RailwayController : ApiController
+    public class RailwayController : DatabaseApiController
     {
-        public const String RAILWAY_PATH = API_PATH + "/railway";
+        public const String RAILWAY_PATH = DATABASE_ROOT_API_PATH + "/railway";
 
         private IRailwayLogicService service;
 

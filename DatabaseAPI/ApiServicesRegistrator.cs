@@ -1,5 +1,4 @@
 ﻿using DatabaseAPI.Common.Routing;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.DataAccess.Services.Geometry;
 using DatabaseAPI.DataAccess.Services.Photo;
 using DatabaseAPI.DataAccess.Services.Railway;
@@ -9,6 +8,7 @@ using DatabaseAPI.DataAccess.Services.StationToPhoto;
 using DatabaseAPI.DataAccess.Services.StationToRailway;
 using DatabaseAPI.DataAccess.Services.TypeOfAStation;
 using DatabaseAPI.Inner.Common.Command.Executor;
+using DatabaseAPI.Inner.DataAccess.Services.RollingStock;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
@@ -16,10 +16,11 @@ using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+using DatabaseAPI.Inner.Logic.RollingStockService;
+using DatabaseAPI.Inner.Logic.RollingStockService.Commands;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using GeoAPI.IO;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NetTopologySuite.IO;
 
@@ -61,6 +62,9 @@ namespace DatabaseAPI
             services.AddTransient<
                 IStationToRailwayRelationshipDataAccessService,
                 DbStationToRailwayRelationshipDataAccessService>();
+            services.AddTransient<
+                IRollingStockDataAccessService,
+                DbRollingStockDataAccessService>();
         }
 
         private static void RegisterLogicServices(IServiceCollection services)
@@ -68,12 +72,20 @@ namespace DatabaseAPI
             services.AddTransient<IStationLogicService, StationLogicService>();
             services.AddTransient<ITypeOfAStationLogicService, TypeOfAStationLogicService>();
             services.AddTransient<IRailwayLogicService, RailwayLogicService>();
+            services.AddTransient<IRollingStockLogicService, RollingStockLogicService>();
         }
 
         private static void RegisterLogicServicesHelpers(IServiceCollection services)
         {
             RegisterStationLogicHelpers(services);
             RegisterRailwayLogicHelpers(services);
+            RegisterRollingStockLogicHelpers(services);
+        }
+
+        private static void RegisterRollingStockLogicHelpers(IServiceCollection services)
+        {
+            services.AddTransient<IRollingStockDataAccessClient, RollingStockDataAccessClient>();
+            services.AddTransient<IRollingStockCommandFactory, RollingStockCommandFactory>();
         }
 
         private static void RegisterRailwayLogicHelpers(IServiceCollection services)

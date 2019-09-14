@@ -1,25 +1,10 @@
-﻿using GeoAPI.IO;
+﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DatabaseAPI.Common.Routing;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.DataAccess.Services.Geometry;
-using DatabaseAPI.DataAccess.Services.Photo;
-using DatabaseAPI.DataAccess.Services.Railway;
-using DatabaseAPI.DataAccess.Services.RailwayUnit;
-using DatabaseAPI.DataAccess.Services.Station;
-using DatabaseAPI.DataAccess.Services.StationToPhoto;
-using DatabaseAPI.DataAccess.Services.StationToRailway;
-using DatabaseAPI.DataAccess.Services.TypeOfAStation;
-using DatabaseAPI.Logic.StationService;
-using DatabaseAPI.Logic.TypeOfAStationService;
-using NetTopologySuite.IO;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
 
 namespace DatabaseAPI
 {
@@ -36,8 +21,9 @@ namespace DatabaseAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MRN_developContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("Database"), 
-                    x => x.UseNetTopologySuite()));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("Database"), 
+                    contextOptionsBuilder => contextOptionsBuilder.UseNetTopologySuite()));
             ApiServicesRegistrator.RegisterServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
