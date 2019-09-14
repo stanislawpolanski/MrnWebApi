@@ -1,4 +1,5 @@
 ﻿using DatabaseAPI.Common.DTOs;
+using System;
 using System.Collections.Generic;
 
 namespace DatabaseAPI.Inner.Common.DTOs
@@ -7,6 +8,7 @@ namespace DatabaseAPI.Inner.Common.DTOs
     {
         public int Id;
         public string Name;
+        public string Url;
         public OwnerDTO Owner;
 
         public class Builder
@@ -22,6 +24,12 @@ namespace DatabaseAPI.Inner.Common.DTOs
             public Builder WithName(string name)
             {
                 item.Name = name;
+                return this;
+            }
+
+            public Builder WithUrl(string url)
+            {
+                item.Url = url;
                 return this;
             }
 
