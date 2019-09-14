@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService.Commands.Single;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 {
     public class RollingStockCommandFactory : IRollingStockCommandFactory
     {
-        private IRollingStockDataAccessClient client;
+        private IRollingStockDataAccessClient rollingStockClient;
 
-        public RollingStockCommandFactory(IRollingStockDataAccessClient client)
+        public RollingStockCommandFactory(
+            IRollingStockDataAccessClient rollingStockClient)
         {
-            this.client = client;
+            this.rollingStockClient = rollingStockClient;
         }
         public GetSingleRollingStockCommand<RollingStockDTO> GetGetRollingStockByIdCommand()
         {
             var command = new GetSingleRollingStockCommand<RollingStockDTO>();
-            command.SetDataAccessClient(client);
+            command.SetRollingStockDataAccessClient(rollingStockClient);
             return command;
         }
     }

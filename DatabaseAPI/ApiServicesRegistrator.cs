@@ -1,5 +1,4 @@
 ﻿using DatabaseAPI.Common.Routing;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.DataAccess.Services.Geometry;
 using DatabaseAPI.DataAccess.Services.Photo;
 using DatabaseAPI.DataAccess.Services.Railway;
@@ -22,7 +21,6 @@ using DatabaseAPI.Inner.Logic.RollingStockService.Commands;
 using DatabaseAPI.Logic.StationService;
 using DatabaseAPI.Logic.TypeOfAStationService;
 using GeoAPI.IO;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NetTopologySuite.IO;
 

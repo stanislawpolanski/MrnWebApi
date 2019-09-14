@@ -19,7 +19,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         }
 
         [Theory]
-        [InlineData("/database-api/rolling-stock/6")]
+        [InlineData("/database-api/rolling-stock/8")]
+        [InlineData("/database-api/rolling-stock/166")]
         public async Task Returns200OnExisting(string url)
         {
             HttpResponseMessage response = await GetGetResponseAsync(url);
@@ -37,6 +38,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 
         [Theory]
         [InlineData("/database-api/rolling-stock/6")]
+        [InlineData("/database-api/rolling-stock/10123")]
         public async Task Returns404OnExistingButStation(string url)
         {
             HttpResponseMessage response = await GetGetResponseAsync(url);
@@ -53,24 +55,14 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             Assert.Equal(expectedName, result.Name);
         }
 
-
-
         [Theory]
-        [InlineData("/database-api/rolling-stock/8", "PKP PLK")]
+        [InlineData("/database-api/rolling-stock/8", "PKP Cargo")]
         public async Task GetSpecifiedRollingStockWithOwner(
             string url, 
             string expectedOwnerName)
         {
             var result = await GetRollingStockDTOByUrl(url);
             Assert.Equal(expectedOwnerName, result.Owner.Name);
-        }
-
-        [Theory]
-        [InlineData("/database-api/rolling-stock/8")]
-        public async Task GetSpecifiedRollingStockWithPhotos(string url)
-        {
-            var result = await GetRollingStockDTOByUrl(url);
-            Assert.NotEmpty(result.Photos);
         }
 
         private async Task<RollingStockDTO> GetRollingStockDTOByUrl(string url)
