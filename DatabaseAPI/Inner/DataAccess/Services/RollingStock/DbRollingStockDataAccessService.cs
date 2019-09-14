@@ -27,7 +27,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             {
                 return null;
             }
-            var stationCount = await GetCountStationEntityById(id);
+            int stationCount = await GetCountStationEntityById(id);
             if (stationCount > 0)
             {
                 return null;
