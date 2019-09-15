@@ -63,5 +63,17 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
                 .Where(row => row.Id.Equals(id))
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync()
+        {
+            var dtos = await context
+                .ObjectsOfInterest
+                .Include(entity => entity.Stations)
+                .Include(entity => entity.Owner)
+                .Where(entity => entity.Stations == null)
+                .Select(entity => GetDTOByEntity(entity))
+                .ToListAsync();
+            return dtos;
+        }
     }
 }
