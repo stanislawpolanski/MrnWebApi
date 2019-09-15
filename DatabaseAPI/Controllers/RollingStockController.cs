@@ -1,7 +1,11 @@
-﻿using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Common.Routing;
+using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Controllers
@@ -30,6 +34,25 @@ namespace DatabaseAPI.Controllers
                 return NotFound();
             }
             return Ok(item);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<RollingStockDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<RollingStockDTO>>> GetAllRollingStockAsync()
+        {
+            IEnumerable<RollingStockDTO> items = await service.GetAllRollingStockAsync();
+            FillWithUrls(items);
+            return Ok(items);
+        }
+
+        private void FillWithUrls(IEnumerable<RollingStockDTO> items)
+        {
+            foreach(RollingStockDTO dto in items)
+            {
+                dto.Url = UriRoute.GetRouteStringFromNodes(
+                    ROLLING_STOCK_PATH, 
+                    dto.Id.ToString());
+            }
         }
     }
 }

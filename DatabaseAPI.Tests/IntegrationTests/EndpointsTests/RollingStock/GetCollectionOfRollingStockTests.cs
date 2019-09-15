@@ -36,8 +36,10 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             var trains = await GetCollectionByUrl(rollingStockUrl);
             var stationResponse = await GetGetResponseAsync(stationsUrl);
-            List<StationDTO> stations = await DeserialiseFromGetResponseAsync<List<StationDTO>>(stationResponse);
-            ISet<int> trainIds = trains
+            List<StationDTO> stations = 
+                await DeserialiseFromGetResponseAsync<List<StationDTO>>(stationResponse);
+            ISet<int> trainIds = 
+                trains
                 .Select(train => train.Id)
                 .ToHashSet();
             stations.ForEach(station => Assert.False(trainIds.Contains(station.Id)));
@@ -70,8 +72,6 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock")]
         public async Task UrlOfEachObjectContainsItsId(string url)
         {
-            //for each dto compare id with url - they must have the same id
-            //eg id = 17 => url =.../rolling-stock/17
             var collection = await GetCollectionByUrl(url);
             Action<RollingStockDTO> urlFitsThePatternAndContainsId = dto => 
                 dto.Url.Equals("/database-api/rolling-stock/" + dto.Id.ToString());

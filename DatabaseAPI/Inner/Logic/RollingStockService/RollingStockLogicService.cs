@@ -1,6 +1,9 @@
-﻿using DatabaseAPI.Inner.Common.Command.Executor;
+﻿using DatabaseAPI.Inner.Common.Command;
+using DatabaseAPI.Inner.Common.Command.Executor;
 using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService.Commands;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService
@@ -17,11 +20,19 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
             this.factory = factory;
             this.executor = executor;
         }
+
         public async Task<RollingStockDTO> GetRollingStockByIdAsync(int id)
         {
             RollingStockDTO dto = new RollingStockDTO.Builder().WithId(id).Build();
-            AbstractRollingStockCommand<RollingStockDTO> command = factory.GetGetRollingStockByIdCommand();
+            AbstractRollingStockCommand<RollingStockDTO> command = factory.ProduceGetRollingStockByIdCommand();
             command.SetExecutionSubject(dto);
+            await executor.ExecuteCommandAsync(command);
+            return command.GetResult();
+        }
+
+        public async Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync()
+        {
+            var command = factory.ProduceGetAllRollingStockCommand();
             await executor.ExecuteCommandAsync(command);
             return command.GetResult();
         }

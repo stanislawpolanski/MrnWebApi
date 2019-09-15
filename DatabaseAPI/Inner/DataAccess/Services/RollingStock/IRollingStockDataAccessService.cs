@@ -9,5 +9,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
     public interface IRollingStockDataAccessService
     {
         Task<RollingStockDTO> GetRollingStockByIdAsync(int id);
+        Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync();
     }
 }
