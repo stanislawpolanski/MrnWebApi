@@ -11,36 +11,36 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests.IntegrationTests.EndpointsTests
+namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
 {
     public class StationEndpointsTests
-        : IClassFixture<WebApplicationFactory<DatabaseAPI.Startup>>
+        : IClassFixture<WebApplicationFactory<Startup>>
     {
-        private readonly WebApplicationFactory<DatabaseAPI.Startup> factory;
+        private readonly WebApplicationFactory<Startup> factory;
 
         public StationEndpointsTests(
-            WebApplicationFactory<DatabaseAPI.Startup> injectedFactory)
+            WebApplicationFactory<Startup> injectedFactory)
         {
             factory = injectedFactory;
         }
 
         [Theory]
         [InlineData("/database-api/station")]
-        public async Task 
+        public async Task
             GetAllStations_ReturnsAtLeastExpectedNumberOfStations(string url)
         {
             //arrange
             int expectedNumberOfStations = 200;
             //act
             var response = await GetResponseByUrl(url);
-            List<StationDTO> models = 
+            List<StationDTO> models =
                 await GetStationsListFromResponse(response);
             //assert
             response.EnsureSuccessStatusCode();
             Assert.True(models.Count >= expectedNumberOfStations);
         }
 
-        private static async Task<List<StationDTO>> 
+        private static async Task<List<StationDTO>>
             GetStationsListFromResponse(HttpResponseMessage response)
         {
             var text = await response.Content.ReadAsStringAsync();
@@ -53,12 +53,12 @@ namespace UnitTests.IntegrationTests.EndpointsTests
 
         [Theory]
         [InlineData("/database-api/station")]
-        public async Task 
+        public async Task
             GetAllStations_AllStationsContainsNameLongerThanSpecifiedNumber(string url)
         {
             //arrange
             int specifiedNameLength = 3;
-            Action<StationDTO> stationNameLongerThanSpecifiedNumber = 
+            Action<StationDTO> stationNameLongerThanSpecifiedNumber =
                 model => Assert.True(model.Name.Length > specifiedNameLength);
             //act
             var response = await GetResponseByUrl(url);
@@ -70,12 +70,12 @@ namespace UnitTests.IntegrationTests.EndpointsTests
 
         [Theory]
         [InlineData("/database-api/station")]
-        public async Task 
+        public async Task
             GetAllStations_AllStationsContainsExpectedUrl(string endpointUrl)
         {
             //arrange
             var client = factory.CreateClient();
-            Action<StationDTO> actualUrlEqualsExpectedUrl = 
+            Action<StationDTO> actualUrlEqualsExpectedUrl =
                 model => Assert
                     .Equal(model.Url, endpointUrl + "/" + model.Id.ToString());
             //act
@@ -99,8 +99,8 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             List<StationDTO> models =
                 await GetStationsListFromResponse(response);
             //assert
-            Predicate<StationDTO> containsSpecificStation = station => 
-                station.Id.Equals(id) && 
+            Predicate<StationDTO> containsSpecificStation = station =>
+                station.Id.Equals(id) &&
                 station.Name.Equals(name);
             Assert.Contains(models, containsSpecificStation);
         }
@@ -109,18 +109,18 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         [InlineData("/database-api/station/78", "Trzebinia")]
         [InlineData("/database-api/station/10112", "Łęg Tarnowski")]
         [InlineData("/database-api/station/168", "Szczakowa Południe")]
-        public async Task 
+        public async Task
             GetStationById_ReturnsStationWithExpectedName
                 (string url, string expectedName)
         {
             //act
-            StationDTO station = 
+            StationDTO station =
                 await GetObjectFromResponseTextByUrl<StationDTO>(url);
             //assert
             Assert.Equal(expectedName, station.Name);
         }
 
-        private async Task<T> 
+        private async Task<T>
             GetObjectFromResponseTextByUrl<T>(string url)
         {
             HttpResponseMessage response = await GetResponseByUrl(url);
@@ -128,7 +128,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             return result;
         }
 
-        private static async Task<T> 
+        private static async Task<T>
             DeserialiseObjectFromResponse<T>(HttpResponseMessage response)
         {
             var text = await response.Content.ReadAsStringAsync();
@@ -147,22 +147,22 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             var response = await client.GetAsync(url);
             return response;
         }
-        
+
         [Theory]
         [InlineData("/database-api/station/78", "POINT (532345.109 254186.948)")]
-        public async Task GetStationById_ReturnsStationWithGeometry(string url, 
+        public async Task GetStationById_ReturnsStationWithGeometry(string url,
             string expectedGeometryValue)
         {
             StationDTO model =
                 await GetObjectFromResponseTextByUrl<StationDTO>(url);
 
-            Assert.Equal(expectedGeometryValue, 
+            Assert.Equal(expectedGeometryValue,
                 model.SerialisedGeometry.SerialisedSpatialData);
         }
-        
+
         [Theory]
         [InlineData("/database-api/station/78", "Kraków")]
-        public async Task 
+        public async Task
             GetStationById_ReturnsStationWithRailwayUnitAsync(string url,
                 string expectedRailwayUnitName)
         {
@@ -175,15 +175,15 @@ namespace UnitTests.IntegrationTests.EndpointsTests
         [Theory]
         [InlineData("/database-api/station", "Post test station", 2, 1)]
         public async Task PostStationAsync_AssignsIdToStationWithNameAsync(
-            string url, 
-            string newStationName, 
-            int    typeOfAStationId, 
-            int    ownerId)
+            string url,
+            string newStationName,
+            int typeOfAStationId,
+            int ownerId)
         {
 
             //arrange
             var client = factory.CreateClient();
-            StationDTO stationToPost = 
+            StationDTO stationToPost =
                 new StationDTO()
                 {
                     Name = newStationName,
@@ -198,9 +198,9 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 };
             //act
             HttpResponseMessage response = await client
-                .PostAsJsonAsync<StationDTO>(url, stationToPost);
+                .PostAsJsonAsync(url, stationToPost);
             var text = response.Content.ReadAsStringAsync().Result;
-            StationDTO createdStation = 
+            StationDTO createdStation =
                 DeserialiseObjectFromString<StationDTO>(text);
             //assert
             Assert.Equal(newStationName, createdStation.Name);
@@ -211,7 +211,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 .ToString();
             await client.DeleteAsync(deletionUrl);
         }
-        
+
         [Theory]
         [InlineData("/database-api/station", "Put test station", "Put test station, changed name", 2, 1)]
         public async Task PutStationAsync_Returns204OnRequest(
@@ -238,11 +238,11 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                     }
                 };
             HttpResponseMessage postResponse = await client
-              .PostAsJsonAsync<StationDTO>(url, stationToPost);
+              .PostAsJsonAsync(url, stationToPost);
             var text = postResponse.Content.ReadAsStringAsync().Result;
             StationDTO createdStation =
                 DeserialiseObjectFromString<StationDTO>(text);
-            StationDTO putStation = 
+            StationDTO putStation =
                 new StationDTO()
                 {
                     Id = createdStation.Id,
@@ -256,7 +256,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                         Id = ownerId
                     }
                 };
-            String putUrl = 
+            string putUrl =
                 UriRoute
                     .GetRouteFromNodes(
                         url,
@@ -266,7 +266,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
             {
                 //act
                 HttpResponseMessage response = await
-                    client.PutAsJsonAsync<StationDTO>(putUrl, putStation);
+                    client.PutAsJsonAsync(putUrl, putStation);
                 //assert
                 Assert.Equal(
                     HttpStatusCode.NoContent,
@@ -306,7 +306,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                     }
                 };
             HttpResponseMessage response = await client
-                .PostAsJsonAsync<StationDTO>(url, stationToPost);
+                .PostAsJsonAsync(url, stationToPost);
             var text = response.Content.ReadAsStringAsync().Result;
             StationDTO createdStation =
                 DeserialiseObjectFromString<StationDTO>(text);
