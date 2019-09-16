@@ -1,6 +1,4 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using System;
-using System.Collections.Generic;
 
 namespace DatabaseAPI.Inner.Common.DTOs
 {

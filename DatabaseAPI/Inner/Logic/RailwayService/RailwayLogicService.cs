@@ -32,7 +32,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             RailwayDTO inputRailway = new RailwayDTO.Builder().WithId(id).Build();
             ISingleRailwayCommand command = factory.GetGetSingleRailwayCommand();
             RailwayDTO result = await ExecuteSingleRailwayCommand(inputRailway, command);
-            if(result == null)
+            if (result == null)
             {
                 return null;
             }
@@ -41,7 +41,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
         }
 
         private async Task<RailwayDTO> ExecuteSingleRailwayCommand(
-            RailwayDTO inputRailway, 
+            RailwayDTO inputRailway,
             ISingleRailwayCommand command)
         {
             command.SetRailway(inputRailway);

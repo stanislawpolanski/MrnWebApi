@@ -1,14 +1,10 @@
 ﻿using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
+using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess
 {
-    public class RailwayLogicDataAccessClientsProvider : 
+    public class RailwayLogicDataAccessClientsProvider :
         IRailwayLogicDataAccessClientsProvider
     {
         private IRailwayDataEssentialsClient essentialsClient;
@@ -25,7 +21,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess
         public void InjectClients(IRailwayCommand command)
         {
             command.SetEssentialsClient(essentialsClient);
-            if(command is ISingleRailwayCommand singleRailwayCommand)
+            if (command is ISingleRailwayCommand singleRailwayCommand)
             {
                 singleRailwayCommand.SetStationsClient(stationsClient);
             }

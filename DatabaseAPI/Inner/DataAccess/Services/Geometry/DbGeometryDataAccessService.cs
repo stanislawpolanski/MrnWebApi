@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 
 namespace DatabaseAPI.DataAccess.Services.Geometry
 {
@@ -43,10 +43,10 @@ namespace DatabaseAPI.DataAccess.Services.Geometry
                 .ToListAsync();
         }
 
-        public async Task<GeometryDTO> 
+        public async Task<GeometryDTO>
             GetFirstGeometryByStationIdAsync(int queriedStationId)
         {
-            Expression<Func<Geometries, bool>> geometryIsRelatedToStationById = 
+            Expression<Func<Geometries, bool>> geometryIsRelatedToStationById =
                 geometry => geometry
                     .StationsToGeometries
                     .Any(stationToGeometry => stationToGeometry

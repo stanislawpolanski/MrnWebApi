@@ -1,6 +1,5 @@
 using DatabaseAPI.Common.Exceptions;
 using DatabaseAPI.Common.Routing;
-using System;
 using Xunit;
 
 namespace DatabaseAPI.Tests.UnitTests.CommonTests

@@ -4,7 +4,6 @@ using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.DataAccess.Services;
 using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
         DbDataAccessAbstractService,
         IRollingStockDataAccessService
     {
-        public DbRollingStockDataAccessService(MRN_developContext injectedContext) : 
+        public DbRollingStockDataAccessService(MRN_developContext injectedContext) :
             base(injectedContext)
         {
         }

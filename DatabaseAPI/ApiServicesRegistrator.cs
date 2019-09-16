@@ -91,13 +91,13 @@ namespace DatabaseAPI
         private static void RegisterRailwayLogicHelpers(IServiceCollection services)
         {
             services.AddTransient<
-                IRailwayDataEssentialsClient, 
+                IRailwayDataEssentialsClient,
                 RailwayDataEssentialsClient>();
             services.AddTransient<
-                IRailwayDataStationsClient, 
+                IRailwayDataStationsClient,
                 RailwayDataStationsClient>();
             services.AddTransient<
-                IRailwayLogicDataAccessClientsProvider, 
+                IRailwayLogicDataAccessClientsProvider,
                 RailwayLogicDataAccessClientsProvider>();
             services.AddTransient<
                 IRailwayCommandFactory,

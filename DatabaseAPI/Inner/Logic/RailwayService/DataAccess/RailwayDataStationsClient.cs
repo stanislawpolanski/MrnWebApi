@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Services.Station;
 using DatabaseAPI.Inner.Common.DTOs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients
 {
@@ -17,7 +15,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients
             this.service = service;
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>> 
+        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
             GetStationsLocationsOnARailway(RailwayDTO railway)
         {
             return await service.GetStationsLocationsByRailwayAsync(railway);

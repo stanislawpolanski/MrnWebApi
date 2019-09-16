@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public class EssentialDataStationDataAccessClient : 
+    public class EssentialDataStationDataAccessClient :
         IEssentialDataStationDataAccessClient
     {
         private IStationDataAccessService stationDataAccessService;

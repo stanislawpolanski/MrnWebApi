@@ -1,21 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
-using System.Linq.Expressions;
-using System;
-using DatabaseAPI.Inner.Common.DTOs;
-using System.Collections;
 
 namespace DatabaseAPI.DataAccess.Services.Station
 {
-    public class DbStationDataAccessService : DbDataAccessAbstractService, 
+    public class DbStationDataAccessService : DbDataAccessAbstractService,
         IStationDataAccessService
     {
-        public DbStationDataAccessService(MRN_developContext injectedContext) : 
+        public DbStationDataAccessService(MRN_developContext injectedContext) :
             base(injectedContext)
         {
         }
@@ -81,7 +77,7 @@ namespace DatabaseAPI.DataAccess.Services.Station
                 .Include(station => station.ParentObjectOfInterest)
                 .ToListAsync();
 
-            System.Func<Stations, StationDTO> entityToDTO = entity => 
+            System.Func<Stations, StationDTO> entityToDTO = entity =>
                 new StationDTO
                     .Builder()
                     .WithId(entity.ParentObjectOfInterest.Id)
@@ -177,7 +173,7 @@ namespace DatabaseAPI.DataAccess.Services.Station
             queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>> 
+        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
             GetStationsLocationsByRailwayAsync(RailwayDTO railway)
         {
             List<StationsToGeometries> entities = await GetLocationEntities(railway);
@@ -185,7 +181,7 @@ namespace DatabaseAPI.DataAccess.Services.Station
             return dtos;
         }
 
-        private static IEnumerable<StationOnARailwayLocationDTO> 
+        private static IEnumerable<StationOnARailwayLocationDTO>
             GetLocationDTOs(List<StationsToGeometries> entities)
         {
             return entities

@@ -1,6 +1,5 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Common.Routing;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
