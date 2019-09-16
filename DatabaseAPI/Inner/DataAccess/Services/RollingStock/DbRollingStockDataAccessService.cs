@@ -27,11 +27,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             {
                 return null;
             }
-            int stationCount = await GetCountStationEntityById(id);
-            if (stationCount > 0)
-            {
-                return null;
-            }
             RollingStockDTO dto = GetDTOByEntity(entity);
             return dto;
         }
@@ -47,20 +42,14 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
                 .Build();
         }
 
-        private async Task<int> GetCountStationEntityById(int id)
-        {
-            return await context
-                .Stations
-                .Where(row => row.Id.Equals(id))
-                .CountAsync();
-        }
-
         private async Task<ObjectsOfInterest> GetObjectOfInterestEntityById(int id)
         {
             return await context
                 .ObjectsOfInterest
+                .Include(row => row.Stations)
                 .Include(row => row.Owner)
                 .Where(row => row.Id.Equals(id))
+                .Where(row => row.Stations == null)
                 .FirstOrDefaultAsync();
         }
 
