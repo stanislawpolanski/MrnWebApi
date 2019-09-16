@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DatabaseAPI.Inner.Common.DTOs
+﻿namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class StationOnARailwayLocationDTO
     {
@@ -15,7 +10,7 @@ namespace DatabaseAPI.Inner.Common.DTOs
 
         public class Builder
         {
-            private StationOnARailwayLocationDTO item = 
+            private StationOnARailwayLocationDTO item =
                 new StationOnARailwayLocationDTO();
 
             public Builder WithStationId(int id)

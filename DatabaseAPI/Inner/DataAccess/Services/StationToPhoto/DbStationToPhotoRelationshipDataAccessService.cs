@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
 {
@@ -11,7 +9,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
 
             executionResult = await essentialsClient
                 .GetRailwayWithEssentialDataAsync(inputRailway);
-            if(executionResult == null)
+            if (executionResult == null)
             {
                 return;
             }

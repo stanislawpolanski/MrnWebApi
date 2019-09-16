@@ -1,21 +1,17 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using Xunit;
 
 namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
 {
     public class GetSingleRailwayTests : AbstractEndpointTests
     {
-        public GetSingleRailwayTests(WebApplicationFactory<Startup> injectedFactory) 
+        public GetSingleRailwayTests(WebApplicationFactory<Startup> injectedFactory)
             : base(injectedFactory)
         {
         }
@@ -66,8 +62,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [Theory]
         [InlineData("/database-api/railway/22", 1, "PKP PLK")]
         public async Task ReturnsOwnerOfTheRailway(
-            string url, 
-            int ownerId, 
+            string url,
+            int ownerId,
             string ownerName)
         {
             RailwayDTO dto = await GetRailwayDTOByUrl(url);
@@ -78,7 +74,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [Theory]
         [InlineData("/database-api/railway/26", 2)]
         public async Task ReturnsNotLessStationsWithKmPostsForRailway(
-            string url, 
+            string url,
             int minimalStationsNumber)
         {
             RailwayDTO dto = await GetRailwayDTOByUrl(url);

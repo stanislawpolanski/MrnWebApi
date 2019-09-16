@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using DatabaseAPI.Inner.Common.DTOs;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
@@ -13,7 +10,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
     public class GetSingleRollingStockTests : AbstractEndpointTests
     {
         public GetSingleRollingStockTests(
-            WebApplicationFactory<Startup> injectedFactory) : 
+            WebApplicationFactory<Startup> injectedFactory) :
             base(injectedFactory)
         {
         }
@@ -48,7 +45,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [Theory]
         [InlineData("/database-api/rolling-stock/8", "ET22")]
         public async Task GetSpecifiedRollingStockWithName(
-            string url, 
+            string url,
             string expectedName)
         {
             RollingStockDTO result = await GetRollingStockDTOByUrl(url);
@@ -58,7 +55,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [Theory]
         [InlineData("/database-api/rolling-stock/8", "PKP Cargo")]
         public async Task GetSpecifiedRollingStockWithOwner(
-            string url, 
+            string url,
             string expectedOwnerName)
         {
             var result = await GetRollingStockDTOByUrl(url);

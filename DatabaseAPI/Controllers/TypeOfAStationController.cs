@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Logic.TypeOfAStationService;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace DatabaseAPI.Controllers
