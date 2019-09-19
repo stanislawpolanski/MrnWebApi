@@ -36,7 +36,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             {
                 return null;
             }
-            OrderStationsByKmPosts(result);
             return result;
         }
 
@@ -47,13 +46,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             command.SetRailway(inputRailway);
             await executor.ExecuteCommandAsync(command);
             return command.GetExecutionResult();
-        }
-
-        private static void OrderStationsByKmPosts(RailwayDTO railway)
-        {
-            railway.StationsKmPosts = railway
-                .StationsKmPosts
-                .OrderBy(station => station.CentreKmPost);
         }
     }
 }
