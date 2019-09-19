@@ -307,7 +307,7 @@ namespace UnitTests.IntegrationTests.EndpointsTests
                 };
             HttpResponseMessage response = await client
                 .PostAsJsonAsync<StationDTO>(url, stationToPost);
-            var text = response.Content.ReadAsStringAsync().Result;
+            string text = await response.Content.ReadAsStringAsync();
             StationDTO createdStation =
                 DeserialiseObjectFromString<StationDTO>(text);
             string deletionUrl = UriRoute
