@@ -8,5 +8,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
     {
         Task<RollingStockDTO> GetRollingStockByIdAsync(int id);
         Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync();
+        Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO inputDto);
+        Task<bool> DeleteRollingStockByIdAsync(int id);
     }
 }

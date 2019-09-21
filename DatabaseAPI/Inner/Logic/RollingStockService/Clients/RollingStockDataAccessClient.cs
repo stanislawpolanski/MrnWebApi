@@ -13,6 +13,11 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
             this.service = service;
         }
 
+        public async Task<RollingStockDTO> DeleteRollingStock(RollingStockDTO rollingStockDTO)
+        {
+            return await service.DeleteRollingStockAsync(rollingStockDTO);
+        }
+
         public async Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync()
         {
             return await service.GetAllRollingStockAsync();
@@ -21,6 +26,12 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
         public async Task<RollingStockDTO> GetRollingStockById(int id)
         {
             return await service.GetRollingStockByIdAsync(id);
+        }
+
+        public async Task<RollingStockDTO> PostRollingStock(
+            RollingStockDTO subject)
+        {
+            return await service.PostRollingStockAsync(subject);
         }
     }
 }

@@ -54,5 +54,24 @@ namespace DatabaseAPI.Controllers
                     dto.Id.ToString());
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult<RollingStockDTO>> PostRollingStockAsync(
+            RollingStockDTO inputDto)
+        {
+            RollingStockDTO resultDto = await service.PostRollingStockAsync(inputDto);
+            return resultDto;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            bool isDeleted = await service.DeleteRollingStockByIdAsync(id);
+            if(isDeleted)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
     }
 }

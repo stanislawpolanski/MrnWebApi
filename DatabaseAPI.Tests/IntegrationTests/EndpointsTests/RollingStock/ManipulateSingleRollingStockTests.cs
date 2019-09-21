@@ -95,5 +95,13 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             HttpResponseMessage deletionResponse = await base.DeleteAsync(deletionUrl);
             Assert.Equal(HttpStatusCode.OK, deletionResponse.StatusCode);
         }
+
+        [Theory]
+        [InlineData("/database-api/rolling-stock/123456789")]
+        public async Task DeletesNotExistingRollingStock_Returns404(string url)
+        {
+            HttpResponseMessage deletionResponse = await base.DeleteAsync(url);
+            Assert.Equal(HttpStatusCode.NotFound, deletionResponse.StatusCode);
+        }
     }
 }

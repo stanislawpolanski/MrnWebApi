@@ -1,8 +1,6 @@
-﻿using DatabaseAPI.Inner.Common.Command;
-using DatabaseAPI.Inner.Common.Command.Executor;
+﻿using DatabaseAPI.Inner.Common.Command.Executor;
 using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService.Commands;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,6 +33,31 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
             var command = factory.ProduceGetAllRollingStockCommand();
             await executor.ExecuteCommandAsync(command);
             return command.GetResult();
+        }
+
+        public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO inputDto)
+        {
+            var command = factory.ProducePostRollingStockCommand();
+            command.SetExecutionSubject(inputDto);
+            await executor.ExecuteCommandAsync(command);
+            return command.GetResult();
+        }
+
+        public async Task<bool> DeleteRollingStockByIdAsync(int id)
+        {
+            var dto = new RollingStockDTO.Builder().WithId(id).Build();
+            var command = factory.ProduceDeleteRollingStockCommand();
+            command.SetExecutionSubject(dto);
+            await executor.ExecuteCommandAsync(command);
+            var result = command.GetResult();
+            if(result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

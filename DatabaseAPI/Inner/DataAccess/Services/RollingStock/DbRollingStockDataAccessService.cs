@@ -75,5 +75,41 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
                 .ToListAsync();
             return dtos;
         }
+
+        public async Task<RollingStockDTO> DeleteRollingStockAsync(RollingStockDTO dto)
+        {
+            int id = dto.Id;
+            ObjectsOfInterest entity = await context.ObjectsOfInterest.FindAsync(id);
+            if (entity == null)
+            {
+                return null;
+            }
+            context.ObjectsOfInterest.Remove(entity);
+            await context.SaveChangesAsync();
+            return new RollingStockDTO.Builder().WithId(id).Build();
+
+        }
+
+        public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO subject)
+        {
+            ObjectsOfInterest entity = AddEntityFromDTOToContext(subject);
+            int entitiesWritten = await context.SaveChangesAsync();
+            if (entitiesWritten == 0)
+            {
+                return null;
+            }
+            return GetDTOByEntity(entity);
+        }
+
+        private ObjectsOfInterest AddEntityFromDTOToContext(RollingStockDTO subject)
+        {
+            ObjectsOfInterest entity = new ObjectsOfInterest()
+            {
+                Name = subject.Name,
+                OwnerId = subject.Owner.Id
+            };
+            context.ObjectsOfInterest.Add(entity);
+            return entity;
+        }
     }
 }
