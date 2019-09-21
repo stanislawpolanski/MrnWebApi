@@ -13,8 +13,6 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
             {
                 return;
             }
-            executionResult.StationsKmPosts = await stationsClient
-                .GetStationsLocationsOnARailway(inputRailway);
         }
     }
 }

@@ -70,16 +70,5 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
             Assert.Equal(ownerId, dto.Owner.Id);
             Assert.Equal(ownerName, dto.Owner.Name);
         }
-
-        [Theory]
-        [InlineData("/database-api/railway/26", 2)]
-        public async Task ReturnsNotLessStationsWithKmPostsForRailway(
-            string url,
-            int minimalStationsNumber)
-        {
-            RailwayDTO dto = await GetRailwayDTOByUrl(url);
-            Assert.NotNull(dto.StationsKmPosts);
-            Assert.True(dto.StationsKmPosts.ToList().Count >= minimalStationsNumber);
-        }
     }
 }
