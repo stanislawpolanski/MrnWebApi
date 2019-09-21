@@ -313,11 +313,11 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
                 .GetRouteFromNodes(url, createdStation.Id.ToString())
                 .ToString();
             //act
-            await client.DeleteAsync(deletionUrl);
+            var deletionResponse = await client.DeleteAsync(deletionUrl);
             //assert
             Assert.Equal(
                 HttpStatusCode.OK,
-                response.StatusCode);
+                deletionResponse.StatusCode);;
         }
     }
 }
