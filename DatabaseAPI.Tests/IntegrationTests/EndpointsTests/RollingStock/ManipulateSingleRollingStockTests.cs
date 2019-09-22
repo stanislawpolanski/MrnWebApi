@@ -2,6 +2,7 @@
 using DatabaseAPI.Common.Routing;
 using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -102,6 +103,20 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             HttpResponseMessage deletionResponse = await base.DeleteAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, deletionResponse.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("/database-api/rolling-stock")]
+        public async Task Put_ChangesName(string url)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Theory]
+        [InlineData("/database-api/rolling-stock")]
+        public async Task Put_ChangesOwnerId(string url)
+        {
+            throw new NotImplementedException();
         }
     }
 }
