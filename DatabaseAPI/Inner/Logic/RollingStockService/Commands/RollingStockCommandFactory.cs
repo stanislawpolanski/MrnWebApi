@@ -30,5 +30,19 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
             command.SetRollingStockDataAccessClient(rollingStockClient);
             return command;
         }
+
+        public AbstractCommandWithSubject<RollingStockDTO> ProducePostRollingStockCommand()
+        {
+            var command = new PostRollingStockCommand<RollingStockDTO>();
+            command.SetRollingStockDataAccessClient(rollingStockClient);
+            return command;
+        }
+
+        public AbstractCommandWithSubject<RollingStockDTO> ProduceDeleteRollingStockCommand()
+        {
+            var command = new DeleteRollingStockCommand<RollingStockDTO>();
+            command.SetRollingStockDataAccessClient(rollingStockClient);
+            return command;
+        }
     }
 }

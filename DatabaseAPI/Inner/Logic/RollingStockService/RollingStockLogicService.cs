@@ -34,5 +34,34 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
             await executor.ExecuteCommandAsync(command);
             return command.GetResult();
         }
+
+        public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO inputDto)
+        {
+            if (inputDto.Name == null || inputDto.Owner == null || inputDto.Owner.Id == 0)
+            {
+                return null;
+            }
+            var command = factory.ProducePostRollingStockCommand();
+            command.SetExecutionSubject(inputDto);
+            await executor.ExecuteCommandAsync(command);
+            return command.GetResult();
+        }
+
+        public async Task<bool> DeleteRollingStockByIdAsync(int id)
+        {
+            var dto = new RollingStockDTO.Builder().WithId(id).Build();
+            var command = factory.ProduceDeleteRollingStockCommand();
+            command.SetExecutionSubject(dto);
+            await executor.ExecuteCommandAsync(command);
+            var result = command.GetResult();
+            if(result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

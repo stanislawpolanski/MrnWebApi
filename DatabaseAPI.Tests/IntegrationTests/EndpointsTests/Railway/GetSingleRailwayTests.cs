@@ -21,7 +21,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [InlineData("/database-api/railway/23")]
         public async Task Returns200OnExistingRailway(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -29,13 +29,13 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [InlineData("/database-api/railway/123456789")]
         public async Task Returns404OnNonExistingRailway(string url)
         {
-            var response = await GetGetResponseAsync(url);
+            var response = await GetAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         private async Task<RailwayDTO> GetRailwayDTOByUrl(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             string content = await response.Content.ReadAsStringAsync();
             RailwayDTO dto = JsonConvert.DeserializeObject<RailwayDTO>(content);
             return dto;

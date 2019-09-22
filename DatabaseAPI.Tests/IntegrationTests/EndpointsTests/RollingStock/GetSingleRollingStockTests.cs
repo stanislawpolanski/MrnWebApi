@@ -20,7 +20,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock/166")]
         public async Task Returns200OnExisting(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -28,7 +28,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock/987654321")]
         public async Task Returns404OnNonExisting(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -38,7 +38,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock/10123")]
         public async Task Returns404OnExistingButStation(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -64,9 +64,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 
         private async Task<RollingStockDTO> GetRollingStockDTOByUrl(string url)
         {
-            HttpResponseMessage response = await GetGetResponseAsync(url);
+            HttpResponseMessage response = await GetAsync(url);
             RollingStockDTO result = await
-                DeserialiseFromGetResponseAsync<RollingStockDTO>(response);
+                Deserialise<RollingStockDTO>(response);
             return result;
         }
     }
