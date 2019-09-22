@@ -4,7 +4,6 @@ using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.DataAccess.Services;
 using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
         DbDataAccessAbstractService,
         IRollingStockDataAccessService
     {
-        public DbRollingStockDataAccessService(MRN_developContext injectedContext) : 
+        public DbRollingStockDataAccessService(MRN_developContext injectedContext) :
             base(injectedContext)
         {
         }
@@ -24,11 +23,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
         {
             ObjectsOfInterest entity = await GetObjectOfInterestEntityById(id);
             if (entity == null)
-            {
-                return null;
-            }
-            int stationCount = await GetCountStationEntityById(id);
-            if (stationCount > 0)
             {
                 return null;
             }
@@ -47,20 +41,14 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
                 .Build();
         }
 
-        private async Task<int> GetCountStationEntityById(int id)
-        {
-            return await context
-                .Stations
-                .Where(row => row.Id.Equals(id))
-                .CountAsync();
-        }
-
         private async Task<ObjectsOfInterest> GetObjectOfInterestEntityById(int id)
         {
             return await context
                 .ObjectsOfInterest
+                .Include(row => row.Stations)
                 .Include(row => row.Owner)
                 .Where(row => row.Id.Equals(id))
+                .Where(row => row.Stations == null)
                 .FirstOrDefaultAsync();
         }
 

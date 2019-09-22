@@ -3,8 +3,6 @@ using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,10 +45,10 @@ namespace DatabaseAPI.Controllers
 
         private void FillWithUrls(IEnumerable<RollingStockDTO> items)
         {
-            foreach(RollingStockDTO dto in items)
+            foreach (RollingStockDTO dto in items)
             {
                 dto.Url = UriRoute.GetRouteStringFromNodes(
-                    ROLLING_STOCK_PATH, 
+                    ROLLING_STOCK_PATH,
                     dto.Id.ToString());
             }
         }

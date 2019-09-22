@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
 {
-    public class GeographicDataStationDataAccessClient : 
+    public class GeographicDataStationDataAccessClient :
         IGeographicDataStationDataAccessClient
     {
         private IGeometryDataAccessService geometryDataAccessService;

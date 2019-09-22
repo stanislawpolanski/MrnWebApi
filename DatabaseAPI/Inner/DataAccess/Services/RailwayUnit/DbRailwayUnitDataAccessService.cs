@@ -1,9 +1,9 @@
-﻿using GeoAPI.Geometries;
-using GeoAPI.IO;
-using Microsoft.EntityFrameworkCore;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using GeoAPI.Geometries;
+using GeoAPI.IO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -36,7 +36,7 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
             return await GetRailwayUnitFromDatasource(station);
         }
 
-        private async Task<RailwayUnitDTO> 
+        private async Task<RailwayUnitDTO>
             GetRailwayUnitFromDatasource(StationDTO station)
         {
             if (station.SerialisedGeometry == null || station.OwnerInfo == null)
@@ -47,10 +47,10 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
             IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
             Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
                 unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
-            Expression<Func<RailwayUnits, bool>> 
-                unitsGeometryIntersectsStationsGeometryPredicate = unit => 
+            Expression<Func<RailwayUnits, bool>>
+                unitsGeometryIntersectsStationsGeometryPredicate = unit =>
                 unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
-            Expression<Func<RailwayUnits, RailwayUnitEntityToRailwayUnitDTOAdapter>> 
+            Expression<Func<RailwayUnits, RailwayUnitEntityToRailwayUnitDTOAdapter>>
                 selectToDTO = unitEntity =>
                     new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity);
 

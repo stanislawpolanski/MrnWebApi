@@ -14,7 +14,7 @@ namespace DatabaseAPI.DataAccess.Services.TypeOfAStation
 
         public ICollection<TypeOfAStationDTO> GetTypesOfAStation()
         {
-            Expression<System.Func<TypesOfAstation, TypeOfAStationDTO>> 
+            Expression<System.Func<TypesOfAstation, TypeOfAStationDTO>>
                 selectToDTO = stationType =>
                 new TypeOfAStationDTO
                 {

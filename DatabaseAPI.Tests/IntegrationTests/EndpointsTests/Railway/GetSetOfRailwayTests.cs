@@ -1,6 +1,4 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;

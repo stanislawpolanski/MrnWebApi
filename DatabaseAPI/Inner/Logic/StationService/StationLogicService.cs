@@ -24,7 +24,7 @@ namespace DatabaseAPI.Logic.StationService
             await RunSingleStationCommand(inputStation, command);
         }
 
-        private async Task RunSingleStationCommand(StationDTO inputStation, 
+        private async Task RunSingleStationCommand(StationDTO inputStation,
             ISingleStationCommand command)
         {
             command.SetStation(inputStation);
@@ -44,7 +44,7 @@ namespace DatabaseAPI.Logic.StationService
         public async Task<IEnumerable<StationDTO>> GetAllBasicStationsAsync()
         {
             List<StationDTO> stations = new List<StationDTO>();
-            ICollectionOfStationsCommand command = 
+            ICollectionOfStationsCommand command =
                 new GetCollectionOfStationsCommand();
             command.SetStationsCollection(stations);
             await commandExecutor.ExecuteCommand(command);

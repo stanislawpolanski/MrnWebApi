@@ -2,7 +2,6 @@
 using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,7 +14,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
     public class GetCollectionOfRollingStockTests : AbstractEndpointTests
     {
         public GetCollectionOfRollingStockTests(
-            WebApplicationFactory<Startup> injectedFactory) : 
+            WebApplicationFactory<Startup> injectedFactory) :
             base(injectedFactory)
         {
         }
@@ -31,7 +30,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [Theory]
         [InlineData("/database-api/rolling-stock", "/database-api/station")]
         public async Task CollectionDoesNotContainStations(
-            string rollingStockUrl, 
+            string rollingStockUrl,
             string stationsUrl)
         {
             var trains = await GetCollectionByUrl(rollingStockUrl);
@@ -51,7 +50,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             var collection = await GetCollectionByUrl(url);
             Assert.Contains<RollingStockDTO>(
-                collection, 
+                collection,
                 dto => dto.Name.Equals(expectedName));
         }
 
@@ -73,7 +72,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         public async Task UrlOfEachObjectContainsItsId(string url)
         {
             var collection = await GetCollectionByUrl(url);
-            Action<RollingStockDTO> urlFitsThePatternAndContainsId = dto => 
+            Action<RollingStockDTO> urlFitsThePatternAndContainsId = dto =>
                 dto.Url.Equals("/database-api/rolling-stock/" + dto.Id.ToString());
             Assert.All<RollingStockDTO>(
                 collection,

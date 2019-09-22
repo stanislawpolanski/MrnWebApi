@@ -10,7 +10,6 @@ namespace DatabaseAPI.Common.DTOs
         public string Name { get; set; }
         public string Url { get; set; }
         public OwnerDTO Owner { get; set; }
-        public IEnumerable<StationOnARailwayLocationDTO> StationsKmPosts { get; set; }
         public class Builder
         {
             private RailwayDTO item = new RailwayDTO();
@@ -30,12 +29,6 @@ namespace DatabaseAPI.Common.DTOs
                 return this;
             }
 
-            public Builder WithStationsKmPosts(
-                IEnumerable<StationOnARailwayLocationDTO> stations)
-            {
-                item.StationsKmPosts = stations;
-                return this;
-            }
             public Builder WithUrl(string url)
             {
                 item.Url = url;

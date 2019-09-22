@@ -20,9 +20,9 @@ namespace DatabaseAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MRN_developContext>(options => 
+            services.AddDbContext<MRN_developContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("Database"), 
+                    Configuration.GetConnectionString("Database"),
                     contextOptionsBuilder => contextOptionsBuilder.UseNetTopologySuite()));
             ApiServicesRegistrator.RegisterServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

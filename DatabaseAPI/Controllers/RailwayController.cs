@@ -1,12 +1,12 @@
 ﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.Routing;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using DatabaseAPI.Common.Routing;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace DatabaseAPI.Controllers
 {
@@ -34,7 +34,7 @@ namespace DatabaseAPI.Controllers
 
         private void FillWithUrls(IEnumerable<RailwayDTO> railways)
         {
-            Action<RailwayDTO> addUrlFromId = railway => 
+            Action<RailwayDTO> addUrlFromId = railway =>
                 railway.Url = UriRoute
                     .GetRouteStringFromNodes(RAILWAY_PATH, railway.Id.ToString());
             railways
@@ -47,7 +47,7 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<RailwayDTO>> Get(int id)
         {
-           RailwayDTO railway = await service.GetRailwayById(id);
+            RailwayDTO railway = await service.GetRailwayById(id);
             if (railway == null)
             {
                 return NotFound();

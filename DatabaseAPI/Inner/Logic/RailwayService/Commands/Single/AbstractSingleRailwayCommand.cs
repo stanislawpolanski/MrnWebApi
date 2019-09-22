@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
+using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
 {

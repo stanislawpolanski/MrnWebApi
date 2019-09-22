@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DatabaseAPI.Common.DTOs
+﻿namespace DatabaseAPI.Common.DTOs
 {
     public class StationDTO
     {

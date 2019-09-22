@@ -1,7 +1,4 @@
 ﻿using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor
@@ -11,7 +8,7 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor
         private IEssentialDataStationDataAccessClient essentialsService;
         private IGeographicDataStationDataAccessClient geographicsService;
         public StationCommandExecutor(
-            IEssentialDataStationDataAccessClient essentialsService, 
+            IEssentialDataStationDataAccessClient essentialsService,
             IGeographicDataStationDataAccessClient geographicsService)
         {
             this.essentialsService = essentialsService;

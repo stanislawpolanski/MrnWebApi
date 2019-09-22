@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DatabaseAPI.Inner.Common.Command;
+﻿using DatabaseAPI.Inner.Common.Command;
 using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Logic.RollingStockService.Commands.Single;
+using System.Collections.Generic;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 {
@@ -16,7 +15,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
             this.rollingStockClient = rollingStockClient;
         }
 
-        public GetSingleRollingStockCommand<RollingStockDTO> 
+        public GetSingleRollingStockCommand<RollingStockDTO>
             ProduceGetRollingStockByIdCommand()
         {
             var command = new GetSingleRollingStockCommand<RollingStockDTO>();
@@ -24,7 +23,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
             return command;
         }
 
-        public AbstractCommandWithSubject<List<RollingStockDTO>> 
+        public AbstractCommandWithSubject<List<RollingStockDTO>>
             ProduceGetAllRollingStockCommand()
         {
             var command = new GetAllRollingStockCommand<List<RollingStockDTO>>();

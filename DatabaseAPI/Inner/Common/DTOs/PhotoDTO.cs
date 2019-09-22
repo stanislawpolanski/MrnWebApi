@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DatabaseAPI.Common.DTOs
+﻿namespace DatabaseAPI.Common.DTOs
 {
     public class PhotoDTO
     {

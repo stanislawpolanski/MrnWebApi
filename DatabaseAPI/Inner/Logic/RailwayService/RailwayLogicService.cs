@@ -32,28 +32,20 @@ namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
             RailwayDTO inputRailway = new RailwayDTO.Builder().WithId(id).Build();
             ISingleRailwayCommand command = factory.GetGetSingleRailwayCommand();
             RailwayDTO result = await ExecuteSingleRailwayCommand(inputRailway, command);
-            if(result == null)
+            if (result == null)
             {
                 return null;
             }
-            OrderStationsByKmPosts(result);
             return result;
         }
 
         private async Task<RailwayDTO> ExecuteSingleRailwayCommand(
-            RailwayDTO inputRailway, 
+            RailwayDTO inputRailway,
             ISingleRailwayCommand command)
         {
             command.SetRailway(inputRailway);
             await executor.ExecuteCommandAsync(command);
             return command.GetExecutionResult();
-        }
-
-        private static void OrderStationsByKmPosts(RailwayDTO railway)
-        {
-            railway.StationsKmPosts = railway
-                .StationsKmPosts
-                .OrderBy(station => station.CentreKmPost);
         }
     }
 }

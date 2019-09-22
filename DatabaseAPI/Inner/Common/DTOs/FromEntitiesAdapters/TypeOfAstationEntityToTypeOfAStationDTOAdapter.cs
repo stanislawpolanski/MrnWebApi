@@ -2,7 +2,7 @@
 
 namespace DatabaseAPI.Common.DTOs.FromEntitiesAdapters
 {
-    public class TypeOfAstationEntityToTypeOfAStationDTOAdapter : 
+    public class TypeOfAstationEntityToTypeOfAStationDTOAdapter :
         TypeOfAStationDTO
     {
         public TypeOfAstationEntityToTypeOfAStationDTOAdapter(

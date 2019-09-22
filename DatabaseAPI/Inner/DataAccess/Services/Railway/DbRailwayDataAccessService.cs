@@ -17,7 +17,7 @@ namespace DatabaseAPI.DataAccess.Services.Railway
         public async Task<RailwayDTO> GetRailwayByIdAsync(int id)
         {
             Railways entity = await GetRailwayEntityById(id);
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
@@ -62,7 +62,7 @@ namespace DatabaseAPI.DataAccess.Services.Railway
                     .Any(stationToGeometry =>
                         stationToGeometry.StationId.Equals(stationId));
 
-            Expression<System.Func<Railways, RailwayDTO>> selectNewDTO = 
+            Expression<System.Func<Railways, RailwayDTO>> selectNewDTO =
                 railwayEntity => new RailwayDTO()
                 {
                     Id = railwayEntity.Id,
