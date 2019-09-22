@@ -20,7 +20,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 
         [Theory]
         [InlineData("/database-api/rolling-stock", "Rolling stock test #2", 5)]
-        public async Task PostsRollingStockWithNameAndOwnerId(string url, string name, int ownerId)
+        public async Task PostsRollingStockWithNameAndOwnerId(string url, 
+            string name, 
+            int ownerId)
         {
             RollingStockDTO inputDto = new RollingStockDTO
                 .Builder()
@@ -29,13 +31,11 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .Build();
 
             var response = await PostAsync<RollingStockDTO>(url, inputDto);
-            RollingStockDTO outputDto = 
-                await Deserialise<RollingStockDTO>(response);
-            
+            RollingStockDTO outputDto = await Deserialise<RollingStockDTO>(response);
+
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             Assert.Equal(name, outputDto.Name);
             Assert.Equal(ownerId, outputDto.Owner.Id);
-            //todo may be splitted into two tests
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
             string deletionUrl = UriRoute
                 .GetRouteFromNodes(url, outputDto.Id.ToString())
