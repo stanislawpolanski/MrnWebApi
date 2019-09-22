@@ -37,6 +37,10 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
 
         public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO inputDto)
         {
+            if (inputDto.Name == null || inputDto.Owner == null || inputDto.Owner.Id == 0)
+            {
+                return null;
+            }
             var command = factory.ProducePostRollingStockCommand();
             command.SetExecutionSubject(inputDto);
             await executor.ExecuteCommandAsync(command);

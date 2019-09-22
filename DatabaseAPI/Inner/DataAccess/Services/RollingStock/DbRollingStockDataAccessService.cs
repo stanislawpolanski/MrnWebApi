@@ -38,7 +38,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
 
         private static RollingStockDTO GetDTOByEntity(ObjectsOfInterest entity)
         {
-            OwnerDTO owner = new OwnerEntityToOwnerDTOAdapter(entity.Owner);
+            OwnerDTO owner = new OwnerDTO.Builder().WithId(entity.Owner.Id).WithName(entity.Owner.Name).Build();
             return new RollingStockDTO
                 .Builder()
                 .WithId(entity.Id)
@@ -92,13 +92,14 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
 
         public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO subject)
         {
-            ObjectsOfInterest entity = AddEntityFromDTOToContext(subject);
+            ObjectsOfInterest inputEntity = AddEntityFromDTOToContext(subject);
             int entitiesWritten = await context.SaveChangesAsync();
             if (entitiesWritten == 0)
             {
                 return null;
             }
-            return GetDTOByEntity(entity);
+            var resultEntity = await GetObjectOfInterestEntityById(inputEntity.Id);
+            return GetDTOByEntity(inputEntity);
         }
 
         private ObjectsOfInterest AddEntityFromDTOToContext(RollingStockDTO subject)

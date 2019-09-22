@@ -34,7 +34,9 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 
         public AbstractCommandWithSubject<RollingStockDTO> ProducePostRollingStockCommand()
         {
-            throw new System.NotImplementedException();
+            var command = new PostRollingStockCommand<RollingStockDTO>();
+            command.SetRollingStockDataAccessClient(rollingStockClient);
+            return command;
         }
 
         public AbstractCommandWithSubject<RollingStockDTO> ProduceDeleteRollingStockCommand()

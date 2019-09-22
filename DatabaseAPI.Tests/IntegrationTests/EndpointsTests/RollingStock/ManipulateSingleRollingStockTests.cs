@@ -11,7 +11,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 {
     public class ManipulateSingleRollingStockTests : AbstractEndpointTests
     {
-        private readonly string ROLLING_STOCK_ROOT_PATH = "/database-api/rolling-stock/";
+        private readonly string ROLLING_STOCK_ROOT_PATH = "/database-api/rolling-stock";
 
         public ManipulateSingleRollingStockTests(
             WebApplicationFactory<Startup> factory) : base(factory)
@@ -19,7 +19,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         }
 
         [Theory]
-        [InlineData("/database-api/rolling-stock", "Name of post rolling stock", 5)]
+        [InlineData("/database-api/rolling-stock", "Rolling stock test #2", 5)]
         public async Task PostsRollingStockWithNameAndOwnerId(string url, string name, int ownerId)
         {
             RollingStockDTO inputDto = new RollingStockDTO
@@ -60,7 +60,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         }
 
         [Theory]
-        [InlineData("/database-api/rolling-stock", "Test name")]
+        [InlineData("/database-api/rolling-stock", "Name: PostsRollingStockWithNoOwner")]
         public async Task PostsRollingStockWithNoOwner_ReturnsBadRequest(
             string url, 
             string name)
@@ -76,7 +76,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         }
 
         [Theory]
-        [InlineData("/database-api/rolling-stock", "Name of delete rolling stock", 9)]
+        [InlineData("/database-api/rolling-stock", "Name: DeletesRollingStock", 9)]
         public async Task DeletesRollingStock(string url, string name, int ownerId)
         {
             RollingStockDTO inDto = new RollingStockDTO
