@@ -10,11 +10,11 @@ using Xunit;
 
 namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 {
-    public class ManipulateSingleRollingStockTests : AbstractEndpointTests
+    public class PostAndDeleteSingleRollingStockTests : AbstractEndpointTests
     {
         private readonly string ROLLING_STOCK_ROOT_PATH = "/database-api/rolling-stock";
 
-        public ManipulateSingleRollingStockTests(
+        public PostAndDeleteSingleRollingStockTests(
             WebApplicationFactory<Startup> factory) : base(factory)
         {
         }
@@ -32,7 +32,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .Build();
 
             var response = await PostAsync<RollingStockDTO>(url, inputDto);
-            RollingStockDTO outputDto = await Deserialise<RollingStockDTO>(response);
+            RollingStockDTO outputDto = await DeserialiseAsync<RollingStockDTO>(response);
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             Assert.Equal(name, outputDto.Name);
@@ -87,7 +87,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .Build();
 
             HttpResponseMessage postResponse = await PostAsync(url, inDto);
-            RollingStockDTO outDto = await base.Deserialise<RollingStockDTO>(postResponse);
+            RollingStockDTO outDto = await base.DeserialiseAsync<RollingStockDTO>(postResponse);
 
             string deletionUrl = UriRoute.GetRouteStringFromNodes(
                 ROLLING_STOCK_ROOT_PATH, 
@@ -103,20 +103,6 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             HttpResponseMessage deletionResponse = await base.DeleteAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, deletionResponse.StatusCode);
-        }
-
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
-        public async Task Put_ChangesName(string url)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
-        public async Task Put_ChangesOwnerId(string url)
-        {
-            throw new NotImplementedException();
         }
     }
 }
