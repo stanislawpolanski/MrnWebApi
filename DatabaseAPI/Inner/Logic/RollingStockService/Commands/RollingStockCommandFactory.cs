@@ -33,14 +33,22 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 
         public AbstractCommandWithSubject<RollingStockDTO> ProducePostRollingStockCommand()
         {
-            var command = new PostRollingStockCommand<RollingStockDTO>();
-            command.SetRollingStockDataAccessClient(rollingStockClient);
-            return command;
+            return ProduceCommandWithService(new PostRollingStockCommand<RollingStockDTO>());
         }
 
         public AbstractCommandWithSubject<RollingStockDTO> ProduceDeleteRollingStockCommand()
         {
-            var command = new DeleteRollingStockCommand<RollingStockDTO>();
+            return ProduceCommandWithService(new DeleteRollingStockCommand<RollingStockDTO>());
+        }
+
+        public AbstractCommandWithSubject<RollingStockDTO> ProducePutRollingStockCommand()
+        {
+            return ProduceCommandWithService(new PutRollingStockCommand<RollingStockDTO>());
+        }
+
+        private AbstractCommandWithSubject<RollingStockDTO> ProduceCommandWithService(
+            AbstractRollingStockCommand<RollingStockDTO> command)
+        {
             command.SetRollingStockDataAccessClient(rollingStockClient);
             return command;
         }

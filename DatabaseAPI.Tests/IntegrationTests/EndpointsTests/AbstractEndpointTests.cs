@@ -23,7 +23,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             return await factory.CreateClient().GetAsync(url);
         }
 
-        protected async Task<T> Deserialise<T>(
+        protected async Task<T> DeserialiseAsync<T>(
             HttpResponseMessage response)
         {
             string content = await response.Content.ReadAsStringAsync();
@@ -36,6 +36,11 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             T body)
         {
             return await factory.CreateClient().PostAsJsonAsync<T>(url, body);
+        }
+
+        protected async Task<HttpResponseMessage> PutAsync<T>(string url, T body)
+        {
+            return await factory.CreateClient().PutAsJsonAsync<T>(url, body);
         }
 
         protected async Task<HttpResponseMessage> DeleteAsync(string url)

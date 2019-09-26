@@ -66,7 +66,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             HttpResponseMessage response = await GetAsync(url);
             RollingStockDTO result = await
-                Deserialise<RollingStockDTO>(response);
+                DeserialiseAsync<RollingStockDTO>(response);
             return result;
         }
     }

@@ -1,4 +1,5 @@
-﻿using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.DataAccess.Services.RollingStock;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,15 +24,21 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
             return await service.GetAllRollingStockAsync();
         }
 
-        public async Task<RollingStockDTO> GetRollingStockById(int id)
+        public async Task<RollingStockDTO> GetRollingStockByIdAsync(int id)
         {
             return await service.GetRollingStockByIdAsync(id);
         }
 
-        public async Task<RollingStockDTO> PostRollingStock(
+        public async Task<RollingStockDTO> PostRollingStockAsync(
             RollingStockDTO subject)
         {
             return await service.PostRollingStockAsync(subject);
+        }
+
+        public async Task<RollingStockDTO> PutRollingStockAsync(
+            RollingStockDTO rollingStockDTO)
+        {
+            return await service.PutRollingStockAsync(rollingStockDTO);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             var trains = await GetCollectionByUrl(rollingStockUrl);
             var stationResponse = await GetAsync(stationsUrl);
             List<StationDTO> stations = 
-                await Deserialise<List<StationDTO>>(stationResponse);
+                await DeserialiseAsync<List<StationDTO>>(stationResponse);
             ISet<int> trainIds = 
                 trains
                 .Select(train => train.Id)
@@ -82,7 +82,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         private async Task<IEnumerable<RollingStockDTO>> GetCollectionByUrl(string url)
         {
             var response = await GetAsync(url);
-            var collection = await Deserialise<
+            var collection = await DeserialiseAsync<
                 IEnumerable<RollingStockDTO>>(response);
             return collection;
         }

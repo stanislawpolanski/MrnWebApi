@@ -8,7 +8,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands.Single
     {
         public override async Task ExecuteAsync()
         {
-            result = await rollingStockClient.GetRollingStockById(subject.Id) as T;
+            result = await rollingStockClient.GetRollingStockByIdAsync(subject.Id) as T;
         }
     }
 }

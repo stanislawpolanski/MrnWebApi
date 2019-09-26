@@ -1,5 +1,4 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.DataAccess.Services;
 using DatabaseAPI.Inner.Common.DTOs;
@@ -14,7 +13,8 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
         DbDataAccessAbstractService,
         IRollingStockDataAccessService
     {
-        public DbRollingStockDataAccessService(MRN_developContext injectedContext) :
+        public DbRollingStockDataAccessService(
+            MRN_developContext injectedContext) :
             base(injectedContext)
         {
         }
@@ -32,7 +32,11 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
 
         private static RollingStockDTO GetDTOByEntity(ObjectsOfInterest entity)
         {
-            OwnerDTO owner = new OwnerDTO.Builder().WithId(entity.Owner.Id).WithName(entity.Owner.Name).Build();
+            OwnerDTO owner = new OwnerDTO
+                .Builder()
+                .WithId(entity.Owner.Id)
+                .WithName(entity.Owner.Name)
+                .Build();
             return new RollingStockDTO
                 .Builder()
                 .WithId(entity.Id)
@@ -41,16 +45,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
                 .Build();
         }
 
-        private async Task<ObjectsOfInterest> GetObjectOfInterestEntityById(int id)
-        {
-            return await context
-                .ObjectsOfInterest
-                .Include(row => row.Stations)
-                .Include(row => row.Owner)
-                .Where(row => row.Id.Equals(id))
-                .Where(row => row.Stations == null)
-                .FirstOrDefaultAsync();
-        }
 
         public async Task<IEnumerable<RollingStockDTO>> GetAllRollingStockAsync()
         {
@@ -64,10 +58,13 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             return dtos;
         }
 
-        public async Task<RollingStockDTO> DeleteRollingStockAsync(RollingStockDTO dto)
+        public async Task<RollingStockDTO> DeleteRollingStockAsync(
+            RollingStockDTO dto)
         {
             int id = dto.Id;
-            ObjectsOfInterest entity = await context.ObjectsOfInterest.FindAsync(id);
+            ObjectsOfInterest entity = await context
+                .ObjectsOfInterest
+                .FindAsync(id);
             if (entity == null)
             {
                 return null;
@@ -78,7 +75,8 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
 
         }
 
-        public async Task<RollingStockDTO> PostRollingStockAsync(RollingStockDTO subject)
+        public async Task<RollingStockDTO> PostRollingStockAsync(
+            RollingStockDTO subject)
         {
             ObjectsOfInterest inputEntity = AddEntityFromDTOToContext(subject);
             int entitiesWritten = await context.SaveChangesAsync();
@@ -86,11 +84,13 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             {
                 return null;
             }
-            var resultEntity = await GetObjectOfInterestEntityById(inputEntity.Id);
+            var resultEntity = 
+                await GetObjectOfInterestEntityById(inputEntity.Id);
             return GetDTOByEntity(inputEntity);
         }
 
-        private ObjectsOfInterest AddEntityFromDTOToContext(RollingStockDTO subject)
+        private ObjectsOfInterest AddEntityFromDTOToContext(
+            RollingStockDTO subject)
         {
             ObjectsOfInterest entity = new ObjectsOfInterest()
             {
@@ -99,6 +99,32 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             };
             context.ObjectsOfInterest.Add(entity);
             return entity;
+        }
+
+        public async Task<RollingStockDTO> PutRollingStockAsync(
+            RollingStockDTO subject)
+        {
+            ObjectsOfInterest entity = 
+                await GetObjectOfInterestEntityById(subject.Id);
+            if (entity == null)
+            {
+                return null;
+            }
+            entity.Name = subject.Name;
+            entity.OwnerId = subject.Owner.Id;
+            await context.SaveChangesAsync();
+            return GetDTOByEntity(entity);
+        }
+
+        private async Task<ObjectsOfInterest> GetObjectOfInterestEntityById(int id)
+        {
+            return await context
+                .ObjectsOfInterest
+                .Include(row => row.Stations)
+                .Include(row => row.Owner)
+                .Where(row => row.Id.Equals(id))
+                .Where(row => row.Stations == null)
+                .FirstOrDefaultAsync();
         }
     }
 }
