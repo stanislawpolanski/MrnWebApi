@@ -1,7 +1,6 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -19,75 +18,59 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         }
 
         [Theory]
-        [InlineData("Put - changing owner id test", 5, 2)]
-        public async Task PutsWithChangedOwnerId_Comparison(
-            string name,
-            int originalOwnerId,
-            int updatedOwnerId)
-        {
-            RollingStockDTO originalPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithName(name)
-                .WithOwner(new OwnerDTO.Builder().WithId(originalOwnerId).Build())
-                .Build();
-            var postOriginalResponse = await PostAsync<RollingStockDTO>(
-                PUT_ROLLING_STOCK_ROOT,
-                originalPostedDTO);
-            var retrievedPostedDTO =
-                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
-            int rollingStockEntityId = retrievedPostedDTO.Id;
-            RollingStockDTO updatedPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithId(rollingStockEntityId)
-                .WithName(name)
-                .WithOwner(new OwnerDTO.Builder().WithId(updatedOwnerId).Build())
-                .Build();
-            await base.PutAsync<RollingStockDTO>(
-                GetUrlWithId(rollingStockEntityId), updatedPostedDTO);
-            var getUpdatedResponse = await base
-                .GetAsync(GetUrlWithId(rollingStockEntityId));
-            RollingStockDTO changedDto = await base
-                .DeserialiseAsync<RollingStockDTO>(getUpdatedResponse);
-            int actualOwnerId = changedDto.Owner.Id;
-            Assert.Equal(updatedOwnerId, actualOwnerId);
-            await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
-        }
-
-        [Theory]
         [InlineData("Put - original name (invalid)", "Put - updated name - OK", 5)]
-        public async Task PutsWithChangedName_Comparison(
+        public async Task PutsWithChangedName_Returns204NoResponse(
             string originalName,
             string updatedExpectedName,
             int ownerId)
         {
-            RollingStockDTO originalPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithName(originalName)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            var postOriginalResponse = await PostAsync<RollingStockDTO>(
-                PUT_ROLLING_STOCK_ROOT,
-                originalPostedDTO);
-            var retrievedPostedDTO =
-                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
-            int rollingStockEntityId = retrievedPostedDTO.Id;
-            RollingStockDTO updatedPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithId(rollingStockEntityId)
-                .WithName(updatedExpectedName)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            await base.PutAsync<RollingStockDTO>(
-                GetUrlWithId(rollingStockEntityId), updatedPostedDTO);
-            var getUpdatedResponse = await base
-                .GetAsync(GetUrlWithId(rollingStockEntityId));
-            RollingStockDTO changedDto = await base
-                .DeserialiseAsync<RollingStockDTO>(getUpdatedResponse);
-            string actualName = changedDto.Name;
-            Assert.Equal(updatedExpectedName, actualName);
-            await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            int rollingStockEntityId = 
+                await PostOriginalRollingStock(originalName, ownerId);
+            try
+            {
+                var updatedPostedDTO = GetOriginalDTO(updatedExpectedName, ownerId);
+                updatedPostedDTO.Id = rollingStockEntityId;
+                var response = await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(rollingStockEntityId), updatedPostedDTO);
+                Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            }
         }
 
+
+        [Theory]
+        [InlineData("Put - change id", "Put - change id", 9, 18)]
+        [InlineData("Put - change name - ERROR", "Put - change name - OK", 5, 5)]
+        [InlineData("Put - change both - ERROR", "Put - change both - OK", 6, 13)]
+        public async Task PutsWithChangedData_Comparison(
+            string originalName,
+            string updatedName,
+            int originalOwnerId,
+            int updatedOwnerId)
+        {
+            int postedEntityId = 
+                await PostOriginalRollingStock(originalName, originalOwnerId);
+            try
+            {
+                RollingStockDTO updatedDto = GetOriginalDTO(updatedName, updatedOwnerId);
+                updatedDto.Id = postedEntityId;
+                await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(postedEntityId), updatedDto);
+                var getUpdatedResponse = await base
+                    .GetAsync(GetUrlWithId(postedEntityId));
+                RollingStockDTO changedDto = await base
+                    .DeserialiseAsync<RollingStockDTO>(getUpdatedResponse);
+                int actualOwnerId = changedDto.Owner.Id;
+                Assert.Equal(updatedOwnerId, actualOwnerId);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(postedEntityId));
+            }
+        }
 
         [Theory]
         [InlineData("/database-api/rolling-stock")]
@@ -95,26 +78,22 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             string name = "Sample name";
             int ownerId = 5;
-            RollingStockDTO originalPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithName(name)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            var postOriginalResponse = await PostAsync<RollingStockDTO>(
-                PUT_ROLLING_STOCK_ROOT,
-                originalPostedDTO);
-            var retrievedPostedDTO =
-                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
-            int rollingStockEntityId = retrievedPostedDTO.Id;
-            RollingStockDTO updatedDto = new RollingStockDTO
-                .Builder()
-                .WithId(rollingStockEntityId)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            var response = await base.PutAsync<RollingStockDTO>(
-                GetUrlWithId(rollingStockEntityId), updatedDto);
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-            await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            int rollingStockEntityId = await PostOriginalRollingStock(name, ownerId);
+            try
+            {
+                RollingStockDTO updatedDto = new RollingStockDTO
+                    .Builder()
+                    .WithId(rollingStockEntityId)
+                    .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
+                    .Build();
+                var response = await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(rollingStockEntityId), updatedDto);
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            }
         }
 
         [Theory]
@@ -123,26 +102,22 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             string name = "Sample name";
             int ownerId = 5;
-            RollingStockDTO originalPostedDTO = new RollingStockDTO
-                .Builder()
-                .WithName(name)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            var postOriginalResponse = await PostAsync<RollingStockDTO>(
-                PUT_ROLLING_STOCK_ROOT,
-                originalPostedDTO);
-            var retrievedPostedDTO =
-                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
-            int rollingStockEntityId = retrievedPostedDTO.Id;
-            RollingStockDTO updatedDto = new RollingStockDTO
-                .Builder()
-                .WithName(name)
-                .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
-                .Build();
-            var response = await base.PutAsync<RollingStockDTO>(
-                GetUrlWithId(rollingStockEntityId), updatedDto);
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-            await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            int rollingStockEntityId = await PostOriginalRollingStock(name, ownerId);
+            try
+            {
+                RollingStockDTO updatedDto = new RollingStockDTO
+                    .Builder()
+                    .WithName(name)
+                    .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
+                    .Build();
+                var response = await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(rollingStockEntityId), updatedDto);
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            }
         }
 
         [Theory]
@@ -151,26 +126,68 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             string name = "Sample name";
             int ownerId = 5;
-            RollingStockDTO originalPostedDTO = new RollingStockDTO
+            int rollingStockEntityId = await PostOriginalRollingStock(name, ownerId);
+            try
+            {
+                RollingStockDTO updatedDto = new RollingStockDTO
+                    .Builder()
+                    .WithId(rollingStockEntityId)
+                    .WithName(name)
+                    .Build();
+                var response = await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(rollingStockEntityId), updatedDto);
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            }
+        }
+
+        [Theory]
+        [InlineData("/database-api/rolling-stock")]
+        public async Task PutsRollingStockWithUrlIdDifferentThanBodyId_ReturnsBadRequest(
+            string url)
+        {
+            string name = "Sample name";
+            int ownerId = 5;
+            int rollingStockEntityId = await PostOriginalRollingStock(name, ownerId);
+            int changedId = rollingStockEntityId + 1;
+            try
+            {
+                RollingStockDTO updatedDto = new RollingStockDTO
+                    .Builder()
+                    .WithId(changedId)
+                    .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
+                    .Build();
+                var response = await base.PutAsync<RollingStockDTO>(
+                    GetUrlWithId(rollingStockEntityId), updatedDto);
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            finally
+            {
+                await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
+            }
+        }
+
+        private async Task<int> PostOriginalRollingStock(string name, int ownerId)
+        {
+            var postOriginalResponse = await PostAsync<RollingStockDTO>(
+                PUT_ROLLING_STOCK_ROOT,
+                GetOriginalDTO(name, ownerId));
+            var retrievedPostedDTO =
+                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
+            int rollingStockEntityId = retrievedPostedDTO.Id;
+            return rollingStockEntityId;
+        }
+
+        private static RollingStockDTO GetOriginalDTO(string name, int ownerId)
+        {
+            return new RollingStockDTO
                 .Builder()
                 .WithName(name)
                 .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
                 .Build();
-            var postOriginalResponse = await PostAsync<RollingStockDTO>(
-                PUT_ROLLING_STOCK_ROOT,
-                originalPostedDTO);
-            var retrievedPostedDTO =
-                await DeserialiseAsync<RollingStockDTO>(postOriginalResponse);
-            int rollingStockEntityId = retrievedPostedDTO.Id;
-            RollingStockDTO updatedDto = new RollingStockDTO
-                .Builder()
-                .WithId(rollingStockEntityId)
-                .WithName(name)
-                .Build();
-            var response = await base.PutAsync<RollingStockDTO>(
-                GetUrlWithId(rollingStockEntityId), updatedDto);
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-            await base.DeleteAsync(GetUrlWithId(rollingStockEntityId));
         }
 
         private string GetUrlWithId(int id)

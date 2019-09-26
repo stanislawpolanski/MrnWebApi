@@ -11,5 +11,6 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
         AbstractCommandWithSubject<List<RollingStockDTO>> ProduceGetAllRollingStockCommand();
         AbstractCommandWithSubject<RollingStockDTO> ProducePostRollingStockCommand();
         AbstractCommandWithSubject<RollingStockDTO> ProduceDeleteRollingStockCommand();
+        AbstractCommandWithSubject<RollingStockDTO> ProducePutRollingStockCommand();
     }
 }

@@ -70,7 +70,7 @@ namespace DatabaseAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             bool isDeleted = await service.DeleteRollingStockByIdAsync(id);
             if(isDeleted)
@@ -78,6 +78,25 @@ namespace DatabaseAPI.Controllers
                 return Ok();
             }
             return NotFound();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> PutAsync(
+            int id, 
+            [FromBody] RollingStockDTO dto)
+        {
+            if(dto.Id != id)
+            {
+                return BadRequest();
+            }
+            bool putSuccessfully = await service.PutRollingStockAsync(dto);
+            if (putSuccessfully)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
     }
 }
