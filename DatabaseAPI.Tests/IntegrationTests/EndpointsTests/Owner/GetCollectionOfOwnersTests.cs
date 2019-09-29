@@ -55,13 +55,14 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
             IEnumerable<OwnerDTO> owners =
                 await DeserialiseAsync<IEnumerable<OwnerDTO>>(response);
             Assert.True(owners.ToList().Count > 10);
-
         }
 
         [Theory]
         [InlineData(1, "PKP PLK")]
         [InlineData(17, "Transchem Włocławek")]
-        public async Task GetAllOwners_ContainsSpecificOwner(int id, string name)
+        public async Task GetAllOwners_ContainsSpecificOwner(
+            int id, 
+            string name)
         {
             var response = await RequestGetAsync(OWNERS_ROOT_URL);
             IEnumerable<OwnerDTO> owners =

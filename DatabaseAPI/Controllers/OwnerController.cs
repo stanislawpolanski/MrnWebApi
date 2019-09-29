@@ -37,7 +37,7 @@ namespace DatabaseAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OwnerDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<OwnerDTO>>> GetAllRollingStockAsync()
+        public async Task<ActionResult<IEnumerable<OwnerDTO>>> GetAllOwnersAsync()
         {
             IEnumerable<OwnerDTO> items = await service.GetAllOwnersAsync();
             FillWithUrls(items);
