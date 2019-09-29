@@ -7,12 +7,12 @@
         public class Builder
         {
             private PhotoDTO item = new PhotoDTO();
-            public Builder Id(int id)
+            public Builder WithId(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder FilePath(string filePath)
+            public Builder WithFilePath(string filePath)
             {
                 item.FilePath = filePath;
                 return this;

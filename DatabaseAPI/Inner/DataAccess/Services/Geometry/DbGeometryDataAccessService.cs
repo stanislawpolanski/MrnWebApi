@@ -1,6 +1,6 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,7 +54,7 @@ namespace DatabaseAPI.DataAccess.Services.Geometry
                         .Equals(queriedStationId));
 
             Expression<Func<Geometries, GeometryDTO>> entityToDTOSelector =
-                entity => new GeometryEntityToGeometryDTOAdapter(entity);
+                entity => GeometryMapper.MapToDTO(entity);
 
             return await context
                 .Geometries

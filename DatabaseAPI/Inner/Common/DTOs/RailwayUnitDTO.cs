@@ -8,17 +8,17 @@
         public class Builder
         {
             private RailwayUnitDTO item = new RailwayUnitDTO();
-            public Builder Id(int id)
+            public Builder WithId(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder Name(string name)
+            public Builder WithName(string name)
             {
                 item.Name = name;
                 return this;
             }
-            public Builder Url(string url)
+            public Builder WithUrl(string url)
             {
                 item.Url = url;
                 return this;
