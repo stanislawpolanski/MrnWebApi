@@ -9,8 +9,6 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
 {
     public class GetSingleOwnerTests : AbstractEndpointTests
     {
-        private string OWNERS_ROOT_URL = "/database-api/owner/";
-
         public GetSingleOwnerTests(WebApplicationFactory<Startup> injectedFactory) : base(injectedFactory)
         {
         }
