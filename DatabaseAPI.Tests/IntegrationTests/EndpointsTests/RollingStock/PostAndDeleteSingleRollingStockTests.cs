@@ -31,7 +31,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
                 .Build();
 
-            var response = await PostAsync<RollingStockDTO>(url, inputDto);
+            var response = await RequestPostAsync<RollingStockDTO>(url, inputDto);
             RollingStockDTO outputDto = await DeserialiseAsync<RollingStockDTO>(response);
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -41,7 +41,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             string deletionUrl = UriRoute
                 .GetRouteFromNodes(url, outputDto.Id.ToString())
                 .ToString();
-            await DeleteAsync(deletionUrl);
+            await RequestDeleteAsync(deletionUrl);
         }
 
         [Theory]
@@ -55,7 +55,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
                 .Build();
 
-            var response = await PostAsync<RollingStockDTO>(url, inputDto);
+            var response = await RequestPostAsync<RollingStockDTO>(url, inputDto);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -71,7 +71,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .WithName(name)
                 .Build();
 
-            var response = await PostAsync<RollingStockDTO>(url, inputDto);
+            var response = await RequestPostAsync<RollingStockDTO>(url, inputDto);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -86,14 +86,14 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
                 .WithOwner(new OwnerDTO.Builder().WithId(ownerId).Build())
                 .Build();
 
-            HttpResponseMessage postResponse = await PostAsync(url, inDto);
+            HttpResponseMessage postResponse = await RequestPostAsync(url, inDto);
             RollingStockDTO outDto = await base.DeserialiseAsync<RollingStockDTO>(postResponse);
 
             string deletionUrl = UriRoute.GetRouteStringFromNodes(
                 ROLLING_STOCK_ROOT_PATH, 
                 outDto.Id.ToString());
 
-            HttpResponseMessage deletionResponse = await base.DeleteAsync(deletionUrl);
+            HttpResponseMessage deletionResponse = await base.RequestDeleteAsync(deletionUrl);
             Assert.Equal(HttpStatusCode.OK, deletionResponse.StatusCode);
         }
 
@@ -101,7 +101,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock/123456789")]
         public async Task DeletesNotExistingRollingStock_Returns404(string url)
         {
-            HttpResponseMessage deletionResponse = await base.DeleteAsync(url);
+            HttpResponseMessage deletionResponse = await base.RequestDeleteAsync(url);
             Assert.Equal(HttpStatusCode.NotFound, deletionResponse.StatusCode);
         }
     }
