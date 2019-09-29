@@ -18,7 +18,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             factory = injectedFactory;
         }
 
-        protected async Task<HttpResponseMessage> GetAsync(string url)
+        protected async Task<HttpResponseMessage> RequestGetAsync(string url)
         {
             return await factory.CreateClient().GetAsync(url);
         }
@@ -31,19 +31,19 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             return deserialised;
         }
 
-        protected async Task<HttpResponseMessage> PostAsync<T>(
+        protected async Task<HttpResponseMessage> RequestPostAsync<T>(
             string url, 
             T body)
         {
             return await factory.CreateClient().PostAsJsonAsync<T>(url, body);
         }
 
-        protected async Task<HttpResponseMessage> PutAsync<T>(string url, T body)
+        protected async Task<HttpResponseMessage> RequestPutAsync<T>(string url, T body)
         {
             return await factory.CreateClient().PutAsJsonAsync<T>(url, body);
         }
 
-        protected async Task<HttpResponseMessage> DeleteAsync(string url)
+        protected async Task<HttpResponseMessage> RequestDeleteAsync(string url)
         {
             return await factory.CreateClient().DeleteAsync(url);
         }

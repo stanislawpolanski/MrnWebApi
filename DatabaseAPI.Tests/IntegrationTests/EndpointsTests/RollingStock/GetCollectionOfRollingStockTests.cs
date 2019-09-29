@@ -23,7 +23,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [InlineData("/database-api/rolling-stock")]
         public async Task Returns200(string url)
         {
-            HttpResponseMessage response = await GetAsync(url);
+            HttpResponseMessage response = await RequestGetAsync(url);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -34,7 +34,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             string stationsUrl)
         {
             var trains = await GetCollectionByUrl(rollingStockUrl);
-            var stationResponse = await GetAsync(stationsUrl);
+            var stationResponse = await RequestGetAsync(stationsUrl);
             List<StationDTO> stations = 
                 await DeserialiseAsync<List<StationDTO>>(stationResponse);
             ISet<int> trainIds = 
@@ -81,7 +81,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 
         private async Task<IEnumerable<RollingStockDTO>> GetCollectionByUrl(string url)
         {
-            var response = await GetAsync(url);
+            var response = await RequestGetAsync(url);
             var collection = await DeserialiseAsync<
                 IEnumerable<RollingStockDTO>>(response);
             return collection;

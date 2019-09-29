@@ -20,7 +20,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [Fact]
         public async Task Returns200OK()
         {
-            HttpResponseMessage response = await GetAsync(RAILWAY_API_URL);
+            HttpResponseMessage response = await RequestGetAsync(RAILWAY_API_URL);
 
             HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
             HttpStatusCode actualStatusCode = response.StatusCode;
@@ -33,7 +33,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
             int minimal = 20;
             int maximal = Int32.MaxValue;
 
-            var response = await GetAsync(RAILWAY_API_URL);
+            var response = await RequestGetAsync(RAILWAY_API_URL);
 
             List<RailwayDTO> dtos = await GetDTOsFromResponse(response);
             int actual = dtos.Count;
@@ -43,7 +43,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [Fact]
         public async Task EveryRailwayHasAppropriateUrl()
         {
-            var response = await GetAsync(RAILWAY_API_URL);
+            var response = await RequestGetAsync(RAILWAY_API_URL);
             var dtos = await GetDTOsFromResponse(response);
 
             Action<RailwayDTO> assertUrlValidity = dto => Assert.Equal(RAILWAY_API_URL + "/" + dto.Id, dto.Url);
@@ -57,7 +57,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Railway
         [InlineData(23, 2)]
         public async Task SpecifiedRailwaysHaveSpecifiedOwners(int railwayId, int ownerId)
         {
-            var response = await GetAsync(RAILWAY_API_URL);
+            var response = await RequestGetAsync(RAILWAY_API_URL);
             var dtos = await GetDTOsFromResponse(response);
             Predicate<RailwayDTO> railwayWithSpecifiedOwnerId = railway => railway.Id.Equals(railwayId) && railway.Owner.Id.Equals(ownerId);
             Assert.Contains<RailwayDTO>(dtos, railwayWithSpecifiedOwnerId);
