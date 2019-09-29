@@ -1,6 +1,6 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using GeoAPI.Geometries;
 using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
@@ -33,34 +33,41 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
             {
                 return null;
             }
-            return await GetRailwayUnitFromDatasource(station);
+            return await ReadRailwayUnitFromDatasourceByStationAsync(station);
         }
 
         private async Task<RailwayUnitDTO>
-            GetRailwayUnitFromDatasource(StationDTO station)
+            ReadRailwayUnitFromDatasourceByStationAsync(StationDTO station)
         {
             if (station.SerialisedGeometry == null || station.OwnerInfo == null)
             {
                 return null;
             }
 
-            IGeometry stationDeserialisedGeometry = DeserialiseStationsGeometry(station);
-            Expression<Func<RailwayUnits, bool>> unitOwnerEqualsStationsOwnerPredicate =
-                unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
-            Expression<Func<RailwayUnits, bool>>
-                unitsGeometryIntersectsStationsGeometryPredicate = unit =>
-                unit.Geometries.SpatialData.Intersects(stationDeserialisedGeometry);
-            Expression<Func<RailwayUnits, RailwayUnitEntityToRailwayUnitDTOAdapter>>
-                selectToDTO = unitEntity =>
-                    new RailwayUnitEntityToRailwayUnitDTOAdapter(unitEntity);
-
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
-                .Where(unitOwnerEqualsStationsOwnerPredicate)
-                .Where(unitsGeometryIntersectsStationsGeometryPredicate)
-                .Select(selectToDTO)
+                .Where(GetOwnersEqualityPredicate(station))
+                .Where(GetGeometryIntersectionPredicate(station))
+                .Select(entity => RailwayUnitMapper.MapToDTO(entity))
                 .FirstOrDefaultAsync();
+        }
+
+        private Expression<Func<RailwayUnits, bool>>
+            GetOwnersEqualityPredicate(StationDTO station)
+        {
+            return unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
+        }
+
+        private Expression<Func<RailwayUnits, bool>> 
+            GetGeometryIntersectionPredicate(StationDTO station)
+        {
+            IGeometry stationGeometry = DeserialiseStationsGeometry(station);
+            return unit => 
+                unit
+                .Geometries
+                .SpatialData
+                .Intersects(stationGeometry);
         }
 
         private IGeometry DeserialiseStationsGeometry(StationDTO station)

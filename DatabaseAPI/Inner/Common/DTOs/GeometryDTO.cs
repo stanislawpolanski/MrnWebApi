@@ -10,12 +10,12 @@ namespace DatabaseAPI.Common.DTOs
         public class Builder
         {
             private GeometryDTO item = new GeometryDTO();
-            public Builder Id(int id)
+            public Builder WithId(int id)
             {
                 item.Id = id;
                 return this;
             }
-            public Builder SpatialData(string spatialData)
+            public Builder WithSpatialData(string spatialData)
             {
                 item.SerialisedSpatialData = spatialData;
                 return this;

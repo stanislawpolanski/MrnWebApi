@@ -1,6 +1,6 @@
 ﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.DTOs.FromEntitiesAdapters;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace DatabaseAPI.DataAccess.Services.Photo
             IEnumerable<PhotoDTO> result = await context
                 .Photos
                 .Where(photosThatShowsStationById)
-                .Select(photoEntity => new PhotoEntityToPhotoDTOAdapter(photoEntity))
+                .Select(entity => PhotoMapper.MapToDTO(entity))
                 .ToListAsync();
             return result;
         }
