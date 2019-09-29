@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Common.DTOs;
@@ -16,6 +16,15 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Owner
         public DbOwnerDataAccessService(MRN_developContext injectedContext) 
             : base(injectedContext)
         {
+        }
+
+        public async Task<IEnumerable<OwnerDTO>> GetAllOwnersAsync()
+        {
+            var entities = await context
+                .Owners
+                .Select(entity => OwnerMapper.MapToDTO(entity))
+                .ToListAsync();
+            return entities;
         }
 
         public async Task<OwnerDTO> GetOwnerByIdAsync(int id)

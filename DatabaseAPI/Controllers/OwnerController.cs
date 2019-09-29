@@ -1,8 +1,11 @@
 ﻿using DatabaseAPI.Common.DTOs;
+using DatabaseAPI.Common.Routing;
 using DatabaseAPI.Inner.Logic.Owner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Controllers
@@ -30,6 +33,25 @@ namespace DatabaseAPI.Controllers
                 return NotFound();
             }
             return Ok(item);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<OwnerDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<OwnerDTO>>> GetAllRollingStockAsync()
+        {
+            IEnumerable<OwnerDTO> items = await service.GetAllOwnersAsync();
+            FillWithUrls(items);
+            return Ok(items);
+        }
+
+        private void FillWithUrls(IEnumerable<OwnerDTO> items)
+        {
+            foreach(OwnerDTO dto in items)
+            {
+                dto.Url = UriRoute.GetRouteStringFromNodes(
+                    OWNER_PATH,
+                    dto.Id.ToString());
+            }
         }
     }
 }

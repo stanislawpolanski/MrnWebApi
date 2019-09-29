@@ -1,7 +1,5 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -32,7 +30,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
 
             foreach(OwnerDTO owner in owners)
             {
-                string expectedUrl = OWNERS_ROOT_URL + "/" + owner.Id;
+                string expectedUrl = OWNERS_ROOT_URL + owner.Id;
                 Assert.Equal(expectedUrl, owner.Url);
             }
         }
