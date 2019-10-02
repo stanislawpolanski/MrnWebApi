@@ -1,7 +1,5 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.DataAccess.Services;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +82,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
             {
                 return null;
             }
-            var resultEntity = 
+            var resultEntity =
                 await GetObjectOfInterestEntityById(inputEntity.Id);
             return GetDTOByEntity(inputEntity);
         }
@@ -104,7 +102,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RollingStock
         public async Task<RollingStockDTO> PutRollingStockAsync(
             RollingStockDTO subject)
         {
-            ObjectsOfInterest entity = 
+            ObjectsOfInterest entity =
                 await GetObjectOfInterestEntityById(subject.Id);
             if (entity == null)
             {

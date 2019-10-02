@@ -1,6 +1,6 @@
-﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 
-namespace DatabaseAPI.DataAccess.Services
+namespace DatabaseAPI.Inner.DataAccess.Services
 {
     public abstract class DbDataAccessAbstractService
     {

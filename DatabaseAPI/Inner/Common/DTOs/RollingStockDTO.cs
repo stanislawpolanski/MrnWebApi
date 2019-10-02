@@ -1,6 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-
-namespace DatabaseAPI.Inner.Common.DTOs
+﻿namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class RollingStockDTO
     {

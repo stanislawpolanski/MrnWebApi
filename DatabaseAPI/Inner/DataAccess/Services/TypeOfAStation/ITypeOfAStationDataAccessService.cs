@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 
-namespace DatabaseAPI.DataAccess.Services.TypeOfAStation
+namespace DatabaseAPI.Inner.DataAccess.Services.TypeOfAStation
 {
     public interface ITypeOfAStationDataAccessService
     {

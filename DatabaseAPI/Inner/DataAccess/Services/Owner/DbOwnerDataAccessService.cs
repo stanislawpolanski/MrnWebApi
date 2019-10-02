@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.DTOs.Mappers;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.DataAccess.Services;
-using DatabaseAPI.Inner.Common.DTOs.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseAPI.Inner.DataAccess.Services.Owner
 {
-    public class DbOwnerDataAccessService : 
+    public class DbOwnerDataAccessService :
         DbDataAccessAbstractService,
         IOwnerDataAccessService
     {
-        public DbOwnerDataAccessService(MRN_developContext injectedContext) 
+        public DbOwnerDataAccessService(MRN_developContext injectedContext)
             : base(injectedContext)
         {
         }

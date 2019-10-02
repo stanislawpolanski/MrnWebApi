@@ -1,9 +1,8 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.Station
+namespace DatabaseAPI.Inner.DataAccess.Services.Station
 {
     public interface IStationDataAccessService
     {

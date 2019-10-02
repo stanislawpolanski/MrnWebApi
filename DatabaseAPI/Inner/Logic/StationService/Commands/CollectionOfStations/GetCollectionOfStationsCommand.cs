@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.CollectionOfStations
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.CollectionOfStations
 {
     public class GetCollectionOfStationsCommand : AbstractCollectionOfStationsCommand
     {

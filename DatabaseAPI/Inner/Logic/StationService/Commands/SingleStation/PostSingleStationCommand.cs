@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.SingleStation
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.SingleStation
 {
     public class PostSingleStationCommand : AbstractSingleStationCommand
     {

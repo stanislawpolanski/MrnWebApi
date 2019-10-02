@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
+namespace DatabaseAPI.Inner.Logic.StationService.DataAccessClients
 {
     public interface IGeographicDataStationDataAccessClient
     {

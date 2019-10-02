@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.Geometry
+namespace DatabaseAPI.Inner.DataAccess.Services.Geometry
 {
     public interface IGeometryDataAccessService
     {

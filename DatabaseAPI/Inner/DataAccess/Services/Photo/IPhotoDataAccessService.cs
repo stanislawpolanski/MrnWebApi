@@ -1,8 +1,8 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.Photo
+namespace DatabaseAPI.Inner.DataAccess.Services.Photo
 {
     public interface IPhotoDataAccessService
     {

@@ -1,13 +1,17 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Services.TypeOfAStation;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Services.TypeOfAStation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DatabaseAPI.Logic.TypeOfAStationService
+namespace DatabaseAPI.Inner.Logic.TypeOfAStationService
 {
     public class TypeOfAStationLogicService : ITypeOfAStationLogicService
     {
         private ITypeOfAStationDataAccessService service;
+
+        public TypeOfAStationLogicService()
+        {
+        }
 
         public TypeOfAStationLogicService(
             ITypeOfAStationDataAccessService injectedService)

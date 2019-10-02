@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+﻿using DatabaseAPI.Inner.Logic.StationService.DataAccessClients;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.Executor
 {
     public class StationCommandExecutor : IStationCommandExecutor
     {

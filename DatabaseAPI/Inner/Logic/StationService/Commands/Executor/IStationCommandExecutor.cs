@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.Executor
 {
     public interface IStationCommandExecutor
     {

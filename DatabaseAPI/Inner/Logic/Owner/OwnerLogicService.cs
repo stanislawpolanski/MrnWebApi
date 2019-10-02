@@ -1,6 +1,5 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.DataAccess.Services.Owner;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

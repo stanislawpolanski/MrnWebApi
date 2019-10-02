@@ -1,8 +1,8 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.StationService.DataAccessClients;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.SingleStation
 {
     public abstract class AbstractSingleStationCommand : ISingleStationCommand
     {

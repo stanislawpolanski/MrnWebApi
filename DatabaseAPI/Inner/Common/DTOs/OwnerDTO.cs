@@ -1,4 +1,4 @@
-﻿namespace DatabaseAPI.Common.DTOs
+﻿namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class OwnerDTO
     {

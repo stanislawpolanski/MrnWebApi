@@ -1,7 +1,7 @@
 ﻿using DatabaseAPI.Inner.Common.Command;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
+using DatabaseAPI.Inner.Logic.RailwayService.DataAccess;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands
 {
     public interface IRailwayCommand : ICommand
     {
