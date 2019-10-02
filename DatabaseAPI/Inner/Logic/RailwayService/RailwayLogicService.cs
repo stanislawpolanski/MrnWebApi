@@ -1,13 +1,12 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Common.Command.Executor;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
+﻿using DatabaseAPI.Inner.Common.Command.Executor;
+using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.RailwayService.Commands.Collection;
+using DatabaseAPI.Inner.Logic.RailwayService.Commands.Factory;
+using DatabaseAPI.Inner.Logic.RailwayService.Commands.Single;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService
+namespace DatabaseAPI.Inner.Logic.RailwayService
 {
     public class RailwayLogicService : IRailwayLogicService
     {

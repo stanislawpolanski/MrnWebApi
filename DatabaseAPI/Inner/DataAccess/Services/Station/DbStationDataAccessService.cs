@@ -1,12 +1,11 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.Station
+namespace DatabaseAPI.Inner.DataAccess.Services.Station
 {
     public class DbStationDataAccessService : DbDataAccessAbstractService,
         IStationDataAccessService

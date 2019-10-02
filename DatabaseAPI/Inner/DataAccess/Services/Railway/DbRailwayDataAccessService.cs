@@ -1,12 +1,12 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.Railway
+namespace DatabaseAPI.Inner.DataAccess.Services.Railway
 {
     public class DbRailwayDataAccessService : DbDataAccessAbstractService, IRailwayDataAccessService
     {

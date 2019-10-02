@@ -1,5 +1,5 @@
-using DatabaseAPI.Common.Exceptions;
-using DatabaseAPI.Common.Routing;
+using DatabaseAPI.Inner.Common.Exceptions;
+using DatabaseAPI.Inner.Common.Routing;
 using Xunit;
 
 namespace DatabaseAPI.Tests.UnitTests.CommonTests

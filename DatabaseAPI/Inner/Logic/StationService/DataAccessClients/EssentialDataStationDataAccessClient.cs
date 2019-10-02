@@ -1,9 +1,9 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Services.Station;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Services.Station;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices
+namespace DatabaseAPI.Inner.Logic.StationService.DataAccessClients
 {
     public class EssentialDataStationDataAccessClient :
         IEssentialDataStationDataAccessClient

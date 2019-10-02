@@ -1,6 +1,5 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.DataAccess.Services.StationToPhoto;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.StationToRailway
+namespace DatabaseAPI.Inner.DataAccess.Services.StationToRailway
 {
     public class DbStationToRailwayRelationshipDataAccessService :
         DbDataAccessAbstractService,

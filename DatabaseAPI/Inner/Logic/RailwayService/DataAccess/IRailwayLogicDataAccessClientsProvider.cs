@@ -1,6 +1,6 @@
-﻿using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands;
+﻿using DatabaseAPI.Inner.Logic.RailwayService.Commands;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccess
+namespace DatabaseAPI.Inner.Logic.RailwayService.DataAccess
 {
     public interface IRailwayLogicDataAccessClientsProvider
     {

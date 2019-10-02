@@ -1,5 +1,4 @@
 ﻿using DatabaseAPI.Inner.Common.DTOs;
-using System;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands.Single

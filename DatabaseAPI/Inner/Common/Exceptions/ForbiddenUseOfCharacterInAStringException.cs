@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DatabaseAPI.Common.Exceptions
+namespace DatabaseAPI.Inner.Common.Exceptions
 {
     public class ForbiddenUseOfCharacterInAStringException : ArgumentException
     {

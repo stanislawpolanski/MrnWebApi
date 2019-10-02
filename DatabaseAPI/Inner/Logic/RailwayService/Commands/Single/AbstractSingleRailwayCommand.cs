@@ -1,8 +1,8 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.RailwayService.DataAccess;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Single
 {
     public abstract class AbstractSingleRailwayCommand : ISingleRailwayCommand
     {

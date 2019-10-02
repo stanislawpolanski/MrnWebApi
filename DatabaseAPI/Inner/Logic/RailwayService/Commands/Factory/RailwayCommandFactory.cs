@@ -1,9 +1,8 @@
-﻿using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
+﻿using DatabaseAPI.Inner.Logic.RailwayService.Commands.Collection;
+using DatabaseAPI.Inner.Logic.RailwayService.Commands.Single;
+using DatabaseAPI.Inner.Logic.RailwayService.DataAccess;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Factory
 {
     public class RailwayCommandFactory : IRailwayCommandFactory
     {

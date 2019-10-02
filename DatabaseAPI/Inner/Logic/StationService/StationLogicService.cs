@@ -1,14 +1,12 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.CollectionOfStations;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Executor;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.Implementations;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Commands.SingleStation;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.StationService.Commands.CollectionOfStations;
+using DatabaseAPI.Inner.Logic.StationService.Commands.Executor;
+using DatabaseAPI.Inner.Logic.StationService.Commands.SingleStation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Logic.StationService
+namespace DatabaseAPI.Inner.Logic.StationService
 {
     public class StationLogicService : IStationLogicService
     {

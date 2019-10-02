@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DatabaseAPI.Common.DTOs
+namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class GeometryDTO
     {

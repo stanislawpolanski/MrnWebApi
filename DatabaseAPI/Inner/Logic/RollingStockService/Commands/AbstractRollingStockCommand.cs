@@ -1,4 +1,5 @@
 ﻿using DatabaseAPI.Inner.Common.Command;
+using DatabaseAPI.Inner.Logic.RollingStockService.Clients;
 
 namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
 {
