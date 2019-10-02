@@ -1,5 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 
 namespace DatabaseAPI.Inner.Common.DTOs.Mappers
 {
