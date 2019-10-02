@@ -1,10 +1,10 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DatabaseAPI.DataAccess.Services.TypeOfAStation
+namespace DatabaseAPI.Inner.DataAccess.Services.TypeOfAStation
 {
     public class DbTypeOfAStationDataAccessService : DbDataAccessAbstractService, ITypeOfAStationDataAccessService
     {

@@ -1,4 +1,4 @@
-﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

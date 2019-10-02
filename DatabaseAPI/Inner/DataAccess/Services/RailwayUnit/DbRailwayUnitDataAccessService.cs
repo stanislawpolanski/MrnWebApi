@@ -1,6 +1,6 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Common.DTOs.Mappers;
+using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using GeoAPI.Geometries;
 using GeoAPI.IO;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.DataAccess.Services.RailwayUnit
+namespace DatabaseAPI.Inner.DataAccess.Services.RailwayUnit
 {
     public class DbRailwayUnitDataAccessService :
         DbDataAccessAbstractService, IRailwayUnitDataAccessService
@@ -59,11 +59,11 @@ namespace DatabaseAPI.DataAccess.Services.RailwayUnit
             return unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
         }
 
-        private Expression<Func<RailwayUnits, bool>> 
+        private Expression<Func<RailwayUnits, bool>>
             GetGeometryIntersectionPredicate(StationDTO station)
         {
             IGeometry stationGeometry = DeserialiseStationsGeometry(station);
-            return unit => 
+            return unit =>
                 unit
                 .Geometries
                 .SpatialData

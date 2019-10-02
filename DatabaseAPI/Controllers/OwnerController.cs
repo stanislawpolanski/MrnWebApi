@@ -1,10 +1,9 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.Routing;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.Routing;
 using DatabaseAPI.Inner.Logic.Owner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -46,7 +45,7 @@ namespace DatabaseAPI.Controllers
 
         private void FillWithUrls(IEnumerable<OwnerDTO> items)
         {
-            foreach(OwnerDTO dto in items)
+            foreach (OwnerDTO dto in items)
             {
                 dto.Url = UriRoute.GetRouteStringFromNodes(
                     OWNER_PATH,

@@ -1,6 +1,6 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.Routing;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.Routing;
+using DatabaseAPI.Inner.Logic.RailwayService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

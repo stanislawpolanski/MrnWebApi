@@ -1,9 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 
 namespace DatabaseAPI.Inner.Common.DTOs.Mappers
 {

@@ -1,4 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +25,10 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
         public async Task GetAllOwners_AllDtosHaveAprropriateUrl()
         {
             var response = await RequestGetAsync(OWNERS_ROOT_URL);
-            IEnumerable<OwnerDTO> owners = 
+            IEnumerable<OwnerDTO> owners =
                 await DeserialiseAsync<IEnumerable<OwnerDTO>>(response);
 
-            foreach(OwnerDTO owner in owners)
+            foreach (OwnerDTO owner in owners)
             {
                 string expectedUrl = OWNERS_ROOT_URL + owner.Id;
                 Assert.Equal(expectedUrl, owner.Url);
@@ -61,7 +61,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
         [InlineData(1, "PKP PLK")]
         [InlineData(17, "Transchem Włocławek")]
         public async Task GetAllOwners_ContainsSpecificOwner(
-            int id, 
+            int id,
             string name)
         {
             var response = await RequestGetAsync(OWNERS_ROOT_URL);

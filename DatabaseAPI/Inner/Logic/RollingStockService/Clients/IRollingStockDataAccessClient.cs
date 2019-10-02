@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
+namespace DatabaseAPI.Inner.Logic.RollingStockService.Clients
 {
     public interface IRollingStockDataAccessClient
     {

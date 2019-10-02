@@ -1,10 +1,9 @@
-﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.DataAccess.Services.RollingStock;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Logic.RollingStockService.Commands
+namespace DatabaseAPI.Inner.Logic.RollingStockService.Clients
 {
     public class RollingStockDataAccessClient : IRollingStockDataAccessClient
     {

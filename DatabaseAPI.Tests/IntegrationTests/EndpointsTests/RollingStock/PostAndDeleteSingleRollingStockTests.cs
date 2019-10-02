@@ -1,8 +1,6 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.Routing;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.Routing;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,8 +19,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 
         [Theory]
         [InlineData("/database-api/rolling-stock", "Rolling stock test #2", 5)]
-        public async Task PostsRollingStockWithNameAndOwnerId(string url, 
-            string name, 
+        public async Task PostsRollingStockWithNameAndOwnerId(string url,
+            string name,
             int ownerId)
         {
             RollingStockDTO inputDto = new RollingStockDTO
@@ -47,7 +45,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [Theory]
         [InlineData("/database-api/rolling-stock", 5)]
         public async Task PostsRollingStockWithNoName_ReturnsBadRequest(
-            string url, 
+            string url,
             int ownerId)
         {
             RollingStockDTO inputDto = new RollingStockDTO
@@ -63,7 +61,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         [Theory]
         [InlineData("/database-api/rolling-stock", "Name: PostsRollingStockWithNoOwner")]
         public async Task PostsRollingStockWithNoOwner_ReturnsBadRequest(
-            string url, 
+            string url,
             string name)
         {
             RollingStockDTO inputDto = new RollingStockDTO
@@ -90,7 +88,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             RollingStockDTO outDto = await base.DeserialiseAsync<RollingStockDTO>(postResponse);
 
             string deletionUrl = UriRoute.GetRouteStringFromNodes(
-                ROLLING_STOCK_ROOT_PATH, 
+                ROLLING_STOCK_ROOT_PATH,
                 outDto.Id.ToString());
 
             HttpResponseMessage deletionResponse = await base.RequestDeleteAsync(deletionUrl);

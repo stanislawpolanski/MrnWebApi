@@ -1,9 +1,9 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.RailwayService.DataAccess;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Collection
 {
     public class GetCollectionOfRailwayCommand : ICollectionOfRailwayCommand
     {

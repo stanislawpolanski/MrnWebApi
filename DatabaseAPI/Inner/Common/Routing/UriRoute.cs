@@ -1,9 +1,9 @@
-﻿using DatabaseAPI.Common.Exceptions;
+﻿using DatabaseAPI.Inner.Common.Exceptions;
 using System;
 using System.Linq;
 using System.Text;
 
-namespace DatabaseAPI.Common.Routing
+namespace DatabaseAPI.Inner.Common.Routing
 {
     public class UriRoute
     {

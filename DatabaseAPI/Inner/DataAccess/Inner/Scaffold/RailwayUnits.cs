@@ -1,4 +1,4 @@
-﻿namespace DatabaseAPI.DataAccess.Inner.Scaffold
+﻿namespace DatabaseAPI.Inner.DataAccess.Inner.Scaffold
 {
     public partial class RailwayUnits
     {

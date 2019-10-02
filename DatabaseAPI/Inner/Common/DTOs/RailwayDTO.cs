@@ -1,7 +1,4 @@
-﻿using DatabaseAPI.Inner.Common.DTOs;
-using System.Collections.Generic;
-
-namespace DatabaseAPI.Common.DTOs
+﻿namespace DatabaseAPI.Inner.Common.DTOs
 {
     public class RailwayDTO
     {
