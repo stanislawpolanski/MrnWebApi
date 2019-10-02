@@ -1,5 +1,4 @@
-using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Inner.Scaffold;
+using DatabaseAPI.Inner.Common.DTOs;
 using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using System.Collections.Generic;
