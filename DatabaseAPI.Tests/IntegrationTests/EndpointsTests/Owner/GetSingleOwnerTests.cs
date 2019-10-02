@@ -1,6 +1,5 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -9,7 +8,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
 {
     public class GetSingleOwnerTests : AbstractEndpointTests
     {
-        public GetSingleOwnerTests(WebApplicationFactory<Startup> injectedFactory) : base(injectedFactory)
+        public GetSingleOwnerTests(
+            WebApplicationFactory<Startup> injectedFactory) 
+            : base(injectedFactory)
         {
         }
 
