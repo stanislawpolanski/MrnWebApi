@@ -1,7 +1,9 @@
 ﻿using DatabaseAPI.Common.DTOs;
 using DatabaseAPI.DataAccess.Inner.Scaffold;
 using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,11 +48,8 @@ namespace DatabaseAPI.DataAccess.Services.Station
         /// <returns>Saved entity.</returns>
         private async Task<ObjectsOfInterest> SaveToObjectOfInterestTableAsync(StationDTO inputStation)
         {
-            ObjectsOfInterest objectOfInterest = new ObjectsOfInterest()
-            {
-                Name = inputStation.Name,
-                OwnerId = inputStation.OwnerInfo.Id
-            };
+            ObjectsOfInterest objectOfInterest = 
+                ObjectOfInterestToStationMapper.MapToEntity(inputStation);
             context.ObjectsOfInterest.Add(objectOfInterest);
             await context.SaveChangesAsync();
             return objectOfInterest;
@@ -72,26 +71,30 @@ namespace DatabaseAPI.DataAccess.Services.Station
 
         public async Task<IEnumerable<StationDTO>> GetBasicStationsAsync()
         {
-            IEnumerable<Stations> entities = await context
-                .Stations
-                .Include(station => station.ParentObjectOfInterest)
-                .ToListAsync();
+            IEnumerable<Stations> entities = await ReadAllEntities();
 
-            System.Func<Stations, StationDTO> entityToDTO = entity =>
+            Func<Stations, StationDTO> entityToDTO = entity =>
                 new StationDTO
-                    .Builder()
-                    .WithId(entity.ParentObjectOfInterest.Id)
-                    .WithName(entity.ParentObjectOfInterest.Name)
-                    .Build();
+                .Builder()
+                .WithId(entity.ParentObjectOfInterest.Id)
+                .WithName(entity.ParentObjectOfInterest.Name)
+                .Build();
 
             List<StationDTO> dtos = entities.Select(entityToDTO).ToList();
 
             return dtos;
         }
 
+        private async Task<IEnumerable<Stations>> ReadAllEntities()
+        {
+            return await context
+                .Stations
+                .Include(station => station.ParentObjectOfInterest)
+                .ToListAsync();
+        }
+
         public async Task<StationDTO> GetDetailedStationAsync(int id)
         {
-
             Stations entity = await GetEntityFromContextById(id);
             StationDTO dto = GetDTOFromEntity(entity);
             return dto;
@@ -167,7 +170,6 @@ namespace DatabaseAPI.DataAccess.Services.Station
         {
             ObjectsOfInterest queriedObjectOfInterest = await context
                 .ObjectsOfInterest
-                //todo should't be SingleAsync()?
                 .FirstAsync(entity => entity.Id.Equals(inputStation.Id));
             queriedObjectOfInterest.Name = inputStation.Name;
             queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
