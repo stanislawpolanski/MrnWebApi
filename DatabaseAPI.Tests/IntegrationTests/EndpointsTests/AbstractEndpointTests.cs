@@ -1,8 +1,6 @@
-﻿using DatabaseAPI.DataAccess.Inner.Scaffold;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -34,7 +32,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
         }
 
         protected async Task<HttpResponseMessage> RequestPostAsync<T>(
-            string url, 
+            string url,
             T body)
         {
             return await factory.CreateClient().PostAsJsonAsync<T>(url, body);

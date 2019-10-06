@@ -1,10 +1,9 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.DataAccess.Services.Station;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Services.Station;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.DataAccessClients
+namespace DatabaseAPI.Inner.Logic.RailwayService.DataAccess
 {
     public class RailwayDataStationsClient : IRailwayDataStationsClient
     {

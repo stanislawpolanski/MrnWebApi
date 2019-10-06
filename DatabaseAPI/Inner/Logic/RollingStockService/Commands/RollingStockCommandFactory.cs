@@ -1,5 +1,6 @@
 ﻿using DatabaseAPI.Inner.Common.Command;
 using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.RollingStockService.Clients;
 using DatabaseAPI.Inner.Logic.RollingStockService.Commands.Single;
 using System.Collections.Generic;
 

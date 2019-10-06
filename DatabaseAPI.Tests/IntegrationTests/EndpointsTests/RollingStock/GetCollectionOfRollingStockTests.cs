@@ -1,5 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
@@ -35,9 +34,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         {
             var trains = await GetCollectionByUrl(rollingStockUrl);
             var stationResponse = await RequestGetAsync(stationsUrl);
-            List<StationDTO> stations = 
+            List<StationDTO> stations =
                 await DeserialiseAsync<List<StationDTO>>(stationResponse);
-            ISet<int> trainIds = 
+            ISet<int> trainIds =
                 trains
                 .Select(train => train.Id)
                 .ToHashSet();

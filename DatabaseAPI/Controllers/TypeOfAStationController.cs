@@ -1,5 +1,5 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Logic.TypeOfAStationService;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.TypeOfAStationService;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 

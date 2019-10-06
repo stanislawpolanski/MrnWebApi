@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DatabaseAPI.DataAccess.Inner.Scaffold
+namespace DatabaseAPI.Inner.DataAccess.Inner.Scaffold
 {
     public partial class Photos
     {

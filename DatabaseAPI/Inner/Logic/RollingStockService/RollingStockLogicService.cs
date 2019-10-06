@@ -22,7 +22,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
         public async Task<RollingStockDTO> GetRollingStockByIdAsync(int id)
         {
             RollingStockDTO dto = new RollingStockDTO.Builder().WithId(id).Build();
-            AbstractRollingStockCommand<RollingStockDTO> command = 
+            AbstractRollingStockCommand<RollingStockDTO> command =
                 factory
                 .ProduceGetRollingStockByIdCommand();
             command.SetExecutionSubject(dto);
@@ -56,7 +56,7 @@ namespace DatabaseAPI.Inner.Logic.RollingStockService
             command.SetExecutionSubject(dto);
             await executor.ExecuteCommandAsync(command);
             var result = command.GetResult();
-            if(result == null)
+            if (result == null)
             {
                 return false;
             }

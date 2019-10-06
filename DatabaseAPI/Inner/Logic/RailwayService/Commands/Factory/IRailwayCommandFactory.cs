@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set;
-using DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single;
+﻿using DatabaseAPI.Inner.Logic.RailwayService.Commands.Collection;
+using DatabaseAPI.Inner.Logic.RailwayService.Commands.Single;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Factory
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Factory
 {
     public interface IRailwayCommandFactory
     {

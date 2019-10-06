@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 
-namespace DatabaseAPI.Logic.TypeOfAStationService
+namespace DatabaseAPI.Inner.Logic.TypeOfAStationService
 {
     public interface ITypeOfAStationLogicService
     {

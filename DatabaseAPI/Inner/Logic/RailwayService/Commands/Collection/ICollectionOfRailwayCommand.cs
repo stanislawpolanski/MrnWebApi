@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Set
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Collection
 {
     public interface ICollectionOfRailwayCommand : IRailwayCommand
     {

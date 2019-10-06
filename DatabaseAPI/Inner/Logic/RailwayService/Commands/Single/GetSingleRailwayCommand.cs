@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.RailwayService.Commands.Single
+namespace DatabaseAPI.Inner.Logic.RailwayService.Commands.Single
 {
     public class GetSingleRailwayCommand : AbstractSingleRailwayCommand
     {

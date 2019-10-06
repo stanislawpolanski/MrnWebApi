@@ -1,5 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
         private string PUT_ROLLING_STOCK_ROOT = "/database-api/rolling-stock/";
 
         public PutSingleRollingStockTests(
-            WebApplicationFactory<Startup> injectedFactory) 
+            WebApplicationFactory<Startup> injectedFactory)
             : base(injectedFactory)
         {
         }
@@ -24,7 +23,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             string updatedExpectedName,
             int ownerId)
         {
-            int rollingStockEntityId = 
+            int rollingStockEntityId =
                 await PostOriginalRollingStock(originalName, ownerId);
             try
             {
@@ -51,7 +50,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             int originalOwnerId,
             int updatedOwnerId)
         {
-            int postedEntityId = 
+            int postedEntityId =
                 await PostOriginalRollingStock(originalName, originalOwnerId);
             try
             {

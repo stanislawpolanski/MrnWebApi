@@ -1,9 +1,9 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Inner.Layers.Logic.StationService.Inner.DetailsServices;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Logic.StationService.DataAccessClients;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.CollectionOfStations
 {
     public abstract class AbstractCollectionOfStationsCommand : ICollectionOfStationsCommand
     {
@@ -11,7 +11,9 @@ namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
         protected List<StationDTO> collection;
         public abstract Task ExecuteAsync();
 
-        public void SetDataAcessClients(IEssentialDataStationDataAccessClient essentialsService, IGeographicDataStationDataAccessClient geographicsService)
+        public void SetDataAcessClients(
+            IEssentialDataStationDataAccessClient essentialsService, 
+            IGeographicDataStationDataAccessClient geographicsService)
         {
             this.essentialsService = essentialsService;
         }

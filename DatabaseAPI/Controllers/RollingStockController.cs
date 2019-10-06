@@ -1,5 +1,5 @@
-﻿using DatabaseAPI.Common.Routing;
-using DatabaseAPI.Inner.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.Routing;
 using DatabaseAPI.Inner.Logic.RollingStockService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -60,7 +60,7 @@ namespace DatabaseAPI.Controllers
             RollingStockDTO inputDto)
         {
             RollingStockDTO resultDto = await service.PostRollingStockAsync(inputDto);
-            if(resultDto == null)
+            if (resultDto == null)
             {
                 return BadRequest();
             }
@@ -73,7 +73,7 @@ namespace DatabaseAPI.Controllers
         public async Task<ActionResult> DeleteAsync(int id)
         {
             bool isDeleted = await service.DeleteRollingStockByIdAsync(id);
-            if(isDeleted)
+            if (isDeleted)
             {
                 return Ok();
             }
@@ -84,10 +84,10 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> PutAsync(
-            int id, 
+            int id,
             [FromBody] RollingStockDTO dto)
         {
-            if(dto.Id != id)
+            if (dto.Id != id)
             {
                 return BadRequest();
             }

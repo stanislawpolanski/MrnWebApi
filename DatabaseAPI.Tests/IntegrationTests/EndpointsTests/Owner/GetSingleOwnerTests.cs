@@ -1,4 +1,4 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
         [InlineData(18, "Ermewa - Sati")]
         [InlineData(12, "STK")]
         public async Task GetExistingOwner_ReturnsSpecificNames(
-            int id, 
+            int id,
             string expectedName)
         {
             string url = OWNERS_ROOT_URL + id.ToString();

@@ -1,5 +1,5 @@
-﻿using DatabaseAPI.Common.DTOs;
-using DatabaseAPI.Common.Routing;
+﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.Common.Routing;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
@@ -317,7 +317,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
             //assert
             Assert.Equal(
                 HttpStatusCode.OK,
-                deletionResponse.StatusCode);;
+                deletionResponse.StatusCode); ;
         }
     }
 }

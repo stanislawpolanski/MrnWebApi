@@ -1,7 +1,7 @@
-﻿using DatabaseAPI.Common.DTOs;
+﻿using DatabaseAPI.Inner.Common.DTOs;
 using System.Collections.Generic;
 
-namespace DatabaseAPI.Inner.Layers.Logic.StationService.Commands
+namespace DatabaseAPI.Inner.Logic.StationService.Commands.CollectionOfStations
 {
     public interface ICollectionOfStationsCommand : IStationCommand
     {
