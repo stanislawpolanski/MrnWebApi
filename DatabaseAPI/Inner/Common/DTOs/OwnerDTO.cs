@@ -1,10 +1,13 @@
-﻿namespace DatabaseAPI.Common.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DatabaseAPI.Common.DTOs
 {
     public class OwnerDTO
     {
-        public int Id;
-        public string Name;
-        public string Url;
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public string Url { get; set; }
         public class Builder
         {
             private OwnerDTO item = new OwnerDTO();

@@ -13,5 +13,13 @@ namespace DatabaseAPI.Inner.Common.DTOs.Mappers
                 .WithName(entity.Name)
                 .Build();
         }
+
+        public static Owners MapToEntity(OwnerDTO dto)
+        {
+            Owners entity = new Owners();
+            entity.Id = dto.Id;
+            entity.Name = dto.Name;
+            return entity;
+        }
     }
 }

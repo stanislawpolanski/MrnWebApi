@@ -53,5 +53,46 @@ namespace DatabaseAPI.Controllers
                     dto.Id.ToString());
             }
         }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(OwnerDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> PostOwnerAsync(OwnerDTO model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+                OwnerDTO result = await service.PostOwnerAsync(model);
+                return Ok(result);
+            }
+            catch(Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+        
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //todo [FromUri] int id
+        public async Task<IActionResult> DeleteOwnerAsync(int id)
+        {
+            try
+            {
+                bool successfullyDeleted = await service.DeleteOwnerByIdAsync(id);
+                if (successfullyDeleted)
+                {
+                    return NoContent();
+                }
+                return NotFound();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
     }
 }
