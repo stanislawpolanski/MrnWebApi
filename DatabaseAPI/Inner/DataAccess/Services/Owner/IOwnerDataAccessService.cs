@@ -8,5 +8,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Owner
     {
         Task<OwnerDTO> GetOwnerByIdAsync(int id);
         Task<IEnumerable<OwnerDTO>> GetAllOwnersAsync();
+        Task<OwnerDTO> PostOwnerAsync(OwnerDTO dto);
+        Task<bool> DeleteOwnerByIdAsync(int id);
     }
 }

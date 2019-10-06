@@ -8,7 +8,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Owner
 {
     public class GetSingleOwnerTests : AbstractEndpointTests
     {
-        public GetSingleOwnerTests(WebApplicationFactory<Startup> injectedFactory) : base(injectedFactory)
+        public GetSingleOwnerTests(
+            WebApplicationFactory<Startup> injectedFactory) 
+            : base(injectedFactory)
         {
         }
 
