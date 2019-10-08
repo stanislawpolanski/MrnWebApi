@@ -113,27 +113,13 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
         private StationDTO GetDTOFromEntity(Stations entity)
         {
             TypeOfAStationDTO typeOfAStation = GetTypeOfAStationDTOFromEntity(entity);
-            OwnerDTO owner = GetOwnerDTOFromEntity(entity);
             return new StationDTO
                     .Builder()
                     .WithId(entity.Id)
                     .WithName(entity.ParentObjectOfInterest.Name)
-                    .WithOwner(owner)
+                    .WithOwnerId(entity.ParentObjectOfInterest.OwnerId)
                     .WithTypeOfAStation(typeOfAStation)
                     .Build();
-        }
-
-        private static OwnerDTO GetOwnerDTOFromEntity(Stations entity)
-        {
-            if (entity.ParentObjectOfInterest.Owner == null)
-            {
-                return null;
-            }
-            return new OwnerDTO
-                        .Builder()
-                        .WithId(entity.ParentObjectOfInterest.Owner.Id)
-                        .WithName(entity.ParentObjectOfInterest.Owner.Name)
-                        .Build();
         }
 
         private static TypeOfAStationDTO GetTypeOfAStationDTOFromEntity(Stations entity)
@@ -171,7 +157,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
                 .ObjectsOfInterest
                 .FirstAsync(entity => entity.Id.Equals(inputStation.Id));
             queriedObjectOfInterest.Name = inputStation.Name;
-            queriedObjectOfInterest.OwnerId = inputStation.OwnerInfo.Id;
+            queriedObjectOfInterest.OwnerId = inputStation.OwnerId;
         }
 
         public async Task<IEnumerable<StationOnARailwayLocationDTO>>

@@ -8,7 +8,7 @@ namespace DatabaseAPI.Inner.Common.DTOs.Mappers
         {
             ObjectsOfInterest result = new ObjectsOfInterest();
             result.Name = station.Name;
-            result.OwnerId = station.OwnerInfo.Id;
+            result.OwnerId = station.OwnerId;
             return result;
         }
     }
