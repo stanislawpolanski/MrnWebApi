@@ -190,10 +190,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerDTO()
-                    {
-                        Id = ownerId
-                    }
+                    OwnerId = ownerId
                 };
             //act
             HttpResponseMessage response = await client
@@ -231,10 +228,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerDTO()
-                    {
-                        Id = ownerId
-                    }
+                    OwnerId = ownerId
                 };
             HttpResponseMessage postResponse = await client
               .PostAsJsonAsync(url, stationToPost);
@@ -250,10 +244,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerDTO()
-                    {
-                        Id = ownerId
-                    }
+                    OwnerId = ownerId
                 };
             string putUrl =
                 UriRoute
@@ -299,10 +290,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
                     {
                         Id = typeOfAStationId
                     },
-                    OwnerInfo = new OwnerDTO()
-                    {
-                        Id = ownerId
-                    }
+                    OwnerId = ownerId
                 };
             HttpResponseMessage response = await client
                 .PostAsJsonAsync<StationDTO>(url, stationToPost);

@@ -30,7 +30,7 @@ namespace DatabaseAPI.Inner.Logic.StationService.DataAccessClients
             StationDTO station = await stationDataAccessService
                 .GetDetailedStationAsync(inputStation.Id);
             inputStation.Name = station.Name;
-            inputStation.OwnerInfo = station.OwnerInfo;
+            inputStation.OwnerId = station.OwnerId;
             inputStation.TypeOfAStationInfo = station.TypeOfAStationInfo;
         }
 

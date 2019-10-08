@@ -28,7 +28,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RailwayUnit
         {
             bool dataRequiredFromRequestIsIncomplete = (
                 station.SerialisedGeometry == null
-                || station.OwnerInfo == null);
+                || station.OwnerId == 0);
             if (dataRequiredFromRequestIsIncomplete)
             {
                 return null;
@@ -39,11 +39,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RailwayUnit
         private async Task<RailwayUnitDTO>
             ReadRailwayUnitFromDatasourceByStationAsync(StationDTO station)
         {
-            if (station.SerialisedGeometry == null || station.OwnerInfo == null)
-            {
-                return null;
-            }
-
             return await context
                 .RailwayUnits
                 .Include(unit => unit.Geometries)
@@ -56,7 +51,7 @@ namespace DatabaseAPI.Inner.DataAccess.Services.RailwayUnit
         private Expression<Func<RailwayUnits, bool>>
             GetOwnersEqualityPredicate(StationDTO station)
         {
-            return unit => unit.OwnerId.Equals(station.OwnerInfo.Id);
+            return unit => unit.OwnerId.Equals(station.OwnerId);
         }
 
         private Expression<Func<RailwayUnits, bool>>
