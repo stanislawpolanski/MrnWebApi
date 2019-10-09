@@ -55,5 +55,19 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Owner
             await context.SaveChangesAsync();
             return OwnerMapper.MapToDTO(entity);
         }
+
+        public async Task<bool> UpdateOwnerAsync(OwnerDTO dto)
+        {
+            Owners entity = await context
+                .Owners
+                .FindAsync(dto.Id);
+            if(entity == null)
+            {
+                return false;
+            }
+            entity.Name = dto.Name;
+            await context.SaveChangesAsync();
+            return true;
+        }
     }
 }
