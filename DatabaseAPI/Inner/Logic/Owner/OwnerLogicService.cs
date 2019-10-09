@@ -33,5 +33,10 @@ namespace DatabaseAPI.Inner.Logic.Owner
         {
             return await service.PostOwnerAsync(model);
         }
+
+        public async Task<bool> UpdateOwnerAsync(OwnerDTO dto)
+        {
+            return await service.UpdateOwnerAsync(dto);
+        }
     }
 }

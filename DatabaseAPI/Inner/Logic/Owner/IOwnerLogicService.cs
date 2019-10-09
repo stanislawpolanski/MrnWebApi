@@ -10,5 +10,6 @@ namespace DatabaseAPI.Inner.Logic.Owner
         Task<IEnumerable<OwnerDTO>> GetAllOwnersAsync();
         Task<OwnerDTO> PostOwnerAsync(OwnerDTO model);
         Task<bool> DeleteOwnerByIdAsync(int id);
+        Task<bool> UpdateOwnerAsync(OwnerDTO dto);
     }
 }

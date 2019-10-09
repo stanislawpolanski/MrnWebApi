@@ -68,16 +68,15 @@ namespace DatabaseAPI.Controllers
                 OwnerDTO result = await service.PostOwnerAsync(model);
                 return Ok(result);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, exception);
             }
         }
-        
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //todo [FromUri] int id
         public async Task<IActionResult> DeleteOwnerAsync(int id)
         {
             try
@@ -92,6 +91,35 @@ namespace DatabaseAPI.Controllers
             catch (Exception exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PutOwnerAsync(
+            int id, 
+            [FromBody] OwnerDTO dto)
+        {
+            try
+            {
+                if (id != dto.Id)
+                {
+                    return BadRequest();
+                }
+                bool successfullyUpdated = await service.UpdateOwnerAsync(dto);
+                if (successfullyUpdated)
+                {
+                    return NoContent();
+                }
+                return NotFound();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError, 
+                    exception);
             }
         }
     }
