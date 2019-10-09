@@ -99,7 +99,7 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutOwnerAsync(
-            [FromUri]  int id, 
+            int id, 
             [FromBody] OwnerDTO dto)
         {
             try
@@ -108,8 +108,8 @@ namespace DatabaseAPI.Controllers
                 {
                     return BadRequest();
                 }
-                bool successfully = await service.UpdateOwnerAsync(dto);
-                if (successfully)
+                bool successfullyUpdated = await service.UpdateOwnerAsync(dto);
+                if (successfullyUpdated)
                 {
                     return NoContent();
                 }
