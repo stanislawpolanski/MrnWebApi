@@ -67,5 +67,35 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
                 station.Id.Equals(id) && station.Name.Equals(name);
             Assert.Contains(models, containsSpecificStation);
         }
+
+        [Fact]
+        public async Task GetStationsByRailwayId_OnExistingRailway_Returns200OK()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public async Task GetStationsByRailwayId_OnNonExistingRailway_Returns404NotFound()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public async Task GetStationsByRailwayId_OnExistingRailway_ReturnsNumberOfStations()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public async Task GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedName()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public async Task GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
