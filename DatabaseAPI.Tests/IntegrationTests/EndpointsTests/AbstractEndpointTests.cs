@@ -9,6 +9,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests
     public class AbstractEndpointTests : IClassFixture<WebApplicationFactory<Startup>>
     {
         protected string OWNERS_ROOT_URL = "/database-api/owner/";
+        protected string STATION_ROOT_URL = "/database-api/station/";
 
         protected readonly WebApplicationFactory<Startup> factory;
 
