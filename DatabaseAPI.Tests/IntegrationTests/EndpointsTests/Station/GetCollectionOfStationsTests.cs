@@ -1,7 +1,9 @@
 ﻿using DatabaseAPI.Inner.Common.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -9,6 +11,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
 {
     public class GetCollectionOfStationsTests : AbstractEndpointTests
     {
+        private string byRailwayIdPath = "railway/";
+
         public GetCollectionOfStationsTests(
             WebApplicationFactory<Startup> injectedFactory) 
             : base(injectedFactory)
@@ -68,34 +72,68 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             Assert.Contains(models, containsSpecificStation);
         }
 
-        [Fact]
-        public async Task GetStationsByRailwayId_OnExistingRailway_Returns200OK()
+        [Theory]
+        [InlineData(23)]
+        [InlineData(10940)]
+        [InlineData(10105)]
+        public async Task GetStationsByRailwayId_OnExistingRailway_Returns200OK(
+            int railwayId)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
-        public async Task GetStationsByRailwayId_OnNonExistingRailway_Returns404NotFound()
+        public async Task 
+            GetStationsByRailwayId_OnNonExistingRailway_Returns404NotFound()
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + 123456789;
+            var response = await RequestGetAsync(url);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        [Fact]
-        public async Task GetStationsByRailwayId_OnExistingRailway_ReturnsNumberOfStations()
+        [Theory]
+        [InlineData(23)]
+        [InlineData(10940)]
+        public async Task 
+            GetStationsByRailwayId_OnExistingRailway_ReturnsNotEmptyCollection(
+            int railwayId)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
+            Assert.NotEmpty(models);
         }
 
-        [Fact]
-        public async Task GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedName()
+        [Theory]
+        [InlineData(29, "Przymiarki")]
+        [InlineData(3, "Tarnów Mościce")]
+        [InlineData(10105, "Powroźnik")]
+        public async Task 
+            GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedName(
+            int railwayId,
+            string expectedName)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
+            Assert.Contains(models, model => model.Name == expectedName);
         }
 
-        [Fact]
-        public async Task GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedId()
+        [Theory]
+        [InlineData(17, 53)]
+        [InlineData(10095, 10024)]
+        [InlineData(22, 10007)]
+        public async Task 
+            GetStationsByRailwayId_OnSpecifiedRailway_ReturnsStationWithSpecifiedId(
+            int railwayId,
+            int stationId)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
+            Assert.Contains(models, model => model.Id == stationId);
         }
     }
 }
