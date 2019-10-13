@@ -102,8 +102,18 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         {
             string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
             var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
+            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
             Assert.NotEmpty(models);
+        }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(10625)]
+        public async Task
+            GetStationsByRailwayId_OnExistingRailway_StationsHasCorrectUrls(
+            int railwayId)
+        {
+            throw new NotImplementedException();
         }
 
         [Theory]
@@ -117,7 +127,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         {
             string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
             var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
+            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
             Assert.Contains(models, model => model.Name == expectedName);
         }
 
@@ -132,8 +142,18 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         {
             string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
             var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationDTO>>(response);
-            Assert.Contains(models, model => model.Id == stationId);
+            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            Assert.Contains(models, model => model.StationId == stationId);
+        }
+
+        [Theory]
+        [InlineData(20)]
+        [InlineData(10099)]
+        public async Task
+            GetStationsByRailwayId_OnExistingRailway_StationHasSpecifiedKmPosts(
+            int railwayId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

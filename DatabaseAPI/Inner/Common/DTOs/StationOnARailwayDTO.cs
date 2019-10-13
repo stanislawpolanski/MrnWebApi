@@ -4,6 +4,7 @@
     {
         public int StationId;
         public string Name;
+        public string Url;
         public decimal? BeginningKmPost;
         public decimal CentreKmPost;
         public decimal? EndingKmPost;
@@ -22,6 +23,12 @@
             public Builder WithName(string name)
             {
                 item.Name = name;
+                return this;
+            }
+
+            public Builder WitUrl(string url)
+            {
+                item.Url = url;
                 return this;
             }
 

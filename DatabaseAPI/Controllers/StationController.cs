@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace DatabaseAPI.Controllers
 {
@@ -33,17 +33,13 @@ namespace DatabaseAPI.Controllers
         }
 
         private static void
-            FillStationsWithUrls(IEnumerable<StationDTO> stations)
+            FillStationsWithUrls(IEnumerable<StationDTO> collection)
         {
-            Action<StationDTO> setStationUrl =
-                input =>
-                input.Url =
-                    UriRoute
-                    .GetRouteFromNodes(
-                        STATION_PATH,
-                        input.Id.ToString())
-                    .ToString();
-            stations.ToList().ForEach(setStationUrl);
+            foreach(var station in collection)
+            {
+                station.Url = UriRoute
+                    .GetRouteStringFromNodes(STATION_PATH, station.Id.ToString());
+            }
         }
 
         [HttpGet("{id}")]
@@ -99,6 +95,34 @@ namespace DatabaseAPI.Controllers
         public async Task Delete(int id)
         {
             await stationLogicService.DeleteStationByIdAsync(id);
+        }
+
+        [HttpGet("railway/{railwayId}")]
+        [ProducesResponseType(typeof(IEnumerable<StationOnARailwayLocationDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<StationOnARailwayLocationDTO>>> 
+            GetStationsCollectionByRailwayIdAsync([FromRoute] int railwayId)
+        {
+            IEnumerable<StationOnARailwayLocationDTO> collection =
+                await stationLogicService.GetStationsByRailwayIdAsync(railwayId);
+            if (collection == null)
+            {
+                return NotFound();
+            }
+            FillStationsOnARailwayWithUrls(collection);
+            return Ok(collection);
+        }
+
+        private static void
+            FillStationsOnARailwayWithUrls(
+            IEnumerable<StationOnARailwayLocationDTO> collection)
+        {
+            foreach (var station in collection)
+            {
+                station.Url = UriRoute.GetRouteStringFromNodes(
+                    STATION_PATH, 
+                    station.StationId.ToString());
+            }
         }
     }
 }

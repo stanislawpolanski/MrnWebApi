@@ -1,9 +1,11 @@
 ﻿using DatabaseAPI.Inner.Common.DTOs;
+using DatabaseAPI.Inner.DataAccess.Services.Station;
 using DatabaseAPI.Inner.Logic.StationService.Commands.CollectionOfStations;
 using DatabaseAPI.Inner.Logic.StationService.Commands.Executor;
 using DatabaseAPI.Inner.Logic.StationService.Commands.SingleStation;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
 using System.Threading.Tasks;
 
 namespace DatabaseAPI.Inner.Logic.StationService
@@ -11,9 +13,15 @@ namespace DatabaseAPI.Inner.Logic.StationService
     public class StationLogicService : IStationLogicService
     {
         private IStationCommandExecutor commandExecutor;
-        public StationLogicService(IStationCommandExecutor commandExecutor)
+        private IStationDataAccessService service;
+
+        public StationLogicService(
+            IStationCommandExecutor commandExecutor,
+            IStationDataAccessService service
+            )
         {
             this.commandExecutor = commandExecutor;
+            this.service = service;
         }
 
         public async Task PostStationAsync(StationDTO inputStation)
@@ -64,6 +72,12 @@ namespace DatabaseAPI.Inner.Logic.StationService
         {
             ISingleStationCommand command = new PutSingleStationCommand();
             await RunSingleStationCommand(inputStation, command);
+        }
+
+        public async Task<IEnumerable<StationOnARailwayLocationDTO>> GetStationsByRailwayIdAsync(
+            int railwayId)
+        {
+            return await service.GetStationsByRailwayIdAsync(railwayId);
         }
     }
 }
