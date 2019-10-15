@@ -1,6 +1,6 @@
 ﻿namespace DatabaseAPI.Inner.Common.DTOs
 {
-    public class StationOnARailwayLocationDTO
+    public class StationOnARailwayDTO
     {
         public int StationId;
         public string Name;
@@ -11,8 +11,8 @@
 
         public class Builder
         {
-            private StationOnARailwayLocationDTO item =
-                new StationOnARailwayLocationDTO();
+            private StationOnARailwayDTO item =
+                new StationOnARailwayDTO();
 
             public Builder WithStationId(int id)
             {
@@ -40,7 +40,7 @@
                 return this;
             }
 
-            public StationOnARailwayLocationDTO Build()
+            public StationOnARailwayDTO Build()
             {
                 return item;
             }

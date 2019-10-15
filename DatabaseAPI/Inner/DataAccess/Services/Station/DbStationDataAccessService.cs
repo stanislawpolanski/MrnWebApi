@@ -161,20 +161,20 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
             queriedObjectOfInterest.OwnerId = inputStation.OwnerId;
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
+        public async Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsLocationsByRailwayAsync(RailwayDTO railway)
         {
             List<StationsToGeometries> entities = await GetLocationEntities(railway);
-            IEnumerable<StationOnARailwayLocationDTO> dtos = GetLocationDTOs(entities);
+            IEnumerable<StationOnARailwayDTO> dtos = GetLocationDTOs(entities);
             return dtos;
         }
 
-        private static IEnumerable<StationOnARailwayLocationDTO>
+        private static IEnumerable<StationOnARailwayDTO>
             GetLocationDTOs(List<StationsToGeometries> entities)
         {
             return entities
                 .Select(entity =>
-                    new StationOnARailwayLocationDTO
+                    new StationOnARailwayDTO
                     .Builder()
                     .WithStationId(entity.Station.Id)
                     .WithName(entity.Station.ParentObjectOfInterest.Name)
@@ -194,31 +194,29 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
+        public async Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsByRailwayIdAsync(int railwayId)
         {
-            IEnumerable<StationsToGeometries> entities =
-                await context
-                .StationsToGeometries
-                .Include(relationship => relationship.Station)
-                .Include(relationship => relationship.Station.ParentObjectOfInterest)
-                .Where(relationship => relationship.RailwayId == railwayId)
-                .ToListAsync();
-
-            if(entities.Count() == 0)
+            IEnumerable<StationsToGeometries> entities = 
+                await ReadStationsFromContextByRailwayId(railwayId);
+            if (entities.Count() == 0)
             {
                 return null;
             }
+            Func<StationsToGeometries, StationOnARailwayDTO> mapEntityToDto = 
+                dto => StationToGeometryEntityToStationOnARailwayDTOMapper.MapToDTO(dto);
+            return entities.Select(mapEntityToDto).ToList();
+        }
 
-            var collectionOfDtos = new List<StationOnARailwayLocationDTO>();
-
-            foreach(var entity in entities)
-            {
-                var dto = StationToGeometryEntityToStationOnARailwayDTOMapper
-                    .MapToDTO(entity);
-                collectionOfDtos.Add(dto);
-            }
-            return collectionOfDtos;
+        private async Task<IEnumerable<StationsToGeometries>> 
+            ReadStationsFromContextByRailwayId(int railwayId)
+        {
+            return await context
+                .StationsToGeometries
+                .Include(entity => entity.Station)
+                .Include(entity => entity.Station.ParentObjectOfInterest)
+                .Where(entity => entity.RailwayId == railwayId)
+                .ToListAsync();
         }
     }
 }

@@ -11,6 +11,6 @@ namespace DatabaseAPI.Inner.Logic.StationService
         Task PostStationAsync(StationDTO inputStation);
         Task DeleteStationByIdAsync(int id);
         Task PutStationAsync(StationDTO inputStation);
-        Task<IEnumerable<StationOnARailwayLocationDTO>> GetStationsByRailwayIdAsync(int railwayId);
+        Task<IEnumerable<StationOnARailwayDTO>> GetStationsByRailwayIdAsync(int railwayId);
     }
 }

@@ -14,7 +14,7 @@ namespace DatabaseAPI.Inner.Logic.RailwayService.DataAccess
             this.service = service;
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
+        public async Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsLocationsOnARailway(RailwayDTO railway)
         {
             return await service.GetStationsLocationsByRailwayAsync(railway);
