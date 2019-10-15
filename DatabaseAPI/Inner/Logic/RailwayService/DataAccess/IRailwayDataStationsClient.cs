@@ -6,7 +6,7 @@ namespace DatabaseAPI.Inner.Logic.RailwayService.DataAccess
 {
     public interface IRailwayDataStationsClient
     {
-        Task<IEnumerable<StationOnARailwayLocationDTO>>
+        Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsLocationsOnARailway(RailwayDTO railway);
     }
 }

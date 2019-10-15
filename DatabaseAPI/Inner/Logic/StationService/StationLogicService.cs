@@ -74,7 +74,7 @@ namespace DatabaseAPI.Inner.Logic.StationService
             await RunSingleStationCommand(inputStation, command);
         }
 
-        public async Task<IEnumerable<StationOnARailwayLocationDTO>> GetStationsByRailwayIdAsync(
+        public async Task<IEnumerable<StationOnARailwayDTO>> GetStationsByRailwayIdAsync(
             int railwayId)
         {
             return await service.GetStationsByRailwayIdAsync(railwayId);

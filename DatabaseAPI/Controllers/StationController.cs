@@ -98,12 +98,12 @@ namespace DatabaseAPI.Controllers
         }
 
         [HttpGet("railway/{railwayId}")]
-        [ProducesResponseType(typeof(IEnumerable<StationOnARailwayLocationDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<StationOnARailwayDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<StationOnARailwayLocationDTO>>> 
+        public async Task<ActionResult<IEnumerable<StationOnARailwayDTO>>> 
             GetStationsCollectionByRailwayIdAsync([FromRoute] int railwayId)
         {
-            IEnumerable<StationOnARailwayLocationDTO> collection =
+            IEnumerable<StationOnARailwayDTO> collection =
                 await stationLogicService.GetStationsByRailwayIdAsync(railwayId);
             if (collection == null)
             {
@@ -115,13 +115,11 @@ namespace DatabaseAPI.Controllers
 
         private static void
             FillStationsOnARailwayWithUrls(
-            IEnumerable<StationOnARailwayLocationDTO> collection)
+            IEnumerable<StationOnARailwayDTO> collection)
         {
             foreach (var station in collection)
             {
-                station.Url = UriRoute.GetRouteStringFromNodes(
-                    STATION_PATH, 
-                    station.StationId.ToString());
+                station.Url = UriRoute.GetRouteStringFromNodes(STATION_PATH, station.StationId.ToString());
             }
         }
     }

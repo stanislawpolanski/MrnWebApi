@@ -4,10 +4,10 @@ namespace DatabaseAPI.Inner.Common.DTOs.Mappers
 {
     public static class StationToGeometryEntityToStationOnARailwayDTOMapper
     {
-        public static StationOnARailwayLocationDTO MapToDTO(
+        public static StationOnARailwayDTO MapToDTO(
             StationsToGeometries entity)
         {
-            return new StationOnARailwayLocationDTO
+            return new StationOnARailwayDTO
                 .Builder()
                 .WithStationId(entity.StationId)
                 .WithName(entity.Station.ParentObjectOfInterest.Name)

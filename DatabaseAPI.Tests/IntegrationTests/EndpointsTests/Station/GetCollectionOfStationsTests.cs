@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -79,8 +80,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         public async Task GetStationsByRailwayId_OnExistingRailway_Returns200OK(
             int railwayId)
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
-            var response = await RequestGetAsync(url);
+            HttpResponseMessage response =
+                await RequestStationsLocationsByRailwayId(railwayId);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -88,8 +89,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         public async Task 
             GetStationsByRailwayId_OnNonExistingRailway_Returns404NotFound()
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + 123456789;
-            var response = await RequestGetAsync(url);
+            int railwayId = 123456789;
+            HttpResponseMessage response =
+                await RequestStationsLocationsByRailwayId(railwayId);
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
@@ -100,9 +102,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             GetStationsByRailwayId_OnExistingRailway_ReturnsNotEmptyCollection(
             int railwayId)
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
-            var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            var models = await ReadStationsOnARaiwayByRailwayId(railwayId);
             Assert.NotEmpty(models);
         }
 
@@ -113,9 +113,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             GetStationsByRailwayId_OnExistingRailway_StationsHasCorrectUrls(
             int railwayId)
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
-            var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            var models = await ReadStationsOnARaiwayByRailwayId(railwayId);
             Assert.All(models, model => {
                 string expectedUrl = STATION_ROOT_URL + model.StationId.ToString();
                 Assert.Equal(expectedUrl, model.Url); });
@@ -130,9 +128,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             int railwayId,
             string expectedName)
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
-            var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            var models = await ReadStationsOnARaiwayByRailwayId(railwayId);
             Assert.Contains(models, model => model.Name == expectedName);
         }
 
@@ -145,9 +141,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             int railwayId,
             int stationId)
         {
-            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
-            var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            var models = await ReadStationsOnARaiwayByRailwayId(railwayId);
             Assert.Contains(models, model => model.StationId == stationId);
         }
 
@@ -159,10 +153,26 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             int railwayId,
             decimal centreKmPost)
         {
+            var models = await ReadStationsOnARaiwayByRailwayId(railwayId);
+            Assert.Contains(models, model => model.CentreKmPost == centreKmPost);
+        }
+
+        private async Task<IEnumerable<StationOnARailwayDTO>> 
+            ReadStationsOnARaiwayByRailwayId(int railwayId)
+        {
+            HttpResponseMessage response = 
+                await RequestStationsLocationsByRailwayId(railwayId);
+            var models = await DeserialiseAsync<
+                IEnumerable<StationOnARailwayDTO>>(response);
+            return models;
+        }
+
+        private async Task<HttpResponseMessage> 
+            RequestStationsLocationsByRailwayId(int railwayId)
+        {
             string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
             var response = await RequestGetAsync(url);
-            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
-            Assert.Contains(models, model => model.CentreKmPost == centreKmPost);
+            return response;
         }
     }
 }

@@ -11,9 +11,9 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
         Task PostStationAsync(StationDTO inputStation);
         Task DeleteStationByIdAsync(int id);
         Task PutStationAsync(StationDTO station);
-        Task<IEnumerable<StationOnARailwayLocationDTO>>
+        Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsLocationsByRailwayAsync(RailwayDTO railway);
-        Task<IEnumerable<StationOnARailwayLocationDTO>> 
+        Task<IEnumerable<StationOnARailwayDTO>> 
             GetStationsByRailwayIdAsync(int railwayId);
     }
 }
