@@ -205,6 +205,11 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
                 .Where(relationship => relationship.RailwayId == railwayId)
                 .ToListAsync();
 
+            if(entities.Count() == 0)
+            {
+                return null;
+            }
+
             var collectionOfDtos = new List<StationOnARailwayLocationDTO>();
 
             foreach(var entity in entities)

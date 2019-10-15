@@ -113,7 +113,12 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
             GetStationsByRailwayId_OnExistingRailway_StationsHasCorrectUrls(
             int railwayId)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            Assert.All(models, model => {
+                string expectedUrl = STATION_ROOT_URL + model.StationId.ToString();
+                Assert.Equal(expectedUrl, model.Url); });
         }
 
         [Theory]
@@ -147,13 +152,17 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.Station
         }
 
         [Theory]
-        [InlineData(20)]
-        [InlineData(10099)]
+        [InlineData(20, 0d)]
+        [InlineData(10099, 33.856d)]
         public async Task
-            GetStationsByRailwayId_OnExistingRailway_StationHasSpecifiedKmPosts(
-            int railwayId)
+            GetStationsByRailwayId_OnExistingRailway_StationHasSpecifiedCentreKmPosts(
+            int railwayId,
+            decimal centreKmPost)
         {
-            throw new NotImplementedException();
+            string url = STATION_ROOT_URL + byRailwayIdPath + railwayId;
+            var response = await RequestGetAsync(url);
+            var models = await DeserialiseAsync<IEnumerable<StationOnARailwayLocationDTO>>(response);
+            Assert.Contains(models, model => model.CentreKmPost == centreKmPost);
         }
     }
 }
