@@ -3,6 +3,7 @@ using DatabaseAPI.Inner.Common.DTOs.Mappers;
 using DatabaseAPI.Inner.DataAccess.Inner.Scaffold;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -191,6 +192,33 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
                 .Include(relationship => relationship.Station.ParentObjectOfInterest)
                 .Where(relationship => relationship.RailwayId.Equals(railway.Id))
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<StationOnARailwayLocationDTO>>
+            GetStationsByRailwayIdAsync(int railwayId)
+        {
+            IEnumerable<StationsToGeometries> entities =
+                await context
+                .StationsToGeometries
+                .Include(relationship => relationship.Station)
+                .Include(relationship => relationship.Station.ParentObjectOfInterest)
+                .Where(relationship => relationship.RailwayId == railwayId)
+                .ToListAsync();
+
+            if(entities.Count() == 0)
+            {
+                return null;
+            }
+
+            var collectionOfDtos = new List<StationOnARailwayLocationDTO>();
+
+            foreach(var entity in entities)
+            {
+                var dto = StationToGeometryEntityToStationOnARailwayDTOMapper
+                    .MapToDTO(entity);
+                collectionOfDtos.Add(dto);
+            }
+            return collectionOfDtos;
         }
     }
 }
