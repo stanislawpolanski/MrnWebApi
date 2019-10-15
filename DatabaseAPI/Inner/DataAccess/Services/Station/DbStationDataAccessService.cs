@@ -35,8 +35,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
             return await getService.GetBasicStationsAsync();
         }
 
-
-
         public async Task<StationDTO> GetDetailedStationAsync(int id)
         {
             return await getService.GetDetailedStationAsync(id);
@@ -52,8 +50,6 @@ namespace DatabaseAPI.Inner.DataAccess.Services.Station
         {
             return await getService.GetStationsLocationsByRailwayAsync(railway);
         }
-
-
 
         public async Task<IEnumerable<StationOnARailwayDTO>>
             GetStationsByRailwayIdAsync(int railwayId)
