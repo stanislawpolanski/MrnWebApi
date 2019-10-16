@@ -8,7 +8,7 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
 {
     public class PutSingleRollingStockTests : AbstractEndpointTests
     {
-        private string PUT_ROLLING_STOCK_ROOT = "/database-api/rolling-stock/";
+        private readonly string PUT_ROLLING_STOCK_ROOT = "/database-api/rolling-stock/";
 
         public PutSingleRollingStockTests(
             WebApplicationFactory<Startup> injectedFactory)
@@ -71,9 +71,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             }
         }
 
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
-        public async Task PutsRollingStockWithNoName_ReturnsBadRequest(string url)
+        [Fact]
+        public async Task PutsRollingStockWithNoName_ReturnsBadRequest()
         {
             string name = "Sample name";
             int ownerId = 5;
@@ -95,9 +94,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             }
         }
 
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
-        public async Task PutsRollingStockWithNoId_ReturnsBadRequest(string url)
+        [Fact]
+        public async Task PutsRollingStockWithNoId_ReturnsBadRequest()
         {
             string name = "Sample name";
             int ownerId = 5;
@@ -119,9 +117,8 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             }
         }
 
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
-        public async Task PutsRollingStockWithNoOwnerId_ReturnsBadRequest(string url)
+        [Fact]
+        public async Task PutsRollingStockWithNoOwnerId_ReturnsBadRequest()
         {
             string name = "Sample name";
             int ownerId = 5;
@@ -143,10 +140,9 @@ namespace DatabaseAPI.Tests.IntegrationTests.EndpointsTests.RollingStock
             }
         }
 
-        [Theory]
-        [InlineData("/database-api/rolling-stock")]
+        [Fact]
         public async Task PutsRollingStockWithUrlIdDifferentThanBodyId_ReturnsBadRequest(
-            string url)
+)
         {
             string name = "Sample name";
             int ownerId = 5;
